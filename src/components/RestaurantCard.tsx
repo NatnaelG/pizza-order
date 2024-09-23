@@ -19,13 +19,19 @@ export default function RestaurantCard() {
           <CardHeader
             avatar={
               <Avatar>
-                <Image src={DefaultAvatar} width={40} height={40} alt="Default Avatar" priority />
+                <Image
+                  src={DefaultAvatar}
+                  width={40}
+                  height={40}
+                  alt="Default Avatar"
+                  priority
+                />
               </Avatar>
             }
             title="Azmera Pizza"
             sx={{ p: 1 }}
           />
-          <CardContent sx={{ p: 1, pb: "0px !important" }}>
+          <CardContent sx={{ p: 1, py: "0px !important" }}>
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
               This impressive pizza is a perfect party dish and a fun meal to
               cook together with your guests...
@@ -42,10 +48,17 @@ export default function RestaurantCard() {
           <Avatar sx={{ background: "#FF810033", height: 84, width: 84 }}>
             <Image src={Bolt} alt="Bolt" width={45} height={45} priority />
           </Avatar>
-          <Box>
-            <Typography>Number of order</Typography>
+          <Box pt={1}>
+            <Typography sx={{ color: "text.secondary", lineHeight: "1" }}>
+              Number of order
+            </Typography>
             <Typography
-              sx={{ fontWeight: "700", fontSize: "60px", color: "#FF8100" }}
+              sx={{
+                fontWeight: "700",
+                fontSize: "60px",
+                color: "#FF8100",
+                lineHeight: "1",
+              }}
             >
               2K
             </Typography>
