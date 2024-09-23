@@ -61,8 +61,8 @@ export default function Books() {
   const updateBookRequest = (
     id: string,
     values: {
-      book_name: string;
-      author_name: string;
+      bookName: string;
+      author: string;
       category: string;
       status: string;
     }

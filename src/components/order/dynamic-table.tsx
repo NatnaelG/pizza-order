@@ -38,9 +38,20 @@ const DynamicTable = ({
   isError,
 }: {
   books: Book[];
-  fetchBooks: any;
-  updateBookRequest: any;
-  setIsLoading: any;
+  fetchBooks: (
+    params: { id: string; value: string }[] | null,
+    search: string
+  ) => void;
+  updateBookRequest: (
+    id: string,
+    values: {
+      bookName: string;
+      author: string;
+      category: string;
+      status: string;
+    }
+  ) => void;
+  setIsLoading: (T: boolean) => void;
   isLoading: boolean;
   isError: boolean;
 }) => {
@@ -240,7 +251,10 @@ const DynamicTable = ({
 
     console.log("Book Search", globalFilter);
     setIsLoading(true);
-    fetchBooks(columnFilters, globalFilter);
+    fetchBooks(
+      columnFilters as { id: string; value: string }[] | null,
+      globalFilter
+    );
   }, [columnFilters, globalFilter]);
 
   React.useEffect(() => {
