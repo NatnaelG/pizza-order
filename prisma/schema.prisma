@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["omitApi", "fullTextSearch"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model User {
+  id          String   @id @default(uuid())
+  name        String
+  email       String   @unique
+  password    String
+  location    String
+  phoneNumber String   @map("phone_number")
+  role        String   @default("Owner")
+  isAdmin     Boolean  @default(false) @map("is_admin")
+  status      String   @default("INACTIVE")
+  orders      Order[]
+  books       Book[]
+  updated_at  DateTime @updatedAt @map("updated_at")
+  created_at  DateTime @default(now()) @map("created_at")
+
+  @@map("users")
+}
+
+model Order {
+  id        String   @id @default(uuid())
+  owner     User     @relation(fields: [ownerId], references: [id])
+  ownerId   String   @map("owner_id")
+  bookName  String   @map("book_name")
+  author    String
+  category  String
+  status    String   @default("INACTIVE")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("orders")
+}
+
+model Book {
+  id        String   @id @default(uuid())
+  owner     User     @relation(fields: [ownerId], references: [id])
+  ownerId   String   @map("owner_id")
+  bookName  String   @map("book_name")
+  author    String
+  category  String
+  status    String   @default("INACTIVE")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("books")
+}
