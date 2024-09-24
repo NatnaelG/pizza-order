@@ -1,3 +1,4 @@
+import * as React from "react";
 import { adduser } from "@/lib/user/user-management";
 import {
   Autocomplete,
@@ -17,27 +18,38 @@ export default function AddUserModal({
   open: boolean;
   handleClose: () => void;
 }) {
-  const [state, formAction, isPending] = useFormState(adduser, undefined);
-  console.log("check form", state, isPending);
+  const Status = useFormState(adduser, undefined);
+  const [state, formAction] = Status;
+  console.log("check form", Status, state);
 
+  const [isPending, setisPending] = React.useState<boolean>(state !== undefined);
   return (
     <Dialog
       open={open}
-      onClose={handleClose}
+      onClose={() => {
+        setisPending(false);
+        handleClose();
+      }}
       PaperProps={{
         component: "form",
         action: formAction,
-        // onSubmit: (event: {
-        //   preventDefault: () => void;
-        //   currentTarget: HTMLFormElement | undefined;
-        // }) => {
+        onSubmit: (
+          // event
+          // : {
+        // //   // preventDefault: () => void;
+        // //   currentTarget: HTMLFormElement | undefined;
+        // }
+      ) => {
+        //    setisPending(true)
+        setisPending(true);
+        // submit();
         //   // event.preventDefault();
         //   // const formData = new FormData(event.currentTarget);
         //   // const formJson = Object.fromEntries(formData.entries());
         //   // const email = formJson.email;
         //   // console.log(email);
         //   // handleClose();
-        // },
+        },
       }}
     >
       {/* <Box component="form" > */}
@@ -176,6 +188,7 @@ export default function AddUserModal({
           size="small"
           sx={{ background: "#FF8100" }}
           disabled={isPending}
+          // onClick={() => setisPending(true)}
         >
           {isPending ? "Submitting..." : "Add User"}
         </Button>
