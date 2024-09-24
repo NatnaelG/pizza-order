@@ -18,7 +18,7 @@ export default async function Users() {
         // <Typography key={user.id}>{user.name}</Typography>
         "hi"
       ))} */}
-      <Suspense fallback={<p>Loading weather...</p>}>
+      <Suspense fallback={<p>Loading ...</p>}>
         <UserTable users={users} />{" "}
       </Suspense>
     </>

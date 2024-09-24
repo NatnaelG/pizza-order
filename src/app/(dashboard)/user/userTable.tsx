@@ -155,7 +155,7 @@ const UserTable = ({
     React.useState<boolean>(false);
 
   const handleClose = () => setOpenAddUserModal(false);
-  console.log("users", users);
+  console.log("users", users, openAddUserModal);
 
   const table = useMaterialReactTable({
     columns,

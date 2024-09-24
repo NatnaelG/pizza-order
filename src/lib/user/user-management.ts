@@ -5,6 +5,9 @@ import prisma from "../db";
 import { FormState } from "../actions";
 import bcrypt from "bcrypt";
 
+
+import { revalidatePath } from 'next/cache'
+
 export async function getusers() {
   // params: { id: string; value: string }[] | null,
   // search: string
@@ -131,6 +134,6 @@ export async function adduser(state: FormState, formData: FormData) {
     },
   });
   console.log("insertedUser", insertedUser);
-
+  revalidatePath('/user')
   return { message: "success" };
 }

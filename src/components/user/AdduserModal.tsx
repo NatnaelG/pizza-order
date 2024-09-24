@@ -43,7 +43,10 @@ export default function AddUserModal({
   const [state, formAction] = Status;
 
   React.useEffect(() => {
-    if (state?.message === "success") handleClose();
+    if (state?.message === "success") {
+      handleClose();
+      state.message = "";
+    }
   }, [state, handleClose]);
   return (
     <Dialog
