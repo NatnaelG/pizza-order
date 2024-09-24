@@ -48,6 +48,7 @@ const UserTable = ({
     created_at: Date;
   }[];
 }) => {
+  const [isLoading, setIsLoading] = React.useState(false);
   const columns = React.useMemo<MRT_ColumnDef<User>[]>(
     () => [
       {
@@ -116,9 +117,24 @@ const UserTable = ({
                   size="small"
                   onClick={() => {
                     // console.log("clicked", row.original.id, renderedCellValue);
-                    updateUserStatus(row.original.id, renderedCellValue === "ACTIVE" ? "INACTIVE" : "ACTIVE")
+
+                    setIsLoading(true);
+                    const updatedUser = updateUserStatus(
+                      row.original.id,
+                      renderedCellValue === "ACTIVE" ? "INACTIVE" : "ACTIVE"
+                    );
+
+                    updatedUser
+                      .then((res) => {
+                        console.log(res);
+                        setIsLoading(false);
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                        setIsLoading(false);
+                      });
+
                     //   const { author, category, bookName, id } = row.original;
-                    //   setIsLoading(true);
                     //   updateBookRequest(id, {
                     //     bookName,
                     //     author,
@@ -167,6 +183,13 @@ const UserTable = ({
     enableColumnActions: false,
     enableBottomToolbar: false,
     manualFiltering: true,
+    state: {
+      // columnFilters,
+      isLoading: isLoading,
+      // showAlertBanner: isError,
+      // showProgressBars: isLoading,
+      showSkeletons: users.length === 0 && isLoading,
+    },
     renderTopToolbarCustomActions: () => (
       <Button
         variant="contained"
@@ -177,6 +200,15 @@ const UserTable = ({
         Add User
       </Button>
     ),
+    muiCircularProgressProps: {
+      color: "secondary",
+      thickness: 5,
+      size: 55,
+    },
+    muiSkeletonProps: {
+      animation: "pulse",
+      height: 28,
+    },
   });
   return (
     <>
