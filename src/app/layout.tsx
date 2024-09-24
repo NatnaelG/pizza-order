@@ -19,6 +19,8 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Measurement Request",
   description: "Order your Pizza here",
+  // name: "format-detection",
+  // content: "telephone=no, date=no, email=no, address=no",
 };
 
 export default function RootLayout({
@@ -28,6 +30,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <meta
+        name="format-detection"
+        content="telephone=no, date=no, email=no, address=no"
+      />
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
         <SpeedInsights />

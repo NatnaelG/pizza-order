@@ -1,10 +1,10 @@
 import { getusers } from "@/lib/user/user-management";
 import { Box } from "@mui/material";
-// import UserTable from "./userTable";
+import UserTable from "./userTable";
 
-import dynamic from 'next/dynamic'
+// import dynamic from 'next/dynamic'
  
-const UserTable = dynamic(() => import('./userTable'), { ssr: false })
+// const UserTable = dynamic(() => import('./userTable'), { ssr: false })
 
 export default async function Users() {
   const users = await getusers();

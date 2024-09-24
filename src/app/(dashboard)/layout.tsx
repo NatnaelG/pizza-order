@@ -6,7 +6,7 @@ import Toolbar from "@mui/material/Toolbar";
 export default function Layout({ children }: { children: React.ReactNode }) {
   const drawerWidth = 279;
   return (
-    <Box height={"100vh"} sx={{ display: "flex", background: "#fff" }}>
+    <Box height={"100%"} sx={{ display: "flex", background: "#fff" }}>
       <ResponsiveDrawer drawerWidth={drawerWidth} />
       <Box
         component="main"
