@@ -1,11 +1,14 @@
+import { adduser } from "@/lib/user/user-management";
 import {
   Autocomplete,
+  // Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   TextField,
 } from "@mui/material";
+import { useFormState } from "react-dom";
 
 export default function AddUserModal({
   open,
@@ -14,31 +17,37 @@ export default function AddUserModal({
   open: boolean;
   handleClose: () => void;
 }) {
+  const [state, formAction, isPending] = useFormState(adduser, undefined);
+  console.log("check form", state, isPending);
+
   return (
     <Dialog
       open={open}
       onClose={handleClose}
       PaperProps={{
         component: "form",
-        onSubmit: (event: {
-          preventDefault: () => void;
-          currentTarget: HTMLFormElement | undefined;
-        }) => {
-          event.preventDefault();
-          const formData = new FormData(event.currentTarget);
-          const formJson = Object.fromEntries(formData.entries());
-          const email = formJson.email;
-          console.log(email);
-          handleClose();
-        },
+        action: formAction,
+        // onSubmit: (event: {
+        //   preventDefault: () => void;
+        //   currentTarget: HTMLFormElement | undefined;
+        // }) => {
+        //   // event.preventDefault();
+        //   // const formData = new FormData(event.currentTarget);
+        //   // const formJson = Object.fromEntries(formData.entries());
+        //   // const email = formJson.email;
+        //   // console.log(email);
+        //   // handleClose();
+        // },
       }}
     >
+      {/* <Box component="form" > */}
       {/* <DialogTitle>Subscribe</DialogTitle> */}
       <DialogContent>
         {/* <DialogContentText>
           To subscribe to this website, please enter your email address here. We
           will send updates occasionally.
         </DialogContentText> */}
+
         <TextField
           autoFocus
           required
@@ -49,6 +58,16 @@ export default function AddUserModal({
           fullWidth
           variant="outlined"
         />
+        {state?.errors?.name && (
+          <div>
+            <p>Name must:</p>
+            <ul>
+              {state.errors.name.map((error) => (
+                <li key={error}>- {error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         <TextField
           required
           margin="dense"
@@ -59,15 +78,35 @@ export default function AddUserModal({
           fullWidth
           variant="outlined"
         />
+        {state?.errors?.email && (
+          <div>
+            <p>Email must:</p>
+            <ul>
+              {state.errors.email.map((error) => (
+                <li key={error}>- {error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         <TextField
           required
           margin="dense"
-          id="phoneNo"
-          name="phoneNo"
+          id="phoneNumber"
+          name="phoneNumber"
           label="Phone No"
           fullWidth
           variant="outlined"
         />
+        {state?.errors?.phoneNumber && (
+          <div>
+            <p>Phone Number must:</p>
+            <ul>
+              {state.errors.phoneNumber.map((error) => (
+                <li key={error}>- {error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <TextField
           required
@@ -78,6 +117,17 @@ export default function AddUserModal({
           fullWidth
           variant="outlined"
         />
+        {state?.errors?.location && (
+          <div>
+            <p>Location must:</p>
+            <ul>
+              {state.errors.location.map((error) => (
+                <li key={error}>- {error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <TextField
           required
           margin="dense"
@@ -88,14 +138,36 @@ export default function AddUserModal({
           fullWidth
           variant="outlined"
         />
+
+        {state?.errors?.password && (
+          <div>
+            <p>Password must:</p>
+            <ul>
+              {state.errors.password.map((error) => (
+                <li key={error}>- {error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <Autocomplete
           disablePortal
           options={["Admin", "User", "Super Admin"]}
           sx={{ width: 300 }}
           renderInput={(params) => (
-            <TextField {...params} label="Select Role" />
+            <TextField {...params} name="role" id="role" label="Select Role" />
           )}
         />
+        {state?.errors?.role && (
+          <div>
+            <p>Role must:</p>
+            <ul>
+              {state.errors.role.map((error) => (
+                <li key={error}>- {error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </DialogContent>
       <DialogActions>
         <Button
@@ -103,10 +175,12 @@ export default function AddUserModal({
           variant="contained"
           size="small"
           sx={{ background: "#FF8100" }}
+          disabled={isPending}
         >
-          Add User
+          {isPending ? "Submitting..." : "Add User"}
         </Button>
       </DialogActions>
+      {/* </Box> */}
     </Dialog>
   );
 }
