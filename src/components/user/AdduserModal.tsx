@@ -2,11 +2,11 @@ import * as React from "react";
 import { adduser } from "@/lib/user/user-management";
 import {
   Autocomplete,
-  // Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
+  DialogTitle,
   TextField,
 } from "@mui/material";
 import { useFormState, useFormStatus } from "react-dom";
@@ -26,13 +26,9 @@ const SubmitButton = ({ label, loading }: SubmitButtonProps) => {
       size="small"
       sx={{ background: "#FF8100" }}
       disabled={pending}
-      // onClick={() => setisPending(true)}
     >
-      {/* {isPending ? "Submitting..." : "Add User"} */}
       {pending ? loading : label}
     </Button>
-    // <button disabled={pending} type="submit" className="border-2">
-    // </button>
   );
 };
 
@@ -45,49 +41,21 @@ export default function AddUserModal({
 }) {
   const Status = useFormState(adduser, undefined);
   const [state, formAction] = Status;
-  console.log("check form", Status, state);
 
   React.useEffect(() => {
     if (state?.message === "success") handleClose();
-  }, [state]);
-  // const [isPending, setisPending] = React.useState<boolean>(state !== undefined);
+  }, [state, handleClose]);
   return (
     <Dialog
       open={open}
-      onClose={() => {
-        // setisPending(false);
-        handleClose();
-      }}
+      onClose={() => handleClose()}
       PaperProps={{
         component: "form",
         action: formAction,
-        // onSubmit: (
-        // event
-        // : {
-        // //   // preventDefault: () => void;
-        // //   currentTarget: HTMLFormElement | undefined;
-        // }
-        // ) => {
-        //    setisPending(true)
-        // setisPending(true);
-        // submit();
-        //   // event.preventDefault();
-        //   // const formData = new FormData(event.currentTarget);
-        //   // const formJson = Object.fromEntries(formData.entries());
-        //   // const email = formJson.email;
-        //   // console.log(email);
-        //   // handleClose();
-        // },
       }}
     >
-      {/* <Box component="form" > */}
-      {/* <DialogTitle>Subscribe</DialogTitle> */}
+      <DialogTitle>Add User</DialogTitle>
       <DialogContent>
-        {/* <DialogContentText>
-          To subscribe to this website, please enter your email address here. We
-          will send updates occasionally.
-        </DialogContentText> */}
-
         <TextField
           autoFocus
           required
@@ -212,7 +180,6 @@ export default function AddUserModal({
       <DialogActions>
         <SubmitButton label="Add User" loading="Adding ..." />
       </DialogActions>
-      {/* </Box> */}
     </Dialog>
   );
 }

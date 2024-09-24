@@ -11,7 +11,7 @@ import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 const Links = [
   // home
   {
-    name: "Book Rent",
+    name: "Pizza",
     path: "/",
     location: "home",
     icon: MenuIcon,
@@ -19,26 +19,26 @@ const Links = [
 
   // upper
   {
-    name: "Dashboard",
-    path: "/dashboard",
+    name: "Orders",
+    path: "/order",
     location: "upper",
     icon: SpaceDashboardRoundedIcon,
   },
   {
-    name: "Books",
-    path: "/books",
+    name: "Add menu",
+    path: "/add-menu",
     location: "upper",
     icon: CollectionsBookmarkOutlinedIcon,
   },
   {
-    name: "Owner",
-    path: "/owners",
+    name: "Role",
+    path: "/role",
     location: "upper",
     icon: PersonOutlineOutlinedIcon,
   },
   {
-    name: "Book Upload",
-    path: "/book-upload",
+    name: "User",
+    path: "/user",
     location: "upper",
     icon: CollectionsBookmarkOutlinedIcon,
   },

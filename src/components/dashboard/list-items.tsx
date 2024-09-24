@@ -71,14 +71,14 @@ export default function ListItems({ location }: { location: string }) {
                   <Stack direction="row" alignItems={"center"}>
                     <ListItemIcon sx={{ minWidth: "35px" }}>
                       {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-                      <LinkIcon sx={{ color: "#fff" }} />
+                      <LinkIcon sx={{ color: "#f00" }} />
                     </ListItemIcon>
 
                     <ListItemText
                       primary={link.name}
                       sx={{
                         textDecoration: "none",
-                        color: "#000",
+                        color: "#f00",
                       }}
                     />
                   </Stack>

@@ -48,33 +48,33 @@ export default function ResponsiveDrawer(props: Props) {
     }
   };
 
-  const hasWindow = typeof window !== "undefined";
+  // const hasWindow = typeof window !== "undefined";
 
-  function getWindowDimensions() {
-    const width = hasWindow ? window.innerWidth : null;
-    const height = hasWindow ? window.innerHeight : null;
-    return {
-      width,
-      height,
-    };
-  }
+  // function getWindowDimensions() {
+  //   const width = hasWindow ? window.innerWidth : null;
+  //   const height = hasWindow ? window.innerHeight : null;
+  //   return {
+  //     width,
+  //     height,
+  //   };
+  // }
 
-  const [windowDimensions, setWindowDimensions] = React.useState(
-    getWindowDimensions()
-  );
+  // const [windowDimensions, setWindowDimensions] = React.useState(
+  //   getWindowDimensions()
+  // );
 
-  const [mounted, SetMounted] = React.useState("false");
+  // const [mounted, SetMounted] = React.useState("false");
 
-  React.useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions());
-    }
-    if (hasWindow) {
-      SetMounted("true");
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }
-  }, [hasWindow]);
+  // React.useEffect(() => {
+  //   function handleResize() {
+  //     setWindowDimensions(getWindowDimensions());
+  //   }
+  //   if (hasWindow) {
+  //     SetMounted("true");
+  //     window.addEventListener("resize", handleResize);
+  //     return () => window.removeEventListener("resize", handleResize);
+  //   }
+  // }, [hasWindow]);
 
   // console.log("hasWindow", hasWindow, windowDimensions.height);
 
@@ -84,17 +84,17 @@ export default function ResponsiveDrawer(props: Props) {
       <List disablePadding>
         <ListItems location="home" />
       </List>
-      <Divider variant="middle" color="#fff" />
+      {/* <Divider variant="middle" color="#fff" /> */}
       <List>
         <ListItems location="upper" />
       </List>
-      <Divider variant="middle" color="#fff" />
+      {/* <Divider variant="middle" color="#fff" />
       <List>
         <ListItems location="lower" />
-      </List>
+      </List> */}
 
       <Divider variant="middle" color="#fff" />
-      <Box
+      {/* <Box
         key={windowDimensions.height + mounted}
         sx={{
           position:
@@ -106,7 +106,7 @@ export default function ResponsiveDrawer(props: Props) {
           bottom: 0,
           width: "100%",
         }}
-      >
+      > */}
         <List>
           <form action={signout}>
             <ListItems location="logout" />
@@ -116,7 +116,7 @@ export default function ResponsiveDrawer(props: Props) {
           </button> */}
           </form>
         </List>
-      </Box>
+      {/* </Box> */}
     </div>
   );
 
