@@ -2,8 +2,9 @@ import { getusers } from "@/lib/user/user-management";
 import { Box } from "@mui/material";
 import UserTable from "./userTable";
 
+import { Suspense } from "react";
 // import dynamic from 'next/dynamic'
- 
+
 // const UserTable = dynamic(() => import('./userTable'), { ssr: false })
 
 export default async function Users() {
@@ -17,7 +18,9 @@ export default async function Users() {
         // <Typography key={user.id}>{user.name}</Typography>
         "hi"
       ))} */}
-      <UserTable users={users} />{" "}
+      <Suspense fallback={<p>Loading weather...</p>}>
+        <UserTable users={users} />{" "}
+      </Suspense>
     </>
   );
 }
