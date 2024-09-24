@@ -1,7 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { FormControlLabel, Stack, Switch, Typography } from "@mui/material";
+import {
+  Button,
+  FormControlLabel,
+  Stack,
+  Switch,
+  Typography,
+} from "@mui/material";
 import {
   // MRT_ColumnFiltersState,
   // MRT_FilterOption,
@@ -10,6 +16,7 @@ import {
   type MRT_ColumnDef,
 } from "material-react-table";
 import { Delete } from "@mui/icons-material";
+import AddUserModal from "@/components/user/AdduserModal";
 
 type User = {
   id: string;
@@ -144,6 +151,10 @@ const UserTable = ({
     []
   );
 
+  const [openAddUserModal, setOpenAddUserModal] =
+    React.useState<boolean>(false);
+
+  const handleClose = () => setOpenAddUserModal(false);
   console.log("users", users);
 
   const table = useMaterialReactTable({
@@ -154,11 +165,22 @@ const UserTable = ({
     enableColumnActions: false,
     enableBottomToolbar: false,
     manualFiltering: true,
+    renderTopToolbarCustomActions: () => (
+      <Button
+        variant="contained"
+        size="small"
+        onClick={() => setOpenAddUserModal(true)}
+        sx={{ background: "#FF8100" }}
+      >
+        Add User
+      </Button>
+    ),
   });
   return (
-    // <Suspense fallback={<>Suspensing</>}>
-    <MaterialReactTable table={table} />
-    // {/* </Suspense> */}
+    <>
+      <MaterialReactTable table={table} />
+      <AddUserModal handleClose={handleClose} open={openAddUserModal} />
+    </>
   );
 };
 

@@ -16,11 +16,15 @@ import ListItems from "./list-items";
 
 import { signout } from "@/lib/actions";
 
+import { usePathname } from "next/navigation";
+
 interface Props {
   drawerWidth: number;
 }
 
 export default function ResponsiveDrawer(props: Props) {
+  const pathname = usePathname();
+
   //   const user: User = JSON.parse(localStorage.getItem("user") || "{}");
   //   if (user !== null) {
   //   }
@@ -142,8 +146,13 @@ export default function ResponsiveDrawer(props: Props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Order/Dashboard
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ textTransform: "capitalize" }}
+          >
+            {pathname.slice(1)}
           </Typography>
         </Toolbar>
       </AppBar>
