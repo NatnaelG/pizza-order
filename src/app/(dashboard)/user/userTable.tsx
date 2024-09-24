@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Check from "@mui/icons-material/Check";
 import { FormControlLabel, Stack, Switch, Typography } from "@mui/material";
 import {
   // MRT_ColumnFiltersState,
@@ -10,7 +9,7 @@ import {
   useMaterialReactTable,
   type MRT_ColumnDef,
 } from "material-react-table";
-// import { Suspense } from "react";
+import { Delete } from "@mui/icons-material";
 
 type User = {
   id: string;
@@ -43,21 +42,9 @@ const UserTable = ({
 }) => {
   const columns = React.useMemo<MRT_ColumnDef<User>[]>(
     () => [
-      // {
-      //   accessorKey: "id", //access nested data with dot notation
-      //   header: "ID",
-      //   size: 70,
-      //   muiTableHeadCellProps: {
-      //     sx: {
-      //       "& .Mui-TableHeadCell-Content": {
-      //         color: "#656575",
-      //       },
-      //     },
-      //   },
-      // },
       {
         accessorKey: "name", //access nested data with dot notation
-        header: "Name.",
+        header: "Name",
         size: 70,
         muiTableHeadCellProps: {
           sx: {
@@ -69,7 +56,7 @@ const UserTable = ({
       },
       {
         accessorKey: "phoneNumber", //access nested data with dot notation
-        header: "phoneNumber.",
+        header: "Phone No",
         size: 70,
         muiTableHeadCellProps: {
           sx: {
@@ -81,7 +68,7 @@ const UserTable = ({
       },
       {
         accessorKey: "email", //access nested data with dot notation
-        header: "email.",
+        header: "Email",
         size: 70,
         muiTableHeadCellProps: {
           sx: {
@@ -93,7 +80,7 @@ const UserTable = ({
       },
       {
         accessorKey: "status",
-        header: "Action",
+        header: "Actions",
         size: 150,
         muiTableHeadCellProps: {
           sx: {
@@ -104,73 +91,53 @@ const UserTable = ({
           },
         },
         Cell: ({ renderedCellValue, row }) => (
-          <FormControlLabel
-            value="start"
-            sx={{
-              background:
-                renderedCellValue === "ACTIVE" ? "#0080001A" : "#8000001A",
-              borderRadius: "15px",
-              p: 1,
-              mx: 0,
-            }}
-            control={
-              <Switch
-                color={renderedCellValue === "ACTIVE" ? "success" : "error"}
-                checked={renderedCellValue === "ACTIVE"}
-                name={`status-${row.original.id}`}
-                size="small"
-                sx={{
-                  width: "75px",
-                  "& .MuiButtonBase-root": {
-                    "& .MuiSwitch-thumb": {
-                      ml: renderedCellValue === "ACTIVE" ? "35px" : 0,
-                    },
-                  },
-                }}
-                onClick={() => {
-                  console.log("clicked", row.original.id, renderedCellValue);
-                  //   const { author, category, bookName, id } = row.original;
-                  //   setIsLoading(true);
-                  //   updateBookRequest(id, {
-                  //     bookName,
-                  //     author,
-                  //     category,
-                  //     status:
-                  //       renderedCellValue === "ACTIVE" ? "INACTIVE" : "ACTIVE",
-                  //   });
-                }}
-              />
-            }
-            label={
-              <Stack direction={"row"} spacing={1}>
-                <Check
-                  fontSize="small"
+          <Stack direction={"row"} spacing={2} alignItems={"center"}>
+            <FormControlLabel
+              sx={{
+                background:
+                  renderedCellValue === "ACTIVE" ? "#0080001A" : "#8000001A",
+                borderRadius: "15px",
+                p: "4px 14px 4px 25px",
+                mx: 0,
+              }}
+              control={
+                <Switch
                   color={renderedCellValue === "ACTIVE" ? "success" : "error"}
-                />
-                <Typography
-                  sx={{
-                    color:
-                      renderedCellValue === "ACTIVE" ? "#2e7d32" : "#d32f2f",
-                    textTransform: "capitalize",
+                  checked={renderedCellValue === "ACTIVE"}
+                  name={`status-${row.original.id}`}
+                  size="small"
+                  onClick={() => {
+                    console.log("clicked", row.original.id, renderedCellValue);
+                    //   const { author, category, bookName, id } = row.original;
+                    //   setIsLoading(true);
+                    //   updateBookRequest(id, {
+                    //     bookName,
+                    //     author,
+                    //     category,
+                    //     status:
+                    //       renderedCellValue === "ACTIVE" ? "INACTIVE" : "ACTIVE",
+                    //   });
                   }}
-                  variant="subtitle2"
-                >
-                  {(renderedCellValue + "")?.toLowerCase()}
-                </Typography>
-              </Stack>
-            }
-            labelPlacement="start"
-          />
-          // <Chip
-          //   icon={
-          //     <CheckIcon
-          //       color={renderedCellValue === "ACTIVE" ? "success" : "error"}
-          //     />
-          //   }
-          //   label={renderedCellValue}
-          //   color={renderedCellValue === "ACTIVE" ? "success" : "error"}
-          //   variant="outlined"
-          // />
+                />
+              }
+              label={
+                <Stack direction={"row"} spacing={1}>
+                  <Typography
+                    sx={{
+                      color:
+                        renderedCellValue === "ACTIVE" ? "#2e7d32" : "#d32f2f",
+                      textTransform: "capitalize",
+                    }}
+                    variant="subtitle2"
+                  >
+                    {(renderedCellValue + "")?.toLowerCase()}
+                  </Typography>
+                </Stack>
+              }
+              labelPlacement="start"
+            />
+            <Delete fontSize="small" />
+          </Stack>
         ),
       },
     ],
@@ -190,7 +157,7 @@ const UserTable = ({
   });
   return (
     // <Suspense fallback={<>Suspensing</>}>
-      <MaterialReactTable table={table} />
+    <MaterialReactTable table={table} />
     // {/* </Suspense> */}
   );
 };
