@@ -9,7 +9,7 @@ import { Suspense } from "react";
 
 export default async function Users() {
   const users = await getusers();
-  console.log("users", users);
+  // console.log("users", users);
 
   return (
     <>

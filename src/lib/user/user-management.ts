@@ -5,8 +5,7 @@ import prisma from "../db";
 import { FormState } from "../actions";
 import bcrypt from "bcrypt";
 
-
-import { revalidatePath } from 'next/cache'
+import { revalidatePath } from "next/cache";
 
 export async function getusers() {
   // params: { id: string; value: string }[] | null,
@@ -84,15 +83,18 @@ export async function adduser(state: FormState, formData: FormData) {
   console.log("formData", formData);
   const validatedFields = await z
     .object({
-      email: z.string().email().refine(async (current)=>{
-        const count = await prisma.user.count({
-          where:{
-            email: current
-          }
-        })
-    
-        return count < 1;
-      }, "Email has been taken"),
+      email: z
+        .string()
+        .email()
+        .refine(async (current) => {
+          const count = await prisma.user.count({
+            where: {
+              email: current,
+            },
+          });
+
+          return count < 1;
+        }, "Email has been taken"),
       password: z.string().min(6),
       // confirmPassword: z.string().min(6),
       location: z.string(),
@@ -134,6 +136,21 @@ export async function adduser(state: FormState, formData: FormData) {
     },
   });
   console.log("insertedUser", insertedUser);
-  revalidatePath('/user')
+  revalidatePath("/user");
   return { message: "success" };
+}
+
+export async function updateUserStatus(
+  id: string,
+  status: "ACTIVE" | "INACTIVE"
+) {
+  const updatedUser = await prisma.user.update({
+    where: { id: id },
+    data: {
+      status: status,
+    },
+  });
+
+  revalidatePath("/user");
+  return updatedUser;
 }

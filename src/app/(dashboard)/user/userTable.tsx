@@ -17,6 +17,7 @@ import {
 } from "material-react-table";
 import { Delete } from "@mui/icons-material";
 import AddUserModal from "@/components/user/AdduserModal";
+import { updateUserStatus } from "@/lib/user/user-management";
 
 type User = {
   id: string;
@@ -114,7 +115,8 @@ const UserTable = ({
                   name={`status-${row.original.id}`}
                   size="small"
                   onClick={() => {
-                    console.log("clicked", row.original.id, renderedCellValue);
+                    // console.log("clicked", row.original.id, renderedCellValue);
+                    updateUserStatus(row.original.id, renderedCellValue === "ACTIVE" ? "INACTIVE" : "ACTIVE")
                     //   const { author, category, bookName, id } = row.original;
                     //   setIsLoading(true);
                     //   updateBookRequest(id, {
@@ -155,7 +157,7 @@ const UserTable = ({
     React.useState<boolean>(false);
 
   const handleClose = () => setOpenAddUserModal(false);
-  console.log("users", users, openAddUserModal);
+  // console.log("users", users, openAddUserModal);
 
   const table = useMaterialReactTable({
     columns,
