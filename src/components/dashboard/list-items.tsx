@@ -143,11 +143,11 @@ export default function ListItems({ location }: { location: string }) {
                     {location !== "home" && (
                       <ListItemText
                         primary={
-                          link.name === "LogIn as Book Owner" &&
-                          // user.role === "Admin"
-                            // ? 
-                            "LogIn as Admin"
-                            // : link.name
+                          link.name === "LogIn as Book Owner"
+                            ? // &&
+                              // user.role === "Admin"
+                              "LogIn as Admin"
+                            : link.name
                         }
                         sx={{
                           textDecoration: "none",

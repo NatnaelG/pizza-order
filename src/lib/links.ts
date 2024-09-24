@@ -3,7 +3,7 @@ import SpaceDashboardRoundedIcon from "@mui/icons-material/SpaceDashboardRounded
 import MenuIcon from "@mui/icons-material/Menu";
 // import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 // import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+// import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import CollectionsBookmarkOutlinedIcon from '@mui/icons-material/CollectionsBookmarkOutlined';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
@@ -42,18 +42,18 @@ const Links = [
     location: "upper",
     icon: CollectionsBookmarkOutlinedIcon,
   },
-  {
-    name: "Other",
-    path: "/",
-    location: "upper",
-    icon: AddBoxOutlinedIcon,
-  },
-  {
-    name: "Other",
-    path: "/",
-    location: "upper",
-    icon: AddBoxOutlinedIcon,
-  },
+  // {
+  //   name: "Other",
+  //   path: "/",
+  //   location: "upper",
+  //   icon: AddBoxOutlinedIcon,
+  // },
+  // {
+  //   name: "Other",
+  //   path: "/",
+  //   location: "upper",
+  //   icon: AddBoxOutlinedIcon,
+  // },
 
   // // lower
   // {
