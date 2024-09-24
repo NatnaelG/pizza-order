@@ -115,6 +115,7 @@ const UserTable = ({
                   color={renderedCellValue === "ACTIVE" ? "success" : "error"}
                   checked={renderedCellValue === "ACTIVE"}
                   name={`status-${row.original.id}`}
+                  disabled={isLoading}
                   size="small"
                   onClick={() => {
                     // console.log("clicked", row.original.id, renderedCellValue);
@@ -205,11 +206,15 @@ const UserTable = ({
       color: "secondary",
       thickness: 5,
       size: 55,
+      // sx: {
+      //   "& .MuiBox-root ": { height: "100%", background: "#000" },
+      // },
     },
     muiSkeletonProps: {
       animation: "pulse",
       height: 28,
     },
+    muiTableContainerProps: { sx: { maxHeight: '100vh' } },
   });
   return (
     <>
