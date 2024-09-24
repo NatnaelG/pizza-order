@@ -9,7 +9,32 @@ import {
   DialogContent,
   TextField,
 } from "@mui/material";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
+
+type SubmitButtonProps = {
+  label: string;
+  loading: React.ReactNode;
+};
+
+const SubmitButton = ({ label, loading }: SubmitButtonProps) => {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button
+      type="submit"
+      variant="contained"
+      size="small"
+      sx={{ background: "#FF8100" }}
+      disabled={pending}
+      // onClick={() => setisPending(true)}
+    >
+      {/* {isPending ? "Submitting..." : "Add User"} */}
+      {pending ? loading : label}
+    </Button>
+    // <button disabled={pending} type="submit" className="border-2">
+    // </button>
+  );
+};
 
 export default function AddUserModal({
   open,
@@ -22,26 +47,29 @@ export default function AddUserModal({
   const [state, formAction] = Status;
   console.log("check form", Status, state);
 
-  const [isPending, setisPending] = React.useState<boolean>(state !== undefined);
+  React.useEffect(() => {
+    if (state?.message === "success") handleClose();
+  }, [state]);
+  // const [isPending, setisPending] = React.useState<boolean>(state !== undefined);
   return (
     <Dialog
       open={open}
       onClose={() => {
-        setisPending(false);
+        // setisPending(false);
         handleClose();
       }}
       PaperProps={{
         component: "form",
         action: formAction,
-        onSubmit: (
-          // event
-          // : {
+        // onSubmit: (
+        // event
+        // : {
         // //   // preventDefault: () => void;
         // //   currentTarget: HTMLFormElement | undefined;
         // }
-      ) => {
+        // ) => {
         //    setisPending(true)
-        setisPending(true);
+        // setisPending(true);
         // submit();
         //   // event.preventDefault();
         //   // const formData = new FormData(event.currentTarget);
@@ -49,7 +77,7 @@ export default function AddUserModal({
         //   // const email = formJson.email;
         //   // console.log(email);
         //   // handleClose();
-        },
+        // },
       }}
     >
       {/* <Box component="form" > */}
@@ -182,16 +210,7 @@ export default function AddUserModal({
         )}
       </DialogContent>
       <DialogActions>
-        <Button
-          type="submit"
-          variant="contained"
-          size="small"
-          sx={{ background: "#FF8100" }}
-          disabled={isPending}
-          // onClick={() => setisPending(true)}
-        >
-          {isPending ? "Submitting..." : "Add User"}
-        </Button>
+        <SubmitButton label="Add User" loading="Adding ..." />
       </DialogActions>
       {/* </Box> */}
     </Dialog>
