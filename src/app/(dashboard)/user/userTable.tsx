@@ -106,7 +106,8 @@ const UserTable = ({
                 background:
                   renderedCellValue === "ACTIVE" ? "#0080001A" : "#8000001A",
                 borderRadius: "15px",
-                p: "4px 14px 4px 25px",
+                p: "4px 14px",
+                width: "120px",
                 mx: 0,
               }}
               control={

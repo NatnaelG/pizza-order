@@ -1,5 +1,5 @@
 import { getusers } from "@/lib/user/user-management";
-import { Box } from "@mui/material";
+// import { Box } from "@mui/material";
 import UserTable from "./userTable";
 
 import { Suspense } from "react";
@@ -13,7 +13,7 @@ export default async function Users() {
 
   return (
     <>
-      <Box>Users</Box>
+      {/* <Box>Users</Box> */}
       {/* {users.map((user) => (
         // <Typography key={user.id}>{user.name}</Typography>
         "hi"
