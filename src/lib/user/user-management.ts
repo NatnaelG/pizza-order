@@ -24,11 +24,11 @@ export async function getusers(
       //   };
       //   // query.where["owner"][param.id] = { contains: param.value, mode: 'insensitive', };
       // } else {
-        query.where = {
-          ...query.where,
-          [param.id]: { contains: param.value, mode: "insensitive" },
-        };
-        // query.where[param.id] = { contains: param.value, mode: 'insensitive', };
+      query.where = {
+        ...query.where,
+        [param.id]: { contains: param.value, mode: "insensitive" },
+      };
+      // query.where[param.id] = { contains: param.value, mode: 'insensitive', };
       // }
     }
     // console.log("query0", query);
@@ -133,6 +133,7 @@ export async function adduser(state: FormState, formData: FormData) {
       phoneNumber: phoneNumber,
       isAdmin: role === "Super Admin",
       role: role,
+      status: "ACTIVE",
     },
   });
   console.log("insertedUser", insertedUser);
