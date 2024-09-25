@@ -9,8 +9,8 @@ import {
   Typography,
 } from "@mui/material";
 import {
-  // MRT_ColumnFiltersState,
-  // MRT_FilterOption,
+  MRT_ColumnFiltersState,
+  MRT_FilterOption,
   MaterialReactTable,
   useMaterialReactTable,
   type MRT_ColumnDef,
@@ -18,6 +18,8 @@ import {
 import { Delete } from "@mui/icons-material";
 import AddUserModal from "@/components/user/AdduserModal";
 import { updateUserStatus } from "@/lib/user/user-management";
+
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 type User = {
   id: string;
@@ -48,6 +50,10 @@ const UserTable = ({
     created_at: Date;
   }[];
 }) => {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
   const [isLoading, setIsLoading] = React.useState(false);
   const columns = React.useMemo<MRT_ColumnDef<User>[]>(
     () => [
@@ -168,8 +174,48 @@ const UserTable = ({
         ),
       },
     ],
-    []
+    [isLoading]
   );
+
+  const [columnFilters, setColumnFilters] =
+    React.useState<MRT_ColumnFiltersState>([]);
+  const [globalFilter, setGlobalFilter] = React.useState<MRT_FilterOption>(
+    // searchParams.get("search")?.toString() ||
+    ""
+  );
+
+  console.log("columnFilter", globalFilter, columnFilters);
+
+  React.useEffect(() => {
+    // const fetchData = async () => {
+    //   // send api requests when columnFilters state changes
+    //   // const filteredData = await fetch();
+    // };
+
+    console.log(
+      "in the effect columnFilter",
+      JSON.stringify(columnFilters)
+    );
+
+    const params = new URLSearchParams(searchParams);
+    if (globalFilter) {
+      params.set("search", globalFilter);
+    } else {
+      params.delete("search");
+    }
+
+    if (columnFilters.length > 0) {
+      params.set("filter", JSON.stringify(columnFilters));
+    } else {
+      params.delete("filter");
+    }
+
+    replace(`${pathname}?${params.toString()}`);
+
+    // console.log("Book Search", globalFilter);
+    // setIsLoading(true);
+    // fetchBooks(columnFilters, globalFilter);
+  }, [columnFilters, globalFilter, pathname, replace, searchParams]);
 
   const [openAddUserModal, setOpenAddUserModal] =
     React.useState<boolean>(false);
@@ -184,10 +230,15 @@ const UserTable = ({
     enablePagination: false,
     enableColumnActions: false,
     enableBottomToolbar: false,
+    enableGlobalFilter: true,
     manualFiltering: true,
+    onColumnFiltersChange: setColumnFilters,
+    onGlobalFilterChange: setGlobalFilter,
     state: {
-      // columnFilters,
+      columnFilters,
+      globalFilter: globalFilter,
       isLoading: isLoading,
+      // showGlobalFilter: true,
       // showAlertBanner: isError,
       // showProgressBars: isLoading,
       showSkeletons: users.length === 0 && isLoading,
@@ -214,7 +265,6 @@ const UserTable = ({
       animation: "pulse",
       height: 28,
     },
-    muiTableContainerProps: { sx: { maxHeight: '100vh' } },
   });
   return (
     <>

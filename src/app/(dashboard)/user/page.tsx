@@ -7,8 +7,19 @@ import { Suspense } from "react";
 
 // const UserTable = dynamic(() => import('./userTable'), { ssr: false })
 
-export default async function Users() {
-  const users = await getusers();
+export default async function Users({
+  searchParams,
+}: {
+  searchParams?: {
+    search?: string;
+    filter?: string;
+  };
+}) {
+
+  const search = searchParams?.search || '';
+  const filter = JSON.parse(searchParams?.filter || "[]");
+
+  const users = await getusers(search, filter);
   // console.log("users", users);
 
   return (
@@ -19,7 +30,7 @@ export default async function Users() {
         "hi"
       ))} */}
       <Suspense fallback={<p>Loading ...</p>}>
-        <UserTable users={users} />{" "}
+        <UserTable users={typeof users === "string" ? [] : users} />{" "}
       </Suspense>
     </>
   );
