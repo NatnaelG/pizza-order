@@ -106,7 +106,7 @@ const UserTable = ({
           },
         },
         Cell: ({ renderedCellValue, row }) => (
-          <Stack direction={"row"} spacing={2} alignItems={"center"}>
+          <Stack direction={"row"} spacing={2} alignItems={"center"} justifyContent={"center"}>
             <FormControlLabel
               sx={{
                 background:
