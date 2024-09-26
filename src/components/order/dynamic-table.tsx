@@ -107,7 +107,7 @@ const DynamicTable = ({
             <Image
               src={DefaultAvatar}
               alt="Default Avatar"
-              style={{ borderRadius: "50%" }}
+              style={{ borderRadius: "50%", objectFit: "cover" }}
               // className={styles.vercelLogo}
               width={24}
               height={24}

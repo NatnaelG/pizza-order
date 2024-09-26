@@ -98,7 +98,7 @@ export default function PizzaCard() {
               src={DefaultAvatar}
               width={65}
               height={65}
-              style={{ borderRadius: "50%" }}
+              style={{ borderRadius: "50%", objectFit: "cover" }}
               alt="Default Avatar"
               priority
             />

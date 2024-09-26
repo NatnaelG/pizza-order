@@ -11,7 +11,7 @@ import { Box } from "@mui/material";
 export default function Home() {
   return (
     <>
-      {/* <Box p={3}>
+      <Box p={3}>
         <RelatedPizza />
       </Box>
       <Box p={3}>
@@ -20,7 +20,7 @@ export default function Home() {
       <Box p={3}>
         <OrderHistoryPizza />
       </Box>
-      <TopRestaurants /> */}
+      <TopRestaurants />
 
       <Box p={3}>
         <FeaturedPizza />

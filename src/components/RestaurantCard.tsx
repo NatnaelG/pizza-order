@@ -18,16 +18,17 @@ export default function RestaurantCard() {
         <Box sx={{ maxWidth: 235, height: 110 }}>
           <CardHeader
             avatar={
-              // <Avatar>
               <Image
                 src={DefaultAvatar}
-                width={50}
-                height={50}
-                style={{ borderRadius: "50%" }}
+                style={{
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                }}
                 alt="Default Avatar"
                 priority
+                width={50}
+                height={50}
               />
-              // </Avatar>
             }
             title={
               <Typography
