@@ -10,7 +10,6 @@ export default function FeaturedPizza({
   image: StaticImageData;
   imageSize: { width: number; height: number };
 }) {
-  console.log("backGrou", backgroundProp);
   return (
     <Stack
       component={Paper}
