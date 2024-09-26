@@ -18,17 +18,17 @@ export default function RestaurantCard() {
         <Box sx={{ maxWidth: 235, height: 110 }}>
           <CardHeader
             avatar={
-              <Avatar>
+              // <Avatar>
                 <Image
                   src={DefaultAvatar}
-                  width={40}
-                  height={40}
+                  width={50}
+                  height={50}
                   alt="Default Avatar"
                   priority
                 />
-              </Avatar>
+              // </Avatar>
             }
-            title="Azmera Pizza"
+            title={<Typography variant={"subtitle1"} fontWeight={700} fontSize={"20px"} sx={{color: "#000"}}>Azmera Pizza</Typography>}
             sx={{ p: 1 }}
           />
           <CardContent sx={{ p: 1, py: "0px !important" }}>
