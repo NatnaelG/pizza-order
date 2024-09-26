@@ -1,11 +1,14 @@
 import { Box, Button, Paper, Stack, Typography } from "@mui/material";
-import Image from "next/image";
-import FeaturedPizzaImage from "@/public/featured.png";
+import Image, { StaticImageData } from "next/image";
 
 export default function FeaturedPizza({
   backgroundProp,
+  image,
+  imageSize,
 }: {
   backgroundProp: string;
+  image: StaticImageData;
+  imageSize: { width: number; height: number };
 }) {
   console.log("backGrou", backgroundProp);
   return (
@@ -67,18 +70,19 @@ export default function FeaturedPizza({
       <Box justifyContent={"center"} display={"flex"}>
         <Box
           sx={{
-            // background: "#EA810033",
-            // borderRadius: "100%",
-            // p: "22px 10px 10px 22px;",
-            // m: 2,
             position: "relative",
-            right: "-155px",
+            right: "-180px",
             top: "-125px",
           }}
-          width={"658px"}
-          height={"484px"}
+          width={`${imageSize.width}px`}
+          height={`${imageSize.height}px`}
         >
-          <Image src={FeaturedPizzaImage} alt="Featured Pizza Image" priority />
+          <Image
+            style={{ width: "665px", height: "658px" }}
+            src={image}
+            alt="Featured Pizza Image"
+            priority
+          />
         </Box>
       </Box>
     </Stack>
