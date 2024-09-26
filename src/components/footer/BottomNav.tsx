@@ -13,13 +13,14 @@ import SendIcon from "@mui/icons-material/Send";
 export default function BottomNav() {
   return (
     <Box sx={{ background: "#CCB691" }} height={"240px"}>
-      <Box sx={{ p: 5 }}>
+      <Stack sx={{ p: 5, pt: 3 }} spacing={2}>
         <Box
           sx={{
             position: "relative",
             display: "flex",
             justifyContent: "end",
             right: "150px",
+            // pb: 2
           }}
         >
           <PizzaLogo />
@@ -29,7 +30,7 @@ export default function BottomNav() {
           direction={"row"}
           justifyContent={"space-between"}
           alignItems={"center"}
-          sx={{ mt: 2 }}
+          //   sx={{ mt: 2 }}
         >
           <Stack direction={"row"} spacing={3}>
             <Link href={"/"}>
@@ -71,7 +72,7 @@ export default function BottomNav() {
             }}
           />
         </Stack>
-      </Box>
+      </Stack>
     </Box>
   );
 }
