@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import DefaultAvatar from "@/public/Ellipse 8.png";
+import DefaultAvatar from "@/public/defaultImage.jpeg";
 import Bolt from "@/public/bolt.png";
 import Image from "next/image";
 
@@ -19,16 +19,26 @@ export default function RestaurantCard() {
           <CardHeader
             avatar={
               // <Avatar>
-                <Image
-                  src={DefaultAvatar}
-                  width={50}
-                  height={50}
-                  alt="Default Avatar"
-                  priority
-                />
+              <Image
+                src={DefaultAvatar}
+                width={50}
+                height={50}
+                style={{ borderRadius: "50%" }}
+                alt="Default Avatar"
+                priority
+              />
               // </Avatar>
             }
-            title={<Typography variant={"subtitle1"} fontWeight={700} fontSize={"20px"} sx={{color: "#000"}}>Azmera Pizza</Typography>}
+            title={
+              <Typography
+                variant={"subtitle1"}
+                fontWeight={700}
+                fontSize={"20px"}
+                sx={{ color: "#000" }}
+              >
+                Azmera Pizza
+              </Typography>
+            }
             sx={{ p: 1 }}
           />
           <CardContent sx={{ p: 1, py: "0px !important" }}>

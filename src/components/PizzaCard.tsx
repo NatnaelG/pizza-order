@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import PizzaImage from "@/public/pizza.png";
-import DefaultAvatar from "@/public/Ellipse 8.png";
+import DefaultAvatar from "@/public/defaultImage.jpeg";
 
 export default function PizzaCard() {
   return (
@@ -87,14 +87,22 @@ export default function PizzaCard() {
           <Divider />
 
           {/* <Avatar> */}
-          <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
+          <Stack
+            direction={"row"}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+          >
+            {/* <Box height={65} width={65}> */}
+
             <Image
               src={DefaultAvatar}
               width={65}
               height={65}
+              style={{ borderRadius: "50%" }}
               alt="Default Avatar"
               priority
             />
+            {/* </Box> */}
 
             <Typography
               variant={"subtitle1"}

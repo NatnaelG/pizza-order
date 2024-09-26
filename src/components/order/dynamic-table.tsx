@@ -17,7 +17,7 @@ import {
 import CheckIcon from "@mui/icons-material/Check";
 
 import Image from "next/image";
-import DefaultAvatar from "@/public/Ellipse 8.png";
+import DefaultAvatar from "@/public/defaultImage.jpeg";
 
 type Book = {
   id: string;
@@ -107,6 +107,7 @@ const DynamicTable = ({
             <Image
               src={DefaultAvatar}
               alt="Default Avatar"
+              style={{ borderRadius: "50%" }}
               // className={styles.vercelLogo}
               width={24}
               height={24}
