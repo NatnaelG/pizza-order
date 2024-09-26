@@ -7,7 +7,7 @@ import Link from "next/link";
 import Links from "@/lib/links";
 
 import Image from "next/image";
-import PizzaSlice from "@/public/emojione_pizza.png";
+import PizzaSlice from "@/public/logo.png";
 
 import { usePathname } from "next/navigation";
 import { Button, Stack } from "@mui/material";

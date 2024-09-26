@@ -1,5 +1,7 @@
 import Fasting from "@/components/Fasting";
 import FeaturedPizzaWrapper from "@/components/FeaturedPizzaWrapper";
+import BottomNav from "@/components/footer/BottomNav";
+import Footer from "@/components/footer/footer";
 // import OrderHistoryPizza from "@/components/OrderHistoryPizza";
 // import PizzaCard from "@/components/PizzaCard";
 // import RelatedPizza from "@/components/RelatedPizza";
@@ -21,6 +23,12 @@ export default function Home() {
       </Box>
       <Box p={3}>
         <Fasting />
+      </Box>
+      <Box p={3}>
+        <BottomNav />
+      </Box>
+      <Box p={3}>
+        <Footer />
       </Box>
       {/* <Box p={3}>
         <RelatedPizza />

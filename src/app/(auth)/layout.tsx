@@ -2,8 +2,8 @@ import { Box, Paper, Stack, Typography } from "@mui/material";
 // import Grid from "@mui/material/Unstable_Grid2";
 import Grid from "@mui/material/Grid2";
 import Image from "next/image";
-import LoginBook from "@/public/emojione_pizza.png";
-import LoginOpenBook from "@/public/emojione_pizza.png";
+import LoginBook from "@/public/logo.png";
+import LoginOpenBook from "@/public/logo.png";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
