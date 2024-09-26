@@ -1,9 +1,8 @@
-// import Image from "next/image";
-// import styles from "./page.module.css";
-
+import Fasting from "@/components/Fasting";
 import FeaturedPizzaWrapper from "@/components/FeaturedPizzaWrapper";
 import OrderHistoryPizza from "@/components/OrderHistoryPizza";
 import PizzaCard from "@/components/PizzaCard";
+import Popular from "@/components/Popular";
 import RelatedPizza from "@/components/RelatedPizza";
 import TopRestaurants from "@/components/TopRestaurant";
 import { Box } from "@mui/material";
@@ -11,6 +10,18 @@ import { Box } from "@mui/material";
 export default function Home() {
   return (
     <>
+      <Box p={3}>
+        <FeaturedPizzaWrapper />
+      </Box>
+      <Box p={3}>
+        <TopRestaurants />
+      </Box>
+      <Box p={3}>
+        <Popular />
+      </Box>
+      <Box p={3}>
+        <Fasting />
+      </Box>
       <Box p={3}>
         <RelatedPizza />
       </Box>
@@ -20,11 +31,6 @@ export default function Home() {
       <Box p={3}>
         <OrderHistoryPizza />
       </Box>
-
-      <Box p={3}>
-        <FeaturedPizzaWrapper />
-      </Box>
-      <TopRestaurants />
     </>
   );
 }
