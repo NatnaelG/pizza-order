@@ -24,10 +24,10 @@ export default function Home() {
       <Box p={3}>
         <Fasting />
       </Box>
-      <Box p={3}>
+      <Box pt={3}>
         <BottomNav />
       </Box>
-      <Box p={3}>
+      <Box>
         <Footer />
       </Box>
       {/* <Box p={3}>
