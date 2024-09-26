@@ -2,11 +2,21 @@ import { Box, Button, Paper, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import FeaturedPizzaImage from "@/public/featured.png";
 
-export default function FeaturedPizza() {
+export default function FeaturedPizza({
+  backgroundProp,
+}: {
+  backgroundProp: string;
+}) {
+  console.log("backGrou", backgroundProp);
   return (
     <Stack
       component={Paper}
-      sx={{ background: "#2F2F2F", borderRadius: "40px", pl: 5, overflow: "hidden" }}
+      sx={{
+        background: `${backgroundProp}`,
+        borderRadius: "40px",
+        pl: 5,
+        overflow: "hidden",
+      }}
       width={"1270px"}
       height={"390px"}
       direction={"row"}
@@ -57,7 +67,7 @@ export default function FeaturedPizza() {
       <Box justifyContent={"center"} display={"flex"}>
         <Box
           sx={{
-            // background: "#EA810033", 
+            // background: "#EA810033",
             // borderRadius: "100%",
             // p: "22px 10px 10px 22px;",
             // m: 2,

@@ -24,6 +24,7 @@
     "next": "14.2.13",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-material-ui-carousel": "^3.4.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {

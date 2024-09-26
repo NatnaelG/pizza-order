@@ -1,7 +1,7 @@
 // import Image from "next/image";
 // import styles from "./page.module.css";
 
-import FeaturedPizza from "@/components/FeaturedPizza";
+import FeaturedPizzaWrapper from "@/components/FeaturedPizzaWrapper";
 import OrderHistoryPizza from "@/components/OrderHistoryPizza";
 import PizzaCard from "@/components/PizzaCard";
 import RelatedPizza from "@/components/RelatedPizza";
@@ -20,11 +20,11 @@ export default function Home() {
       <Box p={3}>
         <OrderHistoryPizza />
       </Box>
-      <TopRestaurants />
 
       <Box p={3}>
-        <FeaturedPizza />
+        <FeaturedPizzaWrapper />
       </Box>
+      <TopRestaurants />
     </>
   );
 }
