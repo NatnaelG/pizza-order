@@ -22,7 +22,7 @@ export default function Hero() {
         >
           Order us
         </Typography>
-        <Typography fontWeight={400} fontSize={"25"} color="">
+        <Typography fontWeight={400} fontSize={"25px"} color="#050505">
           In publishing and graphic design, Lorem ipsum is a placeholder text
           commonly used to demonstrate the visual form of a document or a
           typeface without.
