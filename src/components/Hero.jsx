@@ -15,7 +15,7 @@ export default function Hero() {
   return (
     <>
       <Stack
-        component={Paper}
+        // component={Paper}
         sx={{
         //   background: `${backgroundProp}`,
         //   borderRadius: "40px",
@@ -69,8 +69,8 @@ export default function Hero() {
           <Box
             sx={{
               position: "relative",
-              right: "-180px",
-              top: "-125px",
+              right: "-100px",
+              top: "-100px",
             }}
             width={"794px"}
             height={"806px"}
