@@ -31,6 +31,7 @@ export default function Hero() {
           height={"501px"}
           sx={{ pl: "60px", pt: "80px" }}
           justifyContent={"space-evenly"}
+          spacing={3}
         >
           <Typography
             fontWeight={700}
