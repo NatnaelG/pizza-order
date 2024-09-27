@@ -5,6 +5,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 
 export default function Hero() {
   return (
