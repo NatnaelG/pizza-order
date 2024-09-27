@@ -139,7 +139,7 @@ export async function authenticate(state: FormState, formData: FormData) {
   // updateAbility(ability, user)
   // const ability = defineAbilityFor(user);
   // return user;
-  redirect("/dashboard");
+  redirect("/");
 }
 
 export async function getUserBySession() {
