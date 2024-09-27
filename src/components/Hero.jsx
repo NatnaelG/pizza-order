@@ -16,10 +16,11 @@ export default function Hero() {
       <Stack
         // component={Paper}
         sx={{
-        //   background: `${backgroundProp}`,
-        //   borderRadius: "40px",
-        //   pl: 5,
+          //   background: `${backgroundProp}`,
+          //   borderRadius: "40px",
+          //   pl: 5,
           overflow: "hidden",
+          background: "linear-gradient(to bottom, #FFFFFF, #FFC993, #FFF8F1)",
         }}
         width={"100%"}
         height={"806px"}
@@ -59,8 +60,9 @@ export default function Hero() {
             sx={{
               background: "#fff",
               width: "748px",
+              height: "118px",
               px: 1,
-              borderRadius: "15px",
+              borderRadius: "100px",
             }}
           />
         </Stack>
@@ -75,7 +77,7 @@ export default function Hero() {
             height={"806px"}
           >
             <Image
-            //   style={{ width: "665px", height: "658px" }}
+              //   style={{ width: "665px", height: "658px" }}
               src={HeroPizzaImage}
               alt="Featured Pizza Image"
               priority
