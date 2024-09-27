@@ -53,7 +53,7 @@ export default function Hero() {
             endAdornment={
               <InputAdornment position="end" sx={{ pr: 2 }}>
                 <IconButton
-                  sx={{ color: "#FF8100" }}
+                  sx={{ color: "#FF890F", fontSize: "70px" }}
                   aria-label="send"
                   edge="end"
                   size="large"
@@ -67,6 +67,7 @@ export default function Hero() {
               background: "#fff",
               width: "748px",
               height: "118px",
+              fontSize: "xx-large",
               px: 1,
               borderRadius: "100px",
             }}
