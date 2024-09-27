@@ -11,19 +11,19 @@ export default function HeaderNav() {
       direction={"row"}
     >
       <PizzaLogo />
-      <Stack direction={"row"} spacing={3}>
+      <Stack direction={"row"} justifyContent={"space-between"} spacing={3} width={"605px"}>
         <Link href={"/"}>
-          <Typography fontWeight={600} fontSize={"25px"} color="#000">
+          <Typography fontWeight={500} fontSize={"25px"} color="#FF8100">
             Home
           </Typography>
         </Link>
         <Link href={"/order"}>
-          <Typography fontWeight={600} fontSize={"25px"} color="#000">
+          <Typography fontWeight={500} fontSize={"25px"} color="#000">
             Order
           </Typography>
         </Link>
         <Link href={"/about-us"}>
-          <Typography fontWeight={600} fontSize={"25px"} color="#000">
+          <Typography fontWeight={500} fontSize={"25px"} color="#000">
             Who we are
           </Typography>
         </Link>
