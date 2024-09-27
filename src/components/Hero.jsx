@@ -1,6 +1,5 @@
 import {
   Box,
-  Paper,
   IconButton,
   InputAdornment,
   OutlinedInput,
