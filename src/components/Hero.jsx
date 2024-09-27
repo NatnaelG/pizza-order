@@ -14,7 +14,11 @@ export default function Hero() {
         <Typography
           fontWeight={700}
           fontSize={"150px"}
-          color="linear-gradient(to right, #FF8100, #FFBE71)"
+          sx={{
+            background: "linear-gradient(to right, #FF8100, #FFBE71)",
+            backgroundClip: "text",
+            color: "transparent",
+          }}
         >
           Order us
         </Typography>
@@ -24,26 +28,26 @@ export default function Hero() {
           typeface without.
         </Typography>
         <OutlinedInput
-            endAdornment={
-              <InputAdornment position="end" sx={{ pr: 2 }}>
-                <IconButton
-                  sx={{ color: "#FF8100" }}
-                  aria-label="send"
-                  edge="end"
-                  size="large"
-                >
-                  <SendIcon />
-                </IconButton>
-              </InputAdornment>
-            }
-            placeholder="Your feedback..."
-            sx={{
-              background: "#fff",
-              width: "748px",
-              px: 1,
-              borderRadius: "15px",
-            }}
-          />
+          endAdornment={
+            <InputAdornment position="end" sx={{ pr: 2 }}>
+              <IconButton
+                sx={{ color: "#FF8100" }}
+                aria-label="send"
+                edge="end"
+                size="large"
+              >
+                <SendIcon />
+              </IconButton>
+            </InputAdornment>
+          }
+          placeholder="Your feedback..."
+          sx={{
+            background: "#fff",
+            width: "748px",
+            px: 1,
+            borderRadius: "15px",
+          }}
+        />
       </Stack>
     </>
   );
