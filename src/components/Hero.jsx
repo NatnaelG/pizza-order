@@ -10,7 +10,7 @@ import SendIcon from "@mui/icons-material/Send";
 export default function Hero() {
   return (
     <>
-      <Stack width={"766px"} height={"333px"}>
+      <Stack width={"766px"} height={"501px"} justifyContent={"space-evenly"}>
         <Typography
           fontWeight={700}
           fontSize={"150px"}
@@ -22,7 +22,7 @@ export default function Hero() {
         >
           Order us
         </Typography>
-        <Typography fontWeight={400} fontSize={"25px"} color="#050505">
+        <Typography fontWeight={400} fontSize={"26px"} color="#050505">
           In publishing and graphic design, Lorem ipsum is a placeholder text
           commonly used to demonstrate the visual form of a document or a
           typeface without.
@@ -40,7 +40,7 @@ export default function Hero() {
               </IconButton>
             </InputAdornment>
           }
-          placeholder="Your feedback..."
+          placeholder="Search"
           sx={{
             background: "#fff",
             width: "748px",
