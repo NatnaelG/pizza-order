@@ -26,7 +26,12 @@ export default function Hero() {
         height={"806px"}
         direction={"row"}
       >
-        <Stack width={"766px"} height={"501px"} justifyContent={"space-evenly"}>
+        <Stack
+          width={"766px"}
+          height={"501px"}
+          sx={{ pl: "60px", pt: "80px" }}
+          justifyContent={"space-evenly"}
+        >
           <Typography
             fontWeight={700}
             fontSize={"150px"}
