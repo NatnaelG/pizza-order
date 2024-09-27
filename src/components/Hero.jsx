@@ -1,5 +1,4 @@
 import {
-  Box,
   IconButton,
   InputAdornment,
   OutlinedInput,
