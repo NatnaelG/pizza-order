@@ -17,9 +17,9 @@ export default function Hero() {
       <Stack
         component={Paper}
         sx={{
-          background: `${backgroundProp}`,
-          borderRadius: "40px",
-          pl: 5,
+        //   background: `${backgroundProp}`,
+        //   borderRadius: "40px",
+        //   pl: 5,
           overflow: "hidden",
         }}
         width={"100%"}
