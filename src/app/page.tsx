@@ -9,11 +9,15 @@ import Hero from "@/components/Hero";
 import Popular from "@/components/Popular";
 import TopRestaurants from "@/components/TopRestaurant";
 import { Box } from "@mui/material";
+import HeaderNav from "@/components/HeaderNav";
 
 export default function Home() {
   return (
     <>
-      <Box p={3}>
+      <Box p={3} sx={{
+          background: "linear-gradient(to bottom, #FFFFFF, #FFC993, #FFF8F1)",
+      }}>
+        <HeaderNav />
         <Hero />
       </Box>
       <Box p={3}>

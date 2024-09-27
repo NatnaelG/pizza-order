@@ -9,7 +9,6 @@ import {
 import SendIcon from "@mui/icons-material/Send";
 import Image from "next/image";
 import HeroPizzaImage from "@/public/hero-pizza.png";
-import HeaderNav from "./HeaderNav";
 
 export default function Hero() {
   return (
@@ -21,13 +20,11 @@ export default function Hero() {
           //   borderRadius: "40px",
           //   pl: 5,
           overflow: "hidden",
-          background: "linear-gradient(to bottom, #FFFFFF, #FFC993, #FFF8F1)",
         }}
         width={"100%"}
         height={"806px"}
         direction={"row"}
       >
-        <HeaderNav />
         <Stack
           width={"766px"}
           height={"501px"}
