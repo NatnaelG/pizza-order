@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { Box, Typography } from "@mui/material";
 import FeaturedPizza from "./FeaturedPizza";
 import Carousel from "react-material-ui-carousel";
@@ -8,9 +9,39 @@ import FeaturedSecondPizzaImage from "@/public/featured2.png";
 import FeaturedThirdPizzaImage from "@/public/featured3.png";
 
 export default function FeaturedPizzaWrapper() {
+  const hasWindow = typeof window !== "undefined";
+
+  const getWindowDimensions = React.useCallback(() => {
+    const width = hasWindow ? window.innerWidth : 0;
+    const height = hasWindow ? window.innerHeight : 0;
+    return {
+      width,
+      height,
+    };
+  }, [hasWindow]);
+
+  const [windowDimensions, setWindowDimensions] = React.useState(
+    getWindowDimensions()
+  );
+
+  // const [mounted, SetMounted] = React.useState("false");
+
+  React.useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+    if (hasWindow) {
+      // SetMounted("true");
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, [getWindowDimensions, hasWindow]);
+
   return (
     <>
-      <Typography sx={{ color: "text.secondary", fontSize: "50px" }}>
+      <Typography
+        sx={{ color: "text.secondary", fontSize: { xs: "25px", lg: "50px" } }}
+      >
         Featured Pizza
       </Typography>
       {/* <Box
@@ -35,7 +66,11 @@ export default function FeaturedPizzaWrapper() {
         <Carousel
           navButtonsAlwaysInvisible={true}
           animation="slide"
-          height={400}
+          height={windowDimensions.width > 900 ? 400 : 205}
+          // sx={{
+          //   height:{xs: "250px", lg: "400px"}
+
+          // }}
           indicatorIconButtonProps={{
             style: {
               padding: "10px",
@@ -48,24 +83,28 @@ export default function FeaturedPizzaWrapper() {
               color: "#FF9921",
             },
           }}
+          // autoPlay={false}
         >
           <FeaturedPizza
             key={1}
             backgroundProp="#2F2F2F"
             image={FeaturedPizzaImage}
             imageSize={{ width: 658, height: 484 }}
+            largeScreen={windowDimensions.width > 900}
           />
           <FeaturedPizza
             key={2}
             backgroundProp="#50482B"
             image={FeaturedSecondPizzaImage}
             imageSize={{ width: 590, height: 599 }}
+            largeScreen={windowDimensions.width > 900}
           />
           <FeaturedPizza
             key={3}
             backgroundProp="#296D60"
             image={FeaturedThirdPizzaImage}
             imageSize={{ width: 613, height: 629 }}
+            largeScreen={windowDimensions.width > 900}
           />
         </Carousel>
       </Box>

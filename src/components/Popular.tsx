@@ -5,7 +5,7 @@ import PizzaCard from "./PizzaCard";
 export default function Popular() {
   return (
     <>
-      <Typography sx={{ color: "text.secondary", fontSize: "50px" }}>
+      <Typography sx={{ color: "text.secondary", fontSize: {xs:"25px", lg: "50px"} }}>
         Popular Pizzas
       </Typography>
 

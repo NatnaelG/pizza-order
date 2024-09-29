@@ -5,10 +5,12 @@ export default function FeaturedPizza({
   backgroundProp,
   image,
   imageSize,
+  largeScreen,
 }: {
   backgroundProp: string;
   image: StaticImageData;
   imageSize: { width: number; height: number };
+  largeScreen: boolean;
 }) {
   return (
     <Stack
@@ -16,15 +18,16 @@ export default function FeaturedPizza({
       sx={{
         background: `${backgroundProp}`,
         borderRadius: "40px",
-        pl: 5,
+        pl: { xs: 2, lg: 5 },
         overflow: "hidden",
       }}
-      width={"1270px"}
-      height={"390px"}
+      width={{ xxl: "1270px", xs: "90%" }}
+      height={{ xs: "205px", lg: "390px" }}
       direction={"row"}
+      m={"auto"}
     >
       <Stack
-        width={"582px"}
+        width={{ xs: "192px", lg: "582px" }}
         sx={{ color: "#fff" }}
         justifyContent={"space-evenly"}
         height={"100%"}
@@ -34,12 +37,12 @@ export default function FeaturedPizza({
             component={Box}
             fontWeight={700}
             sx={{ display: "ruby", lineHeight: 1 }}
-            fontSize={"45px"}
+            fontSize={{ xs: "16px", lg: "45px" }}
           >
             Make Your First Order and Get{" "}
             <Typography
               fontWeight={700}
-              fontSize={"45px"}
+              fontSize={{ xs: "16px", lg: "45px" }}
               sx={{ color: "#FF9921", ml: 5 }}
             >
               50% Off
@@ -50,7 +53,7 @@ export default function FeaturedPizza({
         <Box>
           <Typography
             fontWeight={400}
-            fontSize={"17px"}
+            fontSize={{ xs: "8px", lg: "17px" }}
             sx={{ opacity: "90%" }}
           >
             In publishing and graphic design, Lorem ipsum is a placeholder text
@@ -60,24 +63,35 @@ export default function FeaturedPizza({
         </Box>
 
         <Button
-          sx={{ width: "250px", height: "60px", background: "#FF9921" }}
+          sx={{
+            width: { xs: "77px", lg: "250px" },
+            height: { xs: "33px", lg: "60px" },
+            background: "#FF9921",
+          }}
           variant={"contained"}
         >
-          <Typography>Order Now</Typography>
+          <Typography sx={{fontSize:"10px"}}>Order Now</Typography>
         </Button>
       </Stack>
-      <Box justifyContent={"center"} display={"flex"}>
+      <Box
+        justifyContent={"center"}
+        width={{ xs: "49px", lg: "inherit" }}
+        display={"flex"}
+      >
         <Box
           sx={{
             position: "relative",
-            right: "-180px",
-            top: "-125px",
+            right: { xs: "-130px", lg: "-180px" },
+            top: { xs: "-90px", lg: "-125px" },
           }}
-          width={`${imageSize.width}px`}
-          height={`${imageSize.height}px`}
+          width={{ xs: "349px", lg: `${imageSize.width}px` }}
+          height={{ xs: "258px", lg: `${imageSize.height}px` }}
         >
           <Image
-            style={{ width: "665px", height: "658px" }}
+            style={{
+              width: largeScreen ? "665px" : "347px",
+              height: largeScreen ? "658px" : "383px",
+            }}
             src={image}
             alt="Featured Pizza Image"
             priority

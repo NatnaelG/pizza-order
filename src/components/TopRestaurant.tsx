@@ -4,7 +4,7 @@ import RestaurantCard from "./RestaurantCard";
 export default function TopRestaurants() {
   return (
     <>
-      <Typography sx={{color: "text.secondary", fontSize: "50px"}}>Top Restaurants</Typography>
+      <Typography sx={{color: "text.secondary", fontSize: {xs:"25px", lg: "50px"}}}>Top Restaurants</Typography>
       <Box
         className="top-restaurant"
         sx={{ width: "100%", overflow: "scroll" }}
