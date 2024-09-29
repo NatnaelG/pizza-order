@@ -1,11 +1,10 @@
 "use client";
 
-import * as React from "react";
-import { Box } from "@mui/material";
 import Image from "next/image";
-import SlicePizzaImage from "@/public/logo.png";
+import * as React from "react";
+import HeroPizzaImage from "@/public/hero-pizza.png";
 
-export default function PizzaLogo() {
+export default function ImageResponsive() {
   const hasWindow = typeof window !== "undefined";
 
   const getWindowDimensions = React.useCallback(() => {
@@ -35,23 +34,17 @@ export default function PizzaLogo() {
   }, [getWindowDimensions, hasWindow]);
 
   return (
-    <Box width={"inherit"}>
+    <>
       <Image
         style={{
-          width: windowDimensions.width > 900 ? "133px" : "65px",
-          height: windowDimensions.width > 900 ? "50px" : "27px",
+          width: windowDimensions.width > 900 ? "1024px" : "350px",
+          height: windowDimensions.width > 900 ? "1024px" : "350px",
         }}
-        src={SlicePizzaImage}
-        alt="Slice Pizza Image"
+        src={HeroPizzaImage}
+        alt="Featured Pizza Image"
         priority
       />
-    </Box>
+      {/* <Image src={SlicePizzaImage} alt="Slice Pizza Image" priority /> */}
+    </>
   );
 }
-// export function PizzaLogoMobile() {
-//   return (
-//     <Box width={"inherit"}>
-//       <Image width={65} src={SlicePizzaImage} alt="Slice Pizza Image" priority />
-//     </Box>
-//   );
-// }

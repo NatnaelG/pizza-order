@@ -1,14 +1,16 @@
 import {
   Box,
+  Container,
   IconButton,
   InputAdornment,
   OutlinedInput,
   Stack,
   Typography,
 } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
-import Image from "next/image";
-import HeroPizzaImage from "@/public/hero-pizza.png";
+// import Image from "next/image";
+// import HeroPizzaImage from "@/public/hero-pizza.png";
+import SearchIcon from "@mui/icons-material/Search";
+import ImageResponsive from "./ImageResponsive";
 
 export default function Hero() {
   return (
@@ -22,19 +24,19 @@ export default function Hero() {
           overflow: "hidden",
         }}
         width={"100%"}
-        height={"806px"}
+        height={{ xs: "338px", lg: "806px" }}
         direction={"row"}
       >
         <Stack
-          width={"766px"}
-          height={"501px"}
-          sx={{ pl: "60px", pt: "80px" }}
+          width={{ xs: "261px", lg: "766px" }}
+          height={{ xs: "183px", lg: "501px" }}
+          sx={{ pl: { xs: 0, lg: "60px" }, pt: { xs: "40px", lg: "80px" } }}
           justifyContent={"space-evenly"}
           spacing={3}
         >
           <Typography
             fontWeight={700}
-            fontSize={"150px"}
+            fontSize={{ xs: "40px", lg: "150px" }}
             sx={{
               background: "linear-gradient(to right, #FF8100, #FFBE71)",
               backgroundClip: "text",
@@ -43,7 +45,11 @@ export default function Hero() {
           >
             Order us
           </Typography>
-          <Typography fontWeight={400} fontSize={"26px"} color="#050505">
+          <Typography
+            fontWeight={400}
+            fontSize={{ xs: "10px", lg: "26px" }}
+            color="#050505"
+          >
             In publishing and graphic design, Lorem ipsum is a placeholder text
             commonly used to demonstrate the visual form of a document or a
             typeface without.
@@ -52,21 +58,25 @@ export default function Hero() {
             endAdornment={
               <InputAdornment position="end" sx={{ pr: 2 }}>
                 <IconButton
-                  sx={{ background: "#FF890F", color: "#fff", fontSize: "70px" }}
+                  sx={{
+                    background: "#FF890F",
+                    color: "#fff",
+                    fontSize: { xs: "15px", lg: "70px" },
+                  }}
                   aria-label="send"
                   edge="end"
-                  size="large"
+                  size={"large"}
                 >
-                  <SendIcon />
+                  <SearchIcon />
                 </IconButton>
               </InputAdornment>
             }
             placeholder="Search"
             sx={{
               background: "#fff",
-              width: "748px",
-              height: "118px",
-              fontSize: "xx-large",
+              width: { xs: "261px", lg: "748px" },
+              height: { xs: "57px", lg: "118px" },
+              fontSize: { xs: "small", lg: "xx-large" },
               px: 1,
               borderRadius: "100px",
             }}
@@ -76,18 +86,14 @@ export default function Hero() {
           <Box
             sx={{
               position: "relative",
-              right: "-100px",
-              top: "-100px",
+              right: { xs: "45px", lg: "-100px" },
+              top: { xs: "-20px", lg: "-100px" },
             }}
-            width={"794px"}
-            height={"806px"}
+            width={{ xs: "169px", lg: "794px" }}
+            height={{ xs: "300px", lg: "806px" }}
+            component={Container}
           >
-            <Image
-              //   style={{ width: "665px", height: "658px" }}
-              src={HeroPizzaImage}
-              alt="Featured Pizza Image"
-              priority
-            />
+            <ImageResponsive />
           </Box>
         </Box>
       </Stack>

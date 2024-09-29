@@ -23,7 +23,9 @@ export default function Home() {
       <Box p={3}>
         <FeaturedPizzaWrapper />
       </Box>
-      <Box p={3}>
+      <Box p={3} sx={{
+          background: "linear-gradient(to bottom, #FA7E0000, #FA7E0033, #944A0000)",
+      }}>
         <TopRestaurants />
       </Box>
       <Box p={3}>

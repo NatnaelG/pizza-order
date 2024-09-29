@@ -59,14 +59,14 @@ export default function FeaturedPizzaWrapper() {
       <Box
         sx={{
           "& .MuiSvgIcon-root": {
-            fontSize: "40px",
+            fontSize: { xs: "20px", lg: "40px" },
           },
         }}
       >
         <Carousel
           navButtonsAlwaysInvisible={true}
           animation="slide"
-          height={windowDimensions.width > 900 ? 400 : 205}
+          height={windowDimensions.width > 900 ? 400 : 200}
           // sx={{
           //   height:{xs: "250px", lg: "400px"}
 
