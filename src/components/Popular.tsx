@@ -10,22 +10,22 @@ export default function Popular() {
       </Typography>
 
       <Grid container spacing={3}>
-        <Grid size={4}>
+        <Grid size={{xs: 12, lg: 4}} display={"flex"} justifyContent={"center"}>
           <PizzaCard />
         </Grid>
-        <Grid size={4}>
+        <Grid size={{xs: 12, lg: 4}} display={"flex"} justifyContent={"center"}>
           <PizzaCard />
         </Grid>
-        <Grid size={4}>
+        <Grid size={{xs: 12, lg: 4}} display={"flex"} justifyContent={"center"}>
           <PizzaCard />
         </Grid>
-        <Grid size={4}>
+        <Grid size={4} display={{xs: "none", lg: "flex"}} justifyContent={"center"} >
           <PizzaCard />
         </Grid>
-        <Grid size={4}>
+        <Grid size={4} display={{xs: "none", lg: "flex"}} justifyContent={"center"}>
           <PizzaCard />
         </Grid>
-        <Grid size={4}>
+        <Grid size={4} display={{xs: "none", lg: "flex"}} justifyContent={"center"}>
           <PizzaCard />
         </Grid>
       </Grid>

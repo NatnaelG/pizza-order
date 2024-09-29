@@ -5,7 +5,7 @@ import PizzaCard from "./PizzaCard";
 export default function Fasting() {
   return (
     <>
-      <Typography sx={{ color: "text.secondary", fontSize: "50px" }}>
+      <Typography sx={{ color: "text.secondary", fontWeight: 500, fontSize: {xs:"15px", lg: "50px"} }}>
         Fasting
       </Typography>
       <Box

@@ -8,10 +8,14 @@ export default function HeaderNav() {
       width={"100%"}
       justifyContent={"space-between"}
       height={"75px"}
-      direction={"row"}
+      direction={{xs: "column" , lg: "row"}}
+      // direction={"row"}
     >
       <PizzaLogo />
-      <Stack direction={"row"} justifyContent={"space-between"} spacing={3} width={"605px"}>
+      <Stack 
+      direction={{xs: "column" , lg: "row"}}
+      // direction={"row"}
+       justifyContent={"space-between"} spacing={3} width={{xs: "100%", lg: "605px"}}>
         <Link href={"/"}>
           <Typography fontWeight={500} fontSize={"25px"} color="#FF8100">
             Home
