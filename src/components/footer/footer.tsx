@@ -35,28 +35,28 @@ export default function Footer() {
           size="large"
           sx={{ background: "#141414" }}
         >
-          <FacebookIcon sx={{ color: "#fff", fontSize: {xs:"45px", lg: "24px"} }} />
+          <FacebookIcon sx={{ color: "#fff", fontSize: {xs:"35px", lg: "24px"} }} />
         </IconButton>
         <IconButton
           aria-label="linkedIn"
           size="large"
           sx={{ background: "#141414" }}
         >
-          <LinkedInIcon sx={{ color: "#fff", fontSize: {xs:"45px", lg: "24px"} }} />
+          <LinkedInIcon sx={{ color: "#fff", fontSize: {xs:"35px", lg: "24px"} }} />
         </IconButton>
         <IconButton
           aria-label="twitter"
           size="large"
           sx={{ background: "#141414" }}
         >
-          <TwitterIcon sx={{ color: "#fff", fontSize: {xs:"45px", lg: "24px"} }} />
+          <TwitterIcon sx={{ color: "#fff", fontSize: {xs:"35px", lg: "24px"} }} />
         </IconButton>
         <IconButton
           aria-label="youtube"
           size="large"
           sx={{ background: "#141414" }}
         >
-          <YouTubeIcon sx={{ color: "#fff", fontSize: {xs:"45px", lg: "24px"} }} />
+          <YouTubeIcon sx={{ color: "#fff", fontSize: {xs:"35px", lg: "24px"} }} />
         </IconButton>
       </Stack>
     </Stack>
