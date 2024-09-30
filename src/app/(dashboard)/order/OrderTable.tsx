@@ -228,14 +228,18 @@ const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
               </Stack>
             ) : (
               <>
-<StatusMenu status={renderedCellValue as "PREPARING" | "READY"} order={row.original} setIsLoading={setIsLoading} />
+                <StatusMenu
+                  status={renderedCellValue as "PREPARING" | "READY"}
+                  order={row.original}
+                  setIsLoading={setIsLoading}
+                />
               </>
             )}
           </Stack>
         ),
       },
     ],
-    [isLoading]
+    []
   );
 
   const handleClose = () =>
