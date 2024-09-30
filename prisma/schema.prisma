@@ -39,7 +39,7 @@ model User {
 model Role {
   id          String   @id @default(uuid())
   name        String
-  permissions Json
+  permissions String[]
   status      String   @default("ACTIVE")
   user        User[]
   updated_at  DateTime @updatedAt @map("updated_at")
@@ -58,7 +58,7 @@ model Order {
   // topping    Topping?
   Menu       Menu     @relation(fields: [menuId], references: [id])
   menuId     String   @map("menu_id")
-  toppings   Json
+  toppings   String[]
   status     String   @default("PREPARING")
   updatedAt  DateTime @updatedAt @map("updated_at")
   createdAt  DateTime @default(now()) @map("created_at")
@@ -96,7 +96,7 @@ model Menu {
   id        String   @id @default(uuid())
   name      String
   price     Decimal
-  toppings  Json
+  toppings  String[]
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
   Order     Order[]

@@ -23,42 +23,10 @@ import {
   Order,
   // User
 } from "@prisma/client";
-// import { Menu } from "@prisma/client";
 
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-// import { Decimal, JsonValue } from "@prisma/client/runtime/library";
 
-// type Order = {
-//   id: string;
-//   customerId: string;
-//   quantity: number;
-//   menuId: string;
-//   status: string;
-//   toppings: JsonValue;
-//   updated_at: Date;
-//   created_at: Date;
-//   customer: {
-//     id: string;
-//     name: string;
-//     email: string;
-//     location: string;
-//     phoneNumber: string;
-//     role: string;
-//     isAdmin: boolean;
-//     status: string;
-//     roleId: string;
-//     updated_at: Date;
-//     created_at: Date;
-//   };
-//   Menu: {
-//     name: string;
-//     id: string;
-//     toppings: JsonValue;
-//     updatedAt: Date;
-//     createdAt: Date;
-//     price: Decimal;
-//   };
-// };
+import moment from 'moment';
 
 type OrderWithMenuAndCustomer = Order & {
   Menu: Menu;
@@ -80,48 +48,7 @@ type OrderWithMenuAndCustomer = Order & {
 const OrderTable = ({
   orders,
 }: {
-  orders: // {
-  //   // id: string;
-  //   // customerId: string;
-  //   // quantity: number;
-  //   // menuId: string;
-  //   // status: string;
-  //   // toppings: JsonValue;
-  //   // updated_at: Date;
-  //   // created_at: Date;
-
-  //   // ...Order,
-  //   id: string;
-  //   customerId: string;
-  //   quantity: number;
-  //   menuId: string;
-  //   toppings: JsonValue;
-  //   status: string;
-  //   updatedAt: Date;
-  //   createdAt: Date;
-
-  //   customer: {
-  //     id: string;
-  //     name: string;
-  //     email: string;
-  //     location: string;
-  //     phoneNumber: string;
-  //     role: string;
-  //     isAdmin: boolean;
-  //     status: string;
-  //     roleId: string;
-  //     updated_at: Date;
-  //     created_at: Date;
-  //   };
-  //   Menu: {
-  //     name: string;
-  //     id: string;
-  //     toppings: JsonValue;
-  //     updatedAt: Date;
-  //     createdAt: Date;
-  //     price: Decimal;
-  //   };
-  // }
+  orders: 
   OrderWithMenuAndCustomer[];
 }) => {
   const searchParams = useSearchParams();
@@ -182,18 +109,24 @@ const OrderTable = ({
           },
         },
       },
-      // {
-      //   accessorKey: "createdAt", //access nested data with dot notation
-      //   header: "Created At",
-      //   size: 70,
-      //   muiTableHeadCellProps: {
-      //     sx: {
-      //       "& .Mui-TableHeadCell-Content": {
-      //         color: "#656575",
-      //       },
-      //     },
-      //   },
-      // },
+      {
+        accessorKey: "createdAt", //access nested data with dot notation
+        header: "Created At",
+        size: 70,
+        muiTableHeadCellProps: {
+          sx: {
+            "& .Mui-TableHeadCell-Content": {
+              color: "#656575",
+            },
+          },
+        },
+        Cell: ({ row }) => (
+          // console.log("renderedCellValue", renderedCellValue);
+            <Typography>
+          {moment(row.original.createdAt).format("h:mm A MM/DD/YY")}
+            </Typography>
+        )
+      },
       {
         accessorKey: "status",
         header: "Status",
