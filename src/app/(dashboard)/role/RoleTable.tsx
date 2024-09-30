@@ -311,7 +311,7 @@ const RoleTable = ({
   return (
     <>
       <MaterialReactTable table={table} />
-      <RoleModal handleClose={handleClose} roleDialog={roleDialog} />
+      <RoleModal key={JSON.stringify(roleDialog)} handleClose={handleClose} roleDialog={roleDialog} />
     </>
   );
 };

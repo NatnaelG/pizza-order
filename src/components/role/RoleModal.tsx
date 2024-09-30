@@ -60,7 +60,7 @@ export default function RoleModal({
   const [permissions, setPermissions] = React.useState<string[]>(
     roleDialog.role?.permissions || []
   );
-  console.log("to use setPermissions", setPermissions);
+  console.log("to use setPermissions", roleDialog.role?.permissions,permissions);
   React.useEffect(() => {
     if (state?.message === "success") {
       handleClose();
