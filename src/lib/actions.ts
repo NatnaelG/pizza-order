@@ -109,7 +109,7 @@ export async function authenticate(state: FormState, formData: FormData) {
         isAdmin: formData.get("isAdmin") === "on",
         role: formData.get("isAdmin") === "on" ? "Admin" : "Owner",
         // Needs to be corrected
-        roleId: "STH"
+        roleId: "d636f2fe-8430-4160-9e7a-00956c52a692"
       },
     });
     console.log("insertedUser", insertedUser);

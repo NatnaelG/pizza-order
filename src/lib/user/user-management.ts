@@ -134,6 +134,8 @@ export async function adduser(state: FormState, formData: FormData) {
       isAdmin: role === "Super Admin",
       role: role,
       status: "ACTIVE",
+      // needs to be checked
+      roleId: "d636f2fe-8430-4160-9e7a-00956c52a692"
     },
   });
   console.log("insertedUser", insertedUser);
