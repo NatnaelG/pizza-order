@@ -55,6 +55,24 @@ const RoleTable = ({
   const { replace } = useRouter();
 
   const [isLoading, setIsLoading] = React.useState(false);
+
+  const [roleDialog, setRoleDialog] = React.useState<{
+    role: {
+      name: string;
+      id: string;
+      permissions: string[];
+      status: string;
+      updated_at: Date;
+      created_at: Date;
+    } | null;
+    type: "add" | "update";
+    open: boolean;
+  }>({
+    role: null,
+    open: false,
+    type: "add",
+  });
+
   const columns = React.useMemo<MRT_ColumnDef<Role>[]>(
     () => [
       {
@@ -183,7 +201,16 @@ const RoleTable = ({
               }
               labelPlacement="start"
             />
-            <IconButton sx={{ color: "#000" }}>
+            <IconButton
+              sx={{ color: "#000" }}
+              onClick={() =>
+                setRoleDialog({
+                  open: true,
+                  role: row.original,
+                  type: "update",
+                })
+              }
+            >
               <VisibilityIcon fontSize="small" />
             </IconButton>
             <Delete fontSize="small" />
@@ -231,9 +258,12 @@ const RoleTable = ({
     // fetchBooks(columnFilters, globalFilter);
   }, [columnFilters, globalFilter, pathname, replace, searchParams]);
 
-  const [openRoleModal, setOpenRoleModal] = React.useState<boolean>(false);
-
-  const handleClose = () => setOpenRoleModal(false);
+  const handleClose = () =>
+    setRoleDialog({
+      role: null,
+      open: false,
+      type: "add",
+    });
 
   const table = useMaterialReactTable({
     columns,
@@ -259,7 +289,7 @@ const RoleTable = ({
       <Button
         variant="contained"
         size="small"
-        onClick={() => setOpenRoleModal(true)}
+        onClick={() => setRoleDialog({ open: true, role: null, type: "add" })}
         sx={{ background: "#FF8100" }}
       >
         Add Role
@@ -281,7 +311,7 @@ const RoleTable = ({
   return (
     <>
       <MaterialReactTable table={table} />
-      <RoleModal handleClose={handleClose} open={openRoleModal} />
+      <RoleModal handleClose={handleClose} roleDialog={roleDialog} />
     </>
   );
 };

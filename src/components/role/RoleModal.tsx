@@ -1,13 +1,13 @@
 import * as React from "react";
 import { adduser } from "@/lib/user/user-management";
 import {
-  Autocomplete,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   TextField,
+  Typography,
 } from "@mui/material";
 import { useFormState, useFormStatus } from "react-dom";
 
@@ -33,10 +33,21 @@ const SubmitButton = ({ label, loading }: SubmitButtonProps) => {
 };
 
 export default function RoleModal({
-  open,
+  roleDialog,
   handleClose,
 }: {
-  open: boolean;
+  roleDialog: {
+    role: {
+      name: string;
+      id: string;
+      permissions: string[];
+      status: string;
+      updated_at: Date;
+      created_at: Date;
+    } | null;
+    type: "add" | "update";
+    open: boolean;
+  };
   handleClose: () => void;
 }) {
   const Status = useFormState(adduser, undefined);
@@ -50,14 +61,29 @@ export default function RoleModal({
   }, [state, handleClose]);
   return (
     <Dialog
-      open={open}
+      open={roleDialog.open}
+      sx={{
+        "& .MuiPaper-elevation": {
+          width: "505px",
+          height: "461px",
+          p: 3,
+          borderRadius: "20px",
+        },
+      }}
       onClose={() => handleClose()}
       PaperProps={{
         component: "form",
         action: formAction,
       }}
     >
-      <DialogTitle sx={{ m: "auto", fontWeight: 700, fontSize: "22px" }}>
+      <DialogTitle
+        sx={{
+          color: "#00000080",
+          m: "auto",
+          fontWeight: 400,
+          fontSize: "22px",
+        }}
+      >
         Role
       </DialogTitle>
       <DialogContent>
@@ -70,6 +96,7 @@ export default function RoleModal({
           label="Name"
           fullWidth
           variant="outlined"
+          defaultValue={roleDialog.role?.name || ""}
         />
         {state?.errors?.name && (
           <div>
@@ -81,109 +108,18 @@ export default function RoleModal({
             </ul>
           </div>
         )}
-        <TextField
-          required
-          margin="dense"
-          id="email"
-          name="email"
-          label="Email Address"
-          type="email"
-          fullWidth
-          variant="outlined"
-        />
-        {state?.errors?.email && (
-          <div>
-            <p>Email must:</p>
-            <ul>
-              {state.errors.email.map((error) => (
-                <li key={error}>- {error}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-        <TextField
-          required
-          margin="dense"
-          id="phoneNumber"
-          name="phoneNumber"
-          label="Phone No"
-          fullWidth
-          variant="outlined"
-        />
-        {state?.errors?.phoneNumber && (
-          <div>
-            <p>Phone Number must:</p>
-            <ul>
-              {state.errors.phoneNumber.map((error) => (
-                <li key={error}>- {error}</li>
-              ))}
-            </ul>
-          </div>
-        )}
 
-        <TextField
-          required
-          margin="dense"
-          id="location"
-          name="location"
-          label="Location"
-          fullWidth
-          variant="outlined"
-        />
-        {state?.errors?.location && (
-          <div>
-            <p>Location must:</p>
-            <ul>
-              {state.errors.location.map((error) => (
-                <li key={error}>- {error}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        <TextField
-          required
-          margin="dense"
-          id="password"
-          name="password"
-          label="Password"
-          type="Password"
-          fullWidth
-          variant="outlined"
-        />
-
-        {state?.errors?.password && (
-          <div>
-            <p>Password must:</p>
-            <ul>
-              {state.errors.password.map((error) => (
-                <li key={error}>- {error}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        <Autocomplete
-          disablePortal
-          options={["Admin", "User", "Super Admin"]}
-          sx={{ width: 300 }}
-          renderInput={(params) => (
-            <TextField {...params} name="role" id="role" label="Select Role" />
-          )}
-        />
-        {state?.errors?.role && (
-          <div>
-            <p>Role must:</p>
-            <ul>
-              {state.errors.role.map((error) => (
-                <li key={error}>- {error}</li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <Typography
+          my={"10px"}
+          color={"#00000080"}
+          fontWeight={400}
+          fontSize={"22px"}
+        >
+          Permissions
+        </Typography>
       </DialogContent>
       <DialogActions>
-        <SubmitButton label="Add User" loading="Adding ..." />
+        <SubmitButton label="Update" loading="Updating ..." />
       </DialogActions>
     </Dialog>
   );
