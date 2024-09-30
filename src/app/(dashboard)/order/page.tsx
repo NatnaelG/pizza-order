@@ -14,7 +14,7 @@ export default async function Orders({
   const filter = JSON.parse(searchParams?.filter || "[]");
 
   const orders = await getOrders(search, filter);
-  console.log("orders As they got ", orders)
+  console.log("orders As they got ", orders);
 
   return (
     <>

@@ -18,77 +18,111 @@ import {
 // import AddUserModal from "@/components/user/AdduserModal";
 // import { updateUserStatus } from "@/lib/user/user-management";
 
-// import { Order } from "@prisma/client";
+import {
+  Menu,
+  Order,
+  // User
+} from "@prisma/client";
 // import { Menu } from "@prisma/client";
 
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
+// import { Decimal, JsonValue } from "@prisma/client/runtime/library";
 
-type Order = {
-  id: string;
-  customerId: string;
-  quantity: number;
-  menuId: string;
-  status: string;
-  toppings: { list: [string] };
-  updated_at: Date;
-  created_at: Date;
+// type Order = {
+//   id: string;
+//   customerId: string;
+//   quantity: number;
+//   menuId: string;
+//   status: string;
+//   toppings: JsonValue;
+//   updated_at: Date;
+//   created_at: Date;
+//   customer: {
+//     id: string;
+//     name: string;
+//     email: string;
+//     location: string;
+//     phoneNumber: string;
+//     role: string;
+//     isAdmin: boolean;
+//     status: string;
+//     roleId: string;
+//     updated_at: Date;
+//     created_at: Date;
+//   };
+//   Menu: {
+//     name: string;
+//     id: string;
+//     toppings: JsonValue;
+//     updatedAt: Date;
+//     createdAt: Date;
+//     price: Decimal;
+//   };
+// };
+
+type OrderWithMenuAndCustomer = Order & {
+  Menu: Menu;
   customer: {
     id: string;
+    role: string;
     name: string;
     email: string;
+    // password: string;
     location: string;
     phoneNumber: string;
-    role: string;
     isAdmin: boolean;
     status: string;
     roleId: string;
     updated_at: Date;
     created_at: Date;
   };
-  Menu: {
-    name: string;
-    id: string;
-    toppings: { list: [string] };
-    updatedAt: Date;
-    createdAt: Date;
-    price: number;
-  };
 };
-
 const OrderTable = ({
   orders,
 }: {
-  orders: {
-    id: string;
-    customerId: string;
-    quantity: number;
-    menuId: string;
-    status: string;
-    toppings: { list: [string] };
-    updated_at: Date;
-    created_at: Date;
-    customer: {
-      id: string;
-      name: string;
-      email: string;
-      location: string;
-      phoneNumber: string;
-      role: string;
-      isAdmin: boolean;
-      status: string;
-      roleId: string;
-      updated_at: Date;
-      created_at: Date;
-    };
-    Menu: {
-      name: string;
-      id: string;
-      toppings: { list: [string] };
-      updatedAt: Date;
-      createdAt: Date;
-      price: number;
-    };
-  }[];
+  orders: // {
+  //   // id: string;
+  //   // customerId: string;
+  //   // quantity: number;
+  //   // menuId: string;
+  //   // status: string;
+  //   // toppings: JsonValue;
+  //   // updated_at: Date;
+  //   // created_at: Date;
+
+  //   // ...Order,
+  //   id: string;
+  //   customerId: string;
+  //   quantity: number;
+  //   menuId: string;
+  //   toppings: JsonValue;
+  //   status: string;
+  //   updatedAt: Date;
+  //   createdAt: Date;
+
+  //   customer: {
+  //     id: string;
+  //     name: string;
+  //     email: string;
+  //     location: string;
+  //     phoneNumber: string;
+  //     role: string;
+  //     isAdmin: boolean;
+  //     status: string;
+  //     roleId: string;
+  //     updated_at: Date;
+  //     created_at: Date;
+  //   };
+  //   Menu: {
+  //     name: string;
+  //     id: string;
+  //     toppings: JsonValue;
+  //     updatedAt: Date;
+  //     createdAt: Date;
+  //     price: Decimal;
+  //   };
+  // }
+  OrderWithMenuAndCustomer[];
 }) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -96,7 +130,9 @@ const OrderTable = ({
 
   // const [isLoading, setIsLoading] = React.useState(false);
   const isLoading = false;
-  const columns = React.useMemo<MRT_ColumnDef<Order>[]>(
+  const columns = React.useMemo<
+    MRT_ColumnDef<Order & { menuName: string; customerNo: string }>[]
+  >(
     () => [
       {
         accessorKey: "menuName", //access nested data with dot notation
