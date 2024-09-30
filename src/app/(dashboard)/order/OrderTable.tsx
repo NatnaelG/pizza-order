@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import {
+  Box,
   Stack,
   // FormControlLabel,
   // Stack,
@@ -31,6 +32,9 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 import moment from "moment";
 import ToppingModal from "@/components/order/ToppingModal";
+import Image from "next/image";
+
+import OrderTablePizzaimage from "@/public/orderTablePizza.jpeg";
 
 type OrderWithMenuAndCustomer = Order & {
   Menu: Menu;
@@ -57,19 +61,21 @@ const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
   // const [isLoading, setIsLoading] = React.useState(false);
 
   const [toppingDialog, setToppingDialog] = React.useState<{
-    row: {
-      id: string;
-      customerId: string;
-      quantity: number;
-      menuId: string;
-      toppings: string[];
-      status: string;
-      updatedAt: Date;
-      createdAt: Date;
-  } & {
-      menuName: string;
-      customerNo: string;
-  } | null;
+    row:
+      | ({
+          id: string;
+          customerId: string;
+          quantity: number;
+          menuId: string;
+          toppings: string[];
+          status: string;
+          updatedAt: Date;
+          createdAt: Date;
+        } & {
+          menuName: string;
+          customerNo: string;
+        })
+      | null;
     value: string[] | null;
     open: boolean;
   }>({
@@ -94,6 +100,27 @@ const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
             },
           },
         },
+        Cell: ({ renderedCellValue, row }) => (
+          <Stack key={row.original.id} direction={"row"} spacing={1}>
+            <Box
+              sx={{
+                ">img": {
+                  borderRadius: "100%",
+                },
+              }}
+              width={"24px"}
+            >
+              <Image
+                src={OrderTablePizzaimage}
+                alt="Ordered Pizza"
+                width={24}
+                height={24}
+                priority
+              />
+            </Box>
+            <Typography>{renderedCellValue}</Typography>
+          </Stack>
+        ),
       },
       {
         accessorKey: "toppings", //access nested data with dot notation
@@ -109,6 +136,7 @@ const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
         Cell: ({ renderedCellValue, row }) => (
           // console.log("renderedCellValue", renderedCellValue);
           <Stack
+            key={row.original.id}
             direction={"row"}
             spacing={1}
             sx={{ color: "#FF8100" }}
@@ -163,7 +191,7 @@ const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
         },
         Cell: ({ row }) => (
           // console.log("renderedCellValue", renderedCellValue);
-          <Typography>
+          <Typography key={row.original.id}>
             {moment(row.original.createdAt).format("h:mm A MM/DD/YY")}
           </Typography>
         ),
