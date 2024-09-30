@@ -21,6 +21,7 @@ import {
 // import { updateUserStatus } from "@/lib/user/user-management";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import CheckIcon from "@mui/icons-material/Check";
 
 import {
   Menu,
@@ -35,6 +36,7 @@ import ToppingModal from "@/components/order/ToppingModal";
 import Image from "next/image";
 
 import OrderTablePizzaimage from "@/public/orderTablePizza.jpeg";
+import StatusMenu from "./StatusMenu";
 
 type OrderWithMenuAndCustomer = Order & {
   Menu: Menu;
@@ -58,7 +60,7 @@ const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  // const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const [toppingDialog, setToppingDialog] = React.useState<{
     row:
@@ -84,7 +86,6 @@ const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
     open: false,
   });
 
-  const isLoading = false;
   const columns = React.useMemo<
     MRT_ColumnDef<Order & { menuName: string; customerNo: string }>[]
   >(
@@ -208,78 +209,30 @@ const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
             },
           },
         },
-        // Cell: ({ renderedCellValue, row }) => (
-        //   <Stack
-        //     direction={"row"}
-        //     spacing={2}
-        //     alignItems={"center"}
-        //     justifyContent={"center"}
-        //   >
-        //     <FormControlLabel
-        //       sx={{
-        //         background:
-        //           renderedCellValue === "ACTIVE" ? "#0080001A" : "#8000001A",
-        //         borderRadius: "15px",
-        //         p: "4px 14px",
-        //         width: "120px",
-        //         mx: 0,
-        //       }}
-        //       control={
-        //         <Switch
-        //           color={renderedCellValue === "ACTIVE" ? "success" : "error"}
-        //           checked={renderedCellValue === "ACTIVE"}
-        //           name={`status-${row.original.id}`}
-        //           disabled={isLoading}
-        //           size="small"
-        //           // onClick={() => {
-        //           //   // console.log("clicked", row.original.id, renderedCellValue);
+        Cell: ({ renderedCellValue, row }) => (
+          <Stack
+            key={row.original.id}
+            direction={"row"}
+            spacing={2}
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
+            {renderedCellValue === "DELIVERED" ? (
+              // <Stack>
+              //   <CheckIcon />
+              // </Stack>
+              <Stack direction={"row"} spacing={1} sx={{ color: "#008000" }}>
+                <CheckIcon />
 
-        //           //   setIsLoading(true);
-        //           //   const updatedUser = updateUserStatus(
-        //           //     row.original.id,
-        //           //     renderedCellValue === "ACTIVE" ? "INACTIVE" : "ACTIVE"
-        //           //   );
-
-        //           //   updatedUser
-        //           //     .then((res) => {
-        //           //       console.log(res);
-        //           //       setIsLoading(false);
-        //           //     })
-        //           //     .catch((err) => {
-        //           //       console.log(err);
-        //           //       setIsLoading(false);
-        //           //     });
-
-        //           //   //   const { author, category, bookName, id } = row.original;
-        //           //   //   updateBookRequest(id, {
-        //           //   //     bookName,
-        //           //   //     author,
-        //           //   //     category,
-        //           //   //     status:
-        //           //   //       renderedCellValue === "ACTIVE" ? "INACTIVE" : "ACTIVE",
-        //           //   //   });
-        //           // }}
-        //         />
-        //       }
-        //       label={
-        //         <Stack direction={"row"} spacing={1}>
-        //           <Typography
-        //             sx={{
-        //               color:
-        //                 renderedCellValue === "ACTIVE" ? "#2e7d32" : "#d32f2f",
-        //               textTransform: "capitalize",
-        //             }}
-        //             variant="subtitle2"
-        //           >
-        //             {(renderedCellValue + "")?.toLowerCase()}
-        //           </Typography>
-        //         </Stack>
-        //       }
-        //       labelPlacement="start"
-        //     />
-        //     <Delete fontSize="small" />
-        //   </Stack>
-        // ),
+                <Typography>Delivered</Typography>
+              </Stack>
+            ) : (
+              <>
+<StatusMenu status={renderedCellValue as "PREPARING" | "READY"} order={row.original} setIsLoading={setIsLoading} />
+              </>
+            )}
+          </Stack>
+        ),
       },
     ],
     [isLoading]

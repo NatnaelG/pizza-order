@@ -5,7 +5,7 @@ import prisma from "../db";
 // import { FormState } from "../actions";
 // import bcrypt from "bcrypt";
 
-// import { revalidatePath } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 export async function getOrders(
   search: string,
@@ -17,10 +17,10 @@ export async function getOrders(
 
   params?.map((param) => {
     if (query.where !== undefined) {
-      if (param.id === "name") {
+      if (param.id === "menuName") {
         query.where = {
           ...query.where,
-          menu: { [param.id]: { contains: param.value, mode: "insensitive" } },
+          Menu: { ["name"]: { contains: param.value, mode: "insensitive" } },
         };
         // query.where["owner"][param.id] = { contains: param.value, mode: 'insensitive', };
       } else {
@@ -143,17 +143,17 @@ export async function getOrders(
 //   return { message: "success" };
 // }
 
-// export async function updateUserStatus(
-//   id: string,
-//   status: "ACTIVE" | "INACTIVE"
-// ) {
-//   const updatedUser = await prisma.user.update({
-//     where: { id: id },
-//     data: {
-//       status: status,
-//     },
-//   });
+export async function updateOrderStatus(
+  id: string,
+  status: "PREPARING" | "READY" | "DELIVERED"
+) {
+  const updatedUser = await prisma.order.update({
+    where: { id: id },
+    data: {
+      status: status,
+    },
+  });
 
-//   revalidatePath("/user");
-//   return updatedUser;
-// }
+  revalidatePath("/order");
+  return updatedUser;
+}
