@@ -140,7 +140,7 @@ const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
             key={row.original.id}
             direction={"row"}
             spacing={1}
-            sx={{ color: "#FF8100" }}
+            sx={{ color: "#FF8100", cursor: "pointer", }}
             onClick={() =>
               setToppingDialog({
                 open: true,
