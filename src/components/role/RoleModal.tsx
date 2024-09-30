@@ -2,10 +2,14 @@ import * as React from "react";
 import { adduser } from "@/lib/user/user-management";
 import {
   Button,
+  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormControlLabel,
+  FormGroup,
+  OutlinedInput,
   TextField,
   Typography,
 } from "@mui/material";
@@ -53,6 +57,10 @@ export default function RoleModal({
   const Status = useFormState(adduser, undefined);
   const [state, formAction] = Status;
 
+  const [permissions, setPermissions] = React.useState<string[]>(
+    roleDialog.role?.permissions || []
+  );
+  console.log("to use setPermissions", setPermissions);
   React.useEffect(() => {
     if (state?.message === "success") {
       handleClose();
@@ -117,9 +125,32 @@ export default function RoleModal({
         >
           Permissions
         </Typography>
+
+        <FormGroup>
+          {permissions.map((permission, index) => (
+            <FormControlLabel
+              key={permission + " " + index}
+              control={<Checkbox defaultChecked />}
+              label={permission}
+            />
+          ))}
+          <FormControlLabel
+            control={<Checkbox />}
+            label={
+              <OutlinedInput
+                id="component-outlined"
+                // defaultValue=""
+                label="Permission"
+              />
+            }
+          />
+        </FormGroup>
       </DialogContent>
       <DialogActions>
-        <SubmitButton label="Update" loading="Updating ..." />
+        <SubmitButton
+          label={roleDialog.type === "update" ? "Update" : "Add"}
+          loading={roleDialog.type === "update" ? "Updating ..." : "Adding ..."}
+        />
       </DialogActions>
     </Dialog>
   );
