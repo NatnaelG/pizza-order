@@ -93,13 +93,25 @@ model Book {
 // }
 
 model Menu {
-  id        String   @id @default(uuid())
-  name      String
-  price     Decimal
-  toppings  String[]
-  updatedAt DateTime @updatedAt @map("updated_at")
-  createdAt DateTime @default(now()) @map("created_at")
-  Order     Order[]
+  id           String      @id @default(uuid())
+  name         String
+  price        Decimal
+  toppings     String[]
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+  createdAt    DateTime    @default(now()) @map("created_at")
+  Order        Order[]
+  Restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
+  restaurantId String?
 
   @@map("menus")
+}
+
+model Restaurant {
+  id        String   @id @default(uuid())
+  name      String
+  menus     Menu[]
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("restaurants")
 }
