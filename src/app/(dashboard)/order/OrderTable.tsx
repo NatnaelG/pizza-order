@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import {
+  Stack,
   // FormControlLabel,
   // Stack,
   // Switch,
@@ -18,6 +19,8 @@ import {
 // import AddUserModal from "@/components/user/AdduserModal";
 // import { updateUserStatus } from "@/lib/user/user-management";
 
+import VisibilityIcon from "@mui/icons-material/Visibility";
+
 import {
   Menu,
   Order,
@@ -26,7 +29,8 @@ import {
 
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
-import moment from 'moment';
+import moment from "moment";
+import ToppingModal from "@/components/order/ToppingModal";
 
 type OrderWithMenuAndCustomer = Order & {
   Menu: Menu;
@@ -45,17 +49,35 @@ type OrderWithMenuAndCustomer = Order & {
     created_at: Date;
   };
 };
-const OrderTable = ({
-  orders,
-}: {
-  orders: 
-  OrderWithMenuAndCustomer[];
-}) => {
+const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
   // const [isLoading, setIsLoading] = React.useState(false);
+
+  const [toppingDialog, setToppingDialog] = React.useState<{
+    row: {
+      id: string;
+      customerId: string;
+      quantity: number;
+      menuId: string;
+      toppings: string[];
+      status: string;
+      updatedAt: Date;
+      createdAt: Date;
+  } & {
+      menuName: string;
+      customerNo: string;
+  } | null;
+    value: string[] | null;
+    open: boolean;
+  }>({
+    row: null,
+    value: null,
+    open: false,
+  });
+
   const isLoading = false;
   const columns = React.useMemo<
     MRT_ColumnDef<Order & { menuName: string; customerNo: string }>[]
@@ -73,18 +95,37 @@ const OrderTable = ({
           },
         },
       },
-      // {
-      //   accessorKey: "toppings", //access nested data with dot notation
-      //   header: "Topping",
-      //   size: 70,
-      //   muiTableHeadCellProps: {
-      //     sx: {
-      //       "& .Mui-TableHeadCell-Content": {
-      //         color: "#656575",
-      //       },
-      //     },
-      //   },
-      // },
+      {
+        accessorKey: "toppings", //access nested data with dot notation
+        header: "Topping",
+        size: 70,
+        muiTableHeadCellProps: {
+          sx: {
+            "& .Mui-TableHeadCell-Content": {
+              color: "#656575",
+            },
+          },
+        },
+        Cell: ({ renderedCellValue, row }) => (
+          // console.log("renderedCellValue", renderedCellValue);
+          <Stack
+            direction={"row"}
+            spacing={1}
+            sx={{ color: "#FF8100" }}
+            onClick={() =>
+              setToppingDialog({
+                open: true,
+                row: row.original,
+                value: renderedCellValue as string[],
+              })
+            }
+          >
+            <VisibilityIcon />
+
+            <Typography>Toppings</Typography>
+          </Stack>
+        ),
+      },
       {
         accessorKey: "quantity", //access nested data with dot notation
         header: "Quantity",
@@ -122,10 +163,10 @@ const OrderTable = ({
         },
         Cell: ({ row }) => (
           // console.log("renderedCellValue", renderedCellValue);
-            <Typography>
-          {moment(row.original.createdAt).format("h:mm A MM/DD/YY")}
-            </Typography>
-        )
+          <Typography>
+            {moment(row.original.createdAt).format("h:mm A MM/DD/YY")}
+          </Typography>
+        ),
       },
       {
         accessorKey: "status",
@@ -216,6 +257,13 @@ const OrderTable = ({
     [isLoading]
   );
 
+  const handleClose = () =>
+    setToppingDialog({
+      open: false,
+      row: null,
+      value: null,
+    });
+
   const [columnFilters, setColumnFilters] =
     React.useState<MRT_ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = React.useState<MRT_FilterOption>(
@@ -253,10 +301,6 @@ const OrderTable = ({
     // fetchBooks(columnFilters, globalFilter);
   }, [columnFilters, globalFilter, pathname, replace, searchParams]);
 
-  // const [openAddUserModal, setOpenAddUserModal] =
-  //   React.useState<boolean>(false);
-
-  // const handleClose = () => setOpenAddUserModal(false);
   console.log("orders", orders);
 
   const table = useMaterialReactTable({
@@ -312,7 +356,7 @@ const OrderTable = ({
   return (
     <>
       <MaterialReactTable table={table} />
-      {/* <AddUserModal handleClose={handleClose} open={openAddUserModal} /> */}
+      <ToppingModal handleClose={handleClose} toppingDialog={toppingDialog} />
     </>
   );
 };
