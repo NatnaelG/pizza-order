@@ -1,14 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  Box,
-  Stack,
-  // FormControlLabel,
-  // Stack,
-  // Switch,
-  Typography,
-} from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import {
   MRT_ColumnFiltersState,
   MRT_FilterOption,
@@ -16,18 +9,11 @@ import {
   useMaterialReactTable,
   type MRT_ColumnDef,
 } from "material-react-table";
-// import { Delete } from "@mui/icons-material";
-// import AddUserModal from "@/components/user/AdduserModal";
-// import { updateUserStatus } from "@/lib/user/user-management";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CheckIcon from "@mui/icons-material/Check";
 
-import {
-  Menu,
-  Order,
-  // User
-} from "@prisma/client";
+import { Menu, Order } from "@prisma/client";
 
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
@@ -140,7 +126,7 @@ const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
             key={row.original.id}
             direction={"row"}
             spacing={1}
-            sx={{ color: "#FF8100", cursor: "pointer", }}
+            sx={{ color: "#FF8100", cursor: "pointer" }}
             onClick={() =>
               setToppingDialog({
                 open: true,
@@ -218,12 +204,8 @@ const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
             justifyContent={"center"}
           >
             {renderedCellValue === "DELIVERED" ? (
-              // <Stack>
-              //   <CheckIcon />
-              // </Stack>
               <Stack direction={"row"} spacing={1} sx={{ color: "#008000" }}>
                 <CheckIcon />
-
                 <Typography>Delivered</Typography>
               </Stack>
             ) : (

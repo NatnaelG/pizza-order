@@ -1,8 +1,8 @@
 import { Suspense } from "react";
-import OrderTable from "./OrderTable";
-import { getOrders } from "@/lib/order/order-management";
+import RoleTable from "./RoleTable";
+import { getRoles } from "@/lib/role/role-management";
 
-export default async function Orders({
+export default async function Roles({
   searchParams,
 }: {
   searchParams?: {
@@ -13,13 +13,13 @@ export default async function Orders({
   const search = searchParams?.search || "";
   const filter = JSON.parse(searchParams?.filter || "[]");
 
-  const orders = await getOrders(search, filter);
-  console.log("orders As before passing ", orders);
+  const roles = await getRoles(search, filter);
+  console.log("roles As before passing ", roles);
 
   return (
     <>
       <Suspense fallback={<p>Loading ...</p>}>
-        <OrderTable orders={typeof orders === "string" ? [] : orders} />{" "}
+        <RoleTable roles={typeof roles === "string" ? [] : roles} />{" "}
       </Suspense>
     </>
   );
