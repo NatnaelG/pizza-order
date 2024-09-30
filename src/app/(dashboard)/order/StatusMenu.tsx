@@ -64,7 +64,13 @@ export default function StatusMenu({
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        endIcon={open ? <ArrowDropUpIcon  fontSize="large" /> : <ArrowDropDownIcon fontSize="large" />}
+        endIcon={
+          open ? (
+            <ArrowDropUpIcon fontSize="large" />
+          ) : (
+            <ArrowDropDownIcon fontSize="large" />
+          )
+        }
         sx={{
           background: status === "PREPARING" ? "#FFA500" : "#008000",
           color: "#fff",

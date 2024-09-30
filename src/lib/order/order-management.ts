@@ -23,6 +23,21 @@ export async function getOrders(
           Menu: { ["name"]: { contains: param.value, mode: "insensitive" } },
         };
         // query.where["owner"][param.id] = { contains: param.value, mode: 'insensitive', };
+      } else if (param.id === "toppings") {
+        query.where = {
+          ...query.where,
+          // Menu: { ["name"]: { contains: param.value, mode: "insensitive" } },
+          [param.id]: {
+            has: param.value,
+          },
+        };
+        // query.where["owner"][param.id] = { contains: param.value, mode: 'insensitive', };
+      } else if (param.id === "customerNo") {
+        query.where = {
+          ...query.where,
+          customer: { ["phoneNumber"]: { contains: param.value, mode: "insensitive" } },
+        };
+        // query.where["owner"][param.id] = { contains: param.value, mode: 'insensitive', };
       } else {
         query.where = {
           ...query.where,
@@ -69,11 +84,11 @@ export async function getOrders(
           createdAt: "desc",
         },
       ],
-        include: {
-          // customer: true,
-          Menu: true,
-          customer: true,
-        },
+      include: {
+        // customer: true,
+        Menu: true,
+        customer: true,
+      },
     });
   } catch (error) {
     console.log("insertedBookError", error);
