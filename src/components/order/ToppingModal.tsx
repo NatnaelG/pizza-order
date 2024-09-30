@@ -78,9 +78,10 @@ export default function ToppingModal({
                   fontWeight: 400,
                   fontSize: "14px",
                   color: "#fff",
-                  background: `#${Math.floor(Math.random() * 16777215).toString(
-                    16
-                  )}`,
+                  background: `hsl(${Math.floor(Math.random() * 360)}deg, ${Math.floor(Math.random() * 100)}%, ${Math.floor(Math.random() * 50)}%)`
+                  // background: `#${Math.floor(Math.random() * 1777215).toString(
+                  //   16
+                  // )}`,
                 }}
               />
             ))}
