@@ -16,22 +16,24 @@ datasource db {
 }
 
 model User {
-  id          String   @id @default(uuid())
-  name        String
-  email       String   @unique
-  password    String
-  location    String
-  phoneNumber String   @map("phone_number")
-  role        String   @default("Owner")
-  isAdmin     Boolean  @default(false) @map("is_admin")
-  status      String   @default("INACTIVE")
-  orders      Order[]
+  id           String      @id @default(uuid())
+  name         String
+  email        String      @unique
+  password     String
+  location     String
+  phoneNumber  String      @map("phone_number")
+  role         String      @default("Owner")
+  isAdmin      Boolean     @default(false) @map("is_admin")
+  status       String      @default("INACTIVE")
+  orders       Order[]
   // books       Book[]
-  Role        Role     @relation(fields: [roleId], references: [id])
-  roleId      String   @map("role_id")
-  Book        Book[]
-  updated_at  DateTime @updatedAt @map("updated_at")
-  created_at  DateTime @default(now()) @map("created_at")
+  Role         Role        @relation(fields: [roleId], references: [id])
+  roleId       String      @map("role_id")
+  Book         Book[]
+  updated_at   DateTime    @updatedAt @map("updated_at")
+  created_at   DateTime    @default(now()) @map("created_at")
+  Restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
+  restaurantId String?
 
   @@map("users")
 }
@@ -110,6 +112,7 @@ model Restaurant {
   id        String   @id @default(uuid())
   name      String
   menus     Menu[]
+  admins    User[]
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
 
