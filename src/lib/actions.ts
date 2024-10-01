@@ -6,18 +6,19 @@ import { redirect } from "next/navigation";
 
 import prisma from "./db";
 import { deleteSession, getSession, createSession } from "./session";
+import { User } from "@prisma/client";
 
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  // password: string;
-  location: string;
-  phoneNumber: string;
-  status: string;
-  role: string;
-  isAdmin: boolean;
-};
+// export type User = {
+//   id: string;
+//   name: string;
+//   email: string;
+//   // password: string;
+//   location: string;
+//   phoneNumber: string;
+//   status: string;
+//   role: string;
+//   isAdmin: boolean;
+// };
 
 export type UserWithPassword = User & {
   password: string;
@@ -87,10 +88,15 @@ export async function authenticate(state: FormState, formData: FormData) {
       name: z.string().optional(),
       restaurantName: z.string().optional(),
     })
-    .refine((data) => formData.get("type") !== "Sign Up" || data.password === data.confirmPassword, {
-      message: "Passwords don't match",
-      path: ["confirmPassword"],
-    })
+    .refine(
+      (data) =>
+        formData.get("type") !== "Sign Up" ||
+        data.password === data.confirmPassword,
+      {
+        message: "Passwords don't match",
+        path: ["confirmPassword"],
+      }
+    )
     .safeParseAsync({
       name: formData.get("name") || undefined,
       email: formData.get("email"),
@@ -181,7 +187,13 @@ export async function authenticate(state: FormState, formData: FormData) {
       message: "Invalid credentials!",
     };
   }
-  await createSession(user.id, user.status, user.role, user.isAdmin);
+  await createSession(
+    user.id,
+    user.status,
+    user.role,
+    user.isAdmin,
+    user.restaurantId || ""
+  );
 
   // console.log("hi there", temp)
   // const defineAbilityFor = useAbilityContext;

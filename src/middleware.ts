@@ -14,7 +14,7 @@ import { cookies } from "next/headers";
 
 // 1. Specify protected and public routes
 const protectedRoutes = ["/order", "/role", "/user", "/add-menu"];
-const publicRoutes = ["/login", "/register"];
+const publicRoutes = ["/login", "/register", "/"];
 
 export default async function middleware(req: NextRequest) {
   // 2. Check if the current route is protected or public
@@ -25,9 +25,9 @@ export default async function middleware(req: NextRequest) {
   // 3. Decrypt the session from the cookie
   const cookie = cookies().get("session")?.value;
 
-  console.log("Cookie", cookie);
+  // console.log("Cookie", cookie);
   const session = await decrypt(cookie);
-  console.log("session", session);
+  // console.log("session", session);
 
   // 5. Redirect to /login if the user is not authenticated
   if (isProtectedRoute && !session?.id) {
@@ -38,19 +38,20 @@ export default async function middleware(req: NextRequest) {
   if (
     isPublicRoute &&
     session?.id &&
-    !req.nextUrl.pathname.startsWith("/")
+    req.nextUrl.pathname !== "/"
   ) {
     return NextResponse.redirect(new URL("/", req.nextUrl));
   }
 
   if (
     session?.id &&
-    !req.nextUrl.pathname.startsWith("/")
+      session?.restaurantId === "" && ["/order", "/role", "/user", "/add-menu"].includes(path)
+      // !req.nextUrl.pathname.startsWith("/")
   ) {
-    if (
-      session?.role === "Owner" && ["/books", "/owners"].includes(path) ||
-      session?.role === "Admin" && ["/book-upload"].includes(path)
-    )
+    // if (
+    //   session?.role === "Owner" && ["/books", "/owners"].includes(path) ||
+    //   session?.role === "Admin" && ["/book-upload"].includes(path)
+    // )
     return NextResponse.redirect(new URL("/", req.nextUrl));
   }
 

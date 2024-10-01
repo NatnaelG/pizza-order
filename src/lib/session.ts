@@ -12,6 +12,7 @@ export async function encrypt(payload: {
   status: string;
   role: string;
   isAdmin: boolean;
+  restaurantId: string;
   expiresAt: Date;
 }) {
   return new SignJWT(payload)
@@ -31,6 +32,7 @@ export async function decrypt(session: string | undefined = "") {
       status: string;
       role: string;
       isAdmin: boolean;
+      restaurantId: string;
       expiresAt: Date;
     };
   } catch (error) {
@@ -38,9 +40,22 @@ export async function decrypt(session: string | undefined = "") {
   }
 }
 
-export async function createSession(id: string, status: string, role: string, isAdmin: boolean) {
+export async function createSession(
+  id: string,
+  status: string,
+  role: string,
+  isAdmin: boolean,
+  restaurantId: string
+) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  const session = await encrypt({ id, status, role, isAdmin, expiresAt });
+  const session = await encrypt({
+    id,
+    status,
+    role,
+    isAdmin,
+    expiresAt,
+    restaurantId,
+  });
 
   cookies().set("session", session, {
     httpOnly: true,
