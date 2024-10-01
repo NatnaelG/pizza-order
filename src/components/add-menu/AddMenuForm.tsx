@@ -32,7 +32,7 @@ const SubmitButton = ({ label, loading }: SubmitButtonProps) => {
       type="submit"
       variant="contained"
       size="small"
-      sx={{ background: "#FF8100" }}
+      sx={{ background: "#FF8100", width: "321px", height: "74px", borderRadius: "20px" }}
       disabled={pending}
     >
       {pending ? loading : label}
@@ -63,8 +63,9 @@ export default function AddMenuForm() {
   const [updatedToppings, setUpdatedToppings] = React.useState<string[]>([]);
 
   React.useEffect(() => {
-    if(state?.message === "success") {setSuccessModalOpen(true);
-        (document.getElementById("add-menu-form") as HTMLFormElement)?.reset();
+    if (state?.message === "success") {
+      setSuccessModalOpen(true);
+      (document.getElementById("add-menu-form") as HTMLFormElement)?.reset();
     }
   }, [state]);
 
@@ -83,7 +84,7 @@ export default function AddMenuForm() {
     }
   };
 
-  console.log("to use setToppings", toppings, updatedToppings);
+  // console.log("to use setToppings", toppings, updatedToppings);
   return (
     <Stack
       //   open={roleDialog.open}
@@ -112,6 +113,7 @@ export default function AddMenuForm() {
         sx={{
           m: "auto",
         }}
+        spacing={1}
       >
         <TextField
           autoFocus
@@ -163,12 +165,19 @@ export default function AddMenuForm() {
             ))}
             <Grid size={{ xs: 4 }}>
               <FormControlLabel
-                control={<Checkbox />}
+                control={
+                  <Checkbox
+                    sx={{
+                      color: "#FF8100 !important",
+                    }}
+                  />
+                }
                 label={
                   <OutlinedInput
                     id="component-outlined"
                     // defaultValue=""
-                    label="Topping"
+                    sx={{ "& .MuiInputBase-input": { py: "3px", px: 1 } }}
+                    label={"Topping"}
                     onKeyDown={(event) => {
                       if (event.key === "Enter") {
                         event.preventDefault();
@@ -198,18 +207,33 @@ export default function AddMenuForm() {
           variant="outlined"
         />
 
-        <Button
-          component="label"
-          variant="outlined"
-          sx={{ border: "0.3px", color: "#FF8100" }}
-          tabIndex={-1}
-          startIcon={<UpgradeIcon />}
+        <Stack
+          sx={{
+            alignItems: "center",
+          }}
+          pt={1}
+          spacing={2}
         >
-          Upload Pizza Photo
-          <VisuallyHiddenInput type="file" />
-        </Button>
+          <Button
+            component="label"
+            variant="outlined"
+            sx={{
+              border: "dotted 1px #000",
+              color: "#FF8100",
+              width: "321px",
+              height: "74px",
+              fontWeight: 500,
+              fontSize: "16px",
+            }}
+            tabIndex={-1}
+            startIcon={<UpgradeIcon />}
+          >
+            Upload Pizza Photo
+            <VisuallyHiddenInput type="file" />
+          </Button>
 
-        <SubmitButton label={"Submit"} loading={"Submitting ..."} />
+          <SubmitButton label={"Submit"} loading={"Submitting ..."} />
+        </Stack>
       </Stack>
       <Successmodal
         handleSuccessModalClose={handleSuccessModalClose}

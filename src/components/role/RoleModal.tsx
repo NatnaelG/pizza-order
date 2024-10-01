@@ -29,7 +29,12 @@ const SubmitButton = ({ label, loading }: SubmitButtonProps) => {
       type="submit"
       variant="contained"
       size="small"
-      sx={{ background: "#FF8100" }}
+      sx={{
+        background: "#FF8100",
+        borderRadius: "5px",
+        width: "184px",
+        height: "44px",
+      }}
       disabled={pending}
     >
       {pending ? loading : label}
@@ -199,11 +204,18 @@ export default function RoleModal({
             ))}
             <Grid size={{ xs: 6 }}>
               <FormControlLabel
-                control={<Checkbox />}
+                control={
+                  <Checkbox
+                    sx={{
+                      color: "#FF8100 !important",
+                    }}
+                  />
+                }
                 label={
                   <OutlinedInput
                     id="component-outlined"
                     // defaultValue=""
+                    sx={{ "& .MuiInputBase-input": { py: "3px", px: 1 } }}
                     label="Permission"
                     onKeyDown={(event) => {
                       if (event.key === "Enter") {
@@ -226,7 +238,7 @@ export default function RoleModal({
           </Grid>
         </FormGroup>
       </DialogContent>
-      <DialogActions>
+      <DialogActions sx={{ justifyContent: "center" }}>
         <SubmitButton
           label={roleDialog.type === "update" ? "Update" : "Add"}
           loading={roleDialog.type === "update" ? "Updating ..." : "Adding ..."}
