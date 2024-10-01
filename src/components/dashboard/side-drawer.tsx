@@ -148,8 +148,8 @@ export default function ResponsiveDrawer(props: Props) {
         color="transparent"
         sx={{
           width: {
-            xs: `calc(100% - ${50}px)`,
-            sm: `calc(100% - ${drawerWidth + 50}px)`,
+            xs: `calc(100% - ${0}px)`,
+            sm: `calc(100% - ${drawerWidth + 0}px)`,
           },
           ml: { sm: `${drawerWidth}px` },
           background: "#fff",

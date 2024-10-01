@@ -8,10 +8,12 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 // import CollectionsBookmarkOutlinedIcon from '@mui/icons-material/CollectionsBookmarkOutlined';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 
-import TakeoutDiningIcon from '@mui/icons-material/TakeoutDining';
-import LocalPizzaIcon from '@mui/icons-material/LocalPizza';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
+// import TakeoutDiningIcon from '@mui/icons-material/TakeoutDining';
+import TakeoutDiningOutlinedIcon from '@mui/icons-material/TakeoutDiningOutlined';
+// import LocalPizzaIcon from '@mui/icons-material/LocalPizza';
+import LocalPizzaOutlinedIcon from '@mui/icons-material/LocalPizzaOutlined';
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 const Links = [
   // home
   {
@@ -26,13 +28,13 @@ const Links = [
     name: "Orders",
     path: "/order",
     location: "upper",
-    icon: TakeoutDiningIcon,
+    icon: TakeoutDiningOutlinedIcon,
   },
   {
     name: "Add menu",
     path: "/add-menu",
     location: "upper",
-    icon: LocalPizzaIcon,
+    icon: LocalPizzaOutlinedIcon,
   },
   {
     name: "Role",
@@ -44,7 +46,7 @@ const Links = [
     name: "User",
     path: "/user",
     location: "upper",
-    icon: AccountCircleIcon,
+    icon: AccountCircleOutlinedIcon,
   },
   // {
   //   name: "Other",
