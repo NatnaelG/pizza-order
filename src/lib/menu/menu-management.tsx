@@ -1,5 +1,6 @@
 "use server";
 
+import { getUserBySession } from "../actions";
 // import { z } from "zod";
 import prisma from "../db";
 
@@ -22,13 +23,20 @@ type FormState =
 export async function addMenu(state: FormState, formData: FormData) {
   console.log("formData", formData);
 
+  const loggedInUser = await getUserBySession();
+  console.log("loggedInUser", loggedInUser);
+
+  if (loggedInUser === null || loggedInUser.restaurantId === null) {
+    return {message: "Not logged in"};
+  }
+
   const insertedMenu = await prisma.menu.create({
     data: {
       name: (formData.get("name") as string) || "Menu",
 
       toppings: (formData.get("toppings") as string).split(",") || [],
       price: formData.get("price") as string,
-      restaurantId: "7886be99-0d86-4a46-8fea-e87a7ec66482"
+      restaurantId: loggedInUser.restaurantId,
     },
   });
   console.log("insertedUser", insertedMenu);

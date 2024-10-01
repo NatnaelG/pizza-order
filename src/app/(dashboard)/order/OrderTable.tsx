@@ -5,6 +5,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import {
   MRT_ColumnFiltersState,
   MRT_FilterOption,
+  MRT_Row,
   MaterialReactTable,
   useMaterialReactTable,
   type MRT_ColumnDef,
@@ -87,7 +88,13 @@ const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
             },
           },
         },
-        Cell: ({ renderedCellValue, row }) => (
+        Cell: ({
+          renderedCellValue,
+          row,
+        }: {
+          renderedCellValue: React.ReactNode;
+          row: MRT_Row<Order & { menuName: string; customerNo: string }>;
+        }) => (
           <Stack key={row.original.id} direction={"row"} spacing={1}>
             <Box
               sx={{
@@ -120,7 +127,13 @@ const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
             },
           },
         },
-        Cell: ({ renderedCellValue, row }) => (
+        Cell: ({
+          renderedCellValue,
+          row,
+        }: {
+          renderedCellValue: React.ReactNode;
+          row: MRT_Row<Order & { menuName: string; customerNo: string }>;
+        }) => (
           // console.log("renderedCellValue", renderedCellValue);
           <Stack
             key={row.original.id}
@@ -176,7 +189,11 @@ const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
             },
           },
         },
-        Cell: ({ row }) => (
+        Cell: ({
+          row,
+        }: {
+          row: MRT_Row<Order & { menuName: string; customerNo: string }>;
+        }) => (
           // console.log("renderedCellValue", renderedCellValue);
           <Typography key={row.original.id}>
             {moment(row.original.createdAt).format("h:mm A MM/DD/YY")}
@@ -195,7 +212,13 @@ const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
             },
           },
         },
-        Cell: ({ renderedCellValue, row }) => (
+        Cell: ({
+          renderedCellValue,
+          row,
+        }: {
+          renderedCellValue: React.ReactNode;
+          row: MRT_Row<Order & { menuName: string; customerNo: string }>;
+        }) => (
           <Stack
             key={row.original.id}
             direction={"row"}

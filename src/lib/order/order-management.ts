@@ -1,5 +1,6 @@
 "use server";
 
+import { getUserBySession } from "../actions";
 // import { z } from "zod";
 import prisma from "../db";
 // import { FormState } from "../actions";
@@ -13,8 +14,15 @@ export async function getOrders(
 ) {
   console.log("Params", params, search);
   // let query = params !== null && params?.length > 0 ? { ["where"]: {} } : {};
+  
+  const loggedInUser = await getUserBySession();
+  
+  if (loggedInUser === null) {
+    return "Not logged in";
+  }
+  
   const query = { where: {} };
-
+  
   params?.map((param) => {
     if (query.where !== undefined) {
       if (param.id === "menuName") {
@@ -35,7 +43,9 @@ export async function getOrders(
       } else if (param.id === "customerNo") {
         query.where = {
           ...query.where,
-          customer: { ["phoneNumber"]: { contains: param.value, mode: "insensitive" } },
+          customer: {
+            ["phoneNumber"]: { contains: param.value, mode: "insensitive" },
+          },
         };
         // query.where["owner"][param.id] = { contains: param.value, mode: 'insensitive', };
       } else {
@@ -75,9 +85,34 @@ export async function getOrders(
     // search: search,
     // },
   }
+
+  query.where = {
+    ...query.where,
+    Menu: {
+      Restaurant: {
+        admins: {
+          some: {
+            id: loggedInUser.id,
+          },
+        },
+      },
+    },
+  };
+
   console.log("Params", JSON.stringify(query));
   try {
     return await prisma.order.findMany({
+      // where: {
+      //   Menu: {
+      //     Restaurant: {
+      //       admins: {
+      //         some: {
+      //           id: loggedInUser.id,
+      //         },
+      //       },
+      //     },
+      //   },
+      // },
       ...query,
       orderBy: [
         {

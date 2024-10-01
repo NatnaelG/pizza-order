@@ -1,3 +1,4 @@
+import React from "react";
 import { Suspense } from "react";
 import OrderTable from "./OrderTable";
 import { getOrders } from "@/lib/order/order-management";
