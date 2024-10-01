@@ -28,6 +28,7 @@ export async function addMenu(state: FormState, formData: FormData) {
 
       toppings: (formData.get("toppings") as string).split(",") || [],
       price: formData.get("price") as string,
+      restaurantId: "7886be99-0d86-4a46-8fea-e87a7ec66482"
     },
   });
   console.log("insertedUser", insertedMenu);
