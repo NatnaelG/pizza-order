@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import {
+  Box,
   Button,
   FormControlLabel,
   Stack,
@@ -55,12 +56,10 @@ const UserTable = ({
   }[];
   loggedUser: (User & { Role: Role }) | null;
 }) => {
-
   const ability = useAbilityContext();
 
-
   const { can, rules } = new AbilityBuilder(Ability);
-  
+
   loggedUser?.Role.permissions.map((permission) => {
     const [caslAction, caslModel] = permission.split(" | ");
     can(caslAction, caslModel);
@@ -68,7 +67,6 @@ const UserTable = ({
   });
 
   ability.update(rules);
-  
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -266,16 +264,18 @@ const UserTable = ({
       showSkeletons: users.length === 0 && isLoading,
     },
     renderTopToolbarCustomActions: () => (
-      <Can I={"add-user"} a={"user"}>
-        <Button
-          variant="contained"
-          size="small"
-          onClick={() => setOpenAddUserModal(true)}
-          sx={{ background: "#FF8100" }}
-        >
-          Add User
-        </Button>
-      </Can>
+      <Box>
+        <Can I={"add-user"} a={"user"}>
+          <Button
+            variant="contained"
+            size="small"
+            onClick={() => setOpenAddUserModal(true)}
+            sx={{ background: "#FF8100" }}
+          >
+            Add User
+          </Button>
+        </Can>
+      </Box>
     ),
     muiCircularProgressProps: {
       color: "secondary",
