@@ -7,9 +7,14 @@ import Carousel from "react-material-ui-carousel";
 import FeaturedPizzaImage from "@/public/featured.png";
 import FeaturedSecondPizzaImage from "@/public/featured2.png";
 import FeaturedThirdPizzaImage from "@/public/featured3.png";
+import { User } from "@/lib/actions";
+import { Ability, AbilityBuilder } from "@casl/ability";
+import { useAbilityContext } from "@/lib/AbilityContext";
 
-export default function FeaturedPizzaWrapper() {
+export default function FeaturedPizzaWrapper({ user }: { user: User | null }) {
   const hasWindow = typeof window !== "undefined";
+
+  const ability = useAbilityContext();
 
   const getWindowDimensions = React.useCallback(() => {
     const width = hasWindow ? window.innerWidth : 0;
@@ -25,6 +30,12 @@ export default function FeaturedPizzaWrapper() {
   );
 
   // const [mounted, SetMounted] = React.useState("false");
+
+  console.log("user", user);
+  const { can, rules } = new AbilityBuilder(Ability);
+  can('read', 'all');
+  can('add-user', 'user');
+  ability.update(rules);
 
   React.useEffect(() => {
     function handleResize() {

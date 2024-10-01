@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { AbilityWrapper } from "@/lib/AbilityContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,9 +30,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-        <SpeedInsights />
-        <Analytics />
+        <AbilityWrapper>
+          {children}
+          <SpeedInsights />
+          <Analytics />
+        </AbilityWrapper>
       </body>
     </html>
   );

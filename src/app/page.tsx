@@ -10,8 +10,10 @@ import Popular from "@/components/Popular";
 import TopRestaurants from "@/components/TopRestaurant";
 import { Box } from "@mui/material";
 import HeaderNav from "@/components/HeaderNav";
+import { getUserBySession } from "@/lib/actions";
 
-export default function Home() {
+export default async function Home() {
+  const user = await getUserBySession();
   return (
     <>
       <Box p={3} sx={{
@@ -21,7 +23,7 @@ export default function Home() {
         <Hero />
       </Box>
       <Box p={3}>
-        <FeaturedPizzaWrapper />
+        <FeaturedPizzaWrapper user={user} />
       </Box>
       <Box p={3} sx={{
           background: "linear-gradient(to bottom, #FA7E0000, #FA7E0033, #944A0000)",

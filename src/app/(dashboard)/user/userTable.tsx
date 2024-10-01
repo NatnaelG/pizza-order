@@ -20,6 +20,7 @@ import AddUserModal from "@/components/user/AdduserModal";
 import { updateUserStatus } from "@/lib/user/user-management";
 
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { Can } from "@/lib/AbilityContext";
 
 type User = {
   id: string;
@@ -106,7 +107,12 @@ const UserTable = ({
           },
         },
         Cell: ({ renderedCellValue, row }) => (
-          <Stack direction={"row"} spacing={2} alignItems={"center"} justifyContent={"center"}>
+          <Stack
+            direction={"row"}
+            spacing={2}
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
             <FormControlLabel
               sx={{
                 background:
@@ -192,10 +198,7 @@ const UserTable = ({
     //   // const filteredData = await fetch();
     // };
 
-    console.log(
-      "in the effect columnFilter",
-      JSON.stringify(columnFilters)
-    );
+    console.log("in the effect columnFilter", JSON.stringify(columnFilters));
 
     const params = new URLSearchParams(searchParams);
     if (globalFilter) {
@@ -244,14 +247,16 @@ const UserTable = ({
       showSkeletons: users.length === 0 && isLoading,
     },
     renderTopToolbarCustomActions: () => (
-      <Button
-        variant="contained"
-        size="small"
-        onClick={() => setOpenAddUserModal(true)}
-        sx={{ background: "#FF8100" }}
-      >
-        Add User
-      </Button>
+      <Can do="add-user" on={"user"}>
+        <Button
+          variant="contained"
+          size="small"
+          onClick={() => setOpenAddUserModal(true)}
+          sx={{ background: "#FF8100" }}
+        >
+          Add User
+        </Button>
+      </Can>
     ),
     muiCircularProgressProps: {
       color: "secondary",
