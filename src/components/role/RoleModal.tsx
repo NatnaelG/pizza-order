@@ -1,5 +1,4 @@
 import * as React from "react";
-import { adduser } from "@/lib/user/user-management";
 import {
   Button,
   Checkbox,
@@ -14,6 +13,8 @@ import {
   Typography,
 } from "@mui/material";
 import { useFormState, useFormStatus } from "react-dom";
+import Grid from "@mui/material/Grid2";
+import { addRole } from "@/lib/role/role-management";
 
 type SubmitButtonProps = {
   label: string;
@@ -54,13 +55,37 @@ export default function RoleModal({
   };
   handleClose: () => void;
 }) {
-  const Status = useFormState(adduser, undefined);
+  const Status = useFormState(addRole, undefined);
   const [state, formAction] = Status;
 
   const [permissions, setPermissions] = React.useState<string[]>(
     roleDialog.role?.permissions || []
   );
-  console.log("to use setPermissions", setPermissions, roleDialog.role?.permissions,permissions);
+
+  const [updatedPermissions, setUpdatedPermissions] = React.useState<string[]>(
+    roleDialog.role?.permissions || []
+  );
+
+  const handleCheckboxChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    permission: string
+  ) => {
+    if (e.target.checked) {
+      setUpdatedPermissions((prev) => [...prev, permission]);
+    } else {
+      setUpdatedPermissions((prev) =>
+        prev.filter((prevPermission) => prevPermission !== permission)
+      );
+    }
+  };
+
+  console.log(
+    "to use setPermissions",
+    // setPermissions,
+    // roleDialog.role?.permissions,
+    permissions,
+    updatedPermissions
+  );
   React.useEffect(() => {
     if (state?.message === "success") {
       handleClose();
@@ -106,7 +131,7 @@ export default function RoleModal({
           variant="outlined"
           defaultValue={roleDialog.role?.name || ""}
         />
-        {state?.errors?.name && (
+        {/* {state?.errors?.name && (
           <div>
             <p>Name must:</p>
             <ul>
@@ -115,7 +140,7 @@ export default function RoleModal({
               ))}
             </ul>
           </div>
-        )}
+        )} */}
 
         <Typography
           my={"10px"}
@@ -126,24 +151,69 @@ export default function RoleModal({
           Permissions
         </Typography>
 
+        <TextField
+          id="permissions"
+          name="permissions"
+          type="hidden"
+          value={updatedPermissions}
+          sx={{ display: "none" }}
+        />
+
+        <TextField
+          id="type"
+          name="type"
+          type="hidden"
+          value={roleDialog.type}
+          sx={{ display: "none" }}
+        />
+
         <FormGroup>
-          {permissions.map((permission, index) => (
-            <FormControlLabel
-              key={permission + " " + index}
-              control={<Checkbox defaultChecked />}
-              label={permission}
-            />
-          ))}
-          <FormControlLabel
-            control={<Checkbox />}
-            label={
-              <OutlinedInput
-                id="component-outlined"
-                // defaultValue=""
-                label="Permission"
+          <Grid container spacing={2}>
+            {permissions.map((permission, index) => (
+              <Grid key={permission + " " + index} size={{ xs: 6 }}>
+                <FormControlLabel
+                  key={permission + " " + index}
+                  control={
+                    <Checkbox
+                      // defaultChecked
+                      checked={updatedPermissions.includes(permission)}
+                      onChange={(e) => handleCheckboxChange(e, permission)}
+                      sx={{
+                        color: "#FF8100 !important",
+                      }}
+                    />
+                  }
+                  label={permission}
+                />
+              </Grid>
+            ))}
+            <Grid size={{ xs: 6 }}>
+              <FormControlLabel
+                control={<Checkbox />}
+                label={
+                  <OutlinedInput
+                    id="component-outlined"
+                    // defaultValue=""
+                    label="Permission"
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") {
+                        event.preventDefault();
+                        const newPermission = (event.target as HTMLInputElement)
+                          .value;
+                        setPermissions((prev) => [...prev, newPermission]);
+                        setUpdatedPermissions((prev) => [
+                          ...prev,
+                          newPermission,
+                        ]);
+
+                        (event.target as HTMLInputElement).value = "";
+                      }
+                    }}
+                  />
+                }
               />
-            }
-          />
+            </Grid>
+          </Grid>
         </FormGroup>
       </DialogContent>
       <DialogActions>

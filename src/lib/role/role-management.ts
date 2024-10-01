@@ -2,10 +2,22 @@
 
 // import { z } from "zod";
 import prisma from "../db";
-// import { FormState } from "../actions";
-// import bcrypt from "bcrypt";
 
 import { revalidatePath } from "next/cache";
+
+type FormState =
+  | {
+      errors?: {
+        name?: string[];
+        // email?: string[];
+        // password?: string[];
+        // confirmPassword?: string[];
+        // location?: string[];
+        // phoneNumber?: string[];
+      };
+      message?: string;
+    }
+  | undefined;
 
 export async function getRoles(
   search: string,
@@ -79,69 +91,60 @@ export async function getRoles(
   }
 }
 
-// export async function adduser(state: FormState, formData: FormData) {
-//   console.log("formData", formData);
-//   const validatedFields = await z
-//     .object({
-//       email: z
-//         .string()
-//         .email()
-//         .refine(async (current) => {
-//           const count = await prisma.user.count({
-//             where: {
-//               email: current,
-//             },
-//           });
+export async function addRole(state: FormState, formData: FormData) {
+  console.log("formData", formData);
+  // const validatedFields = await z
+  // .object({
+  //   email: z
+  //     .string()
+  //     .email()
+  //     .refine(async (current) => {
+  //       const count = await prisma.user.count({
+  //         where: {
+  //           email: current,
+  //         },
+  //       });
 
-//           return count < 1;
-//         }, "Email has been taken"),
-//       password: z.string().min(6),
-//       // confirmPassword: z.string().min(6),
-//       location: z.string(),
-//       phoneNumber: z.string().min(9),
-//       name: z.string(),
-//       role: z.string(),
-//     })
-//     .safeParseAsync({
-//       name: formData.get("name") || undefined,
-//       email: formData.get("email"),
-//       password: formData.get("password"),
-//       // confirmPassword: formData.get("confirmPassword") || undefined,
-//       location: formData.get("location") || undefined,
-//       phoneNumber: formData.get("phoneNumber") || undefined,
-//       role: formData.get("role") || undefined,
-//       // isAdmin: formData.get("isAdmin") || undefined,
-//     });
+  //       return count < 1;
+  //     }, "Email has been taken"),
+  //   password: z.string().min(6),
+  //   // confirmPassword: z.string().min(6),
+  //   location: z.string(),
+  //   phoneNumber: z.string().min(9),
+  //   name: z.string(),
+  //   role: z.string(),
+  // })
+  // .safeParseAsync({
+  //   name: formData.get("name") || undefined,
+  //   email: formData.get("email"),
+  //   password: formData.get("password"),
+  //   // confirmPassword: formData.get("confirmPassword") || undefined,
+  //   location: formData.get("location") || undefined,
+  //   phoneNumber: formData.get("phoneNumber") || undefined,
+  //   role: formData.get("role") || undefined,
+  //   // isAdmin: formData.get("isAdmin") || undefined,
+  // });
 
-//   // If any form fields are invalid, return early
-//   if (!validatedFields.success) {
-//     return {
-//       errors: validatedFields.error.flatten().fieldErrors,
-//     };
-//   }
+  // If any form fields are invalid, return early
+  // if (!validatedFields.success) {
+  //   return {
+  //     errors: validatedFields.error.flatten().fieldErrors,
+  //   };
+  // }
 
-//   const { email, password, name, location, phoneNumber, role } =
-//     validatedFields.data;
-
-//   const hashedPassword = await bcrypt.hash(password, 10);
-//   const insertedUser = await prisma.user.create({
-//     data: {
-//       email: email,
-//       location: location,
-//       name: name,
-//       password: hashedPassword,
-//       phoneNumber: phoneNumber,
-//       isAdmin: role === "Super Admin",
-//       role: role,
-//       status: "ACTIVE",
-//       // needs to be checked
-//       roleId: "d636f2fe-8430-4160-9e7a-00956c52a692"
-//     },
-//   });
-//   console.log("insertedUser", insertedUser);
-//   revalidatePath("/user");
-//   return { message: "success" };
-// }
+  // const { email, password, name, location, phoneNumber, role } =
+  //   validatedFields.data;
+  console.log("JSON.parse(formData.get()", (formData.get("permissions") as string).split(","))
+  const insertedRole = await prisma.role.create({
+    data: {
+      name: formData.get("name") as string || "Role",
+      permissions: (formData.get("permissions") as string).split(",") || [],
+    },
+  });
+  console.log("insertedUser", insertedRole);
+  revalidatePath("/role");
+  return { message: "success" };
+}
 
 export async function updateRoleStatus(
   id: string,
