@@ -98,7 +98,14 @@ export async function adduser(state: FormState, formData: FormData) {
       password: z.string().min(6),
       // confirmPassword: z.string().min(6),
       location: z.string(),
-      phoneNumber: z.string().min(9),
+      phoneNumber: z
+        .string()
+        .min(9)
+        .max(10)
+        .regex(
+          /^0?(9|7)[0-9]{8}$/,
+          "Phone number must have to be local number - either ethio telecom or safaricom"
+        ),
       name: z.string(),
       role: z.string(),
     })
@@ -135,7 +142,7 @@ export async function adduser(state: FormState, formData: FormData) {
       role: role,
       status: "ACTIVE",
       // needs to be checked
-      roleId: "d636f2fe-8430-4160-9e7a-00956c52a692"
+      roleId: "d636f2fe-8430-4160-9e7a-00956c52a692",
     },
   });
   console.log("insertedUser", insertedUser);

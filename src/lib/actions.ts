@@ -55,22 +55,50 @@ export type FormState =
 export async function authenticate(state: FormState, formData: FormData) {
   console.log("HI what's up", formData);
   // Validate form fields
-  const validatedFields = z
+  const validatedFields = await z
     .object({
-      email: z.string().email(),
+      email: z
+        .string()
+        .email()
+        .refine(async (current) => {
+          if (formData.get("type") !== "Sign Up") {
+            return true;
+          }
+          const count = await prisma.user.count({
+            where: {
+              email: current,
+            },
+          });
+
+          return count < 1;
+        }, "Email has been taken"),
       password: z.string().min(6),
       confirmPassword: z.string().min(6).optional(),
       location: z.string().optional(),
-      phoneNumber: z.string().min(9).optional(),
+      phoneNumber: z
+        .string()
+        .min(9)
+        .max(10)
+        .regex(
+          /^0?(9|7)[0-9]{8}$/,
+          "Phone number must have to be local number - either ethio telecom or safaricom"
+        )
+        .optional(),
       name: z.string().optional(),
+      restaurantName: z.string().optional(),
     })
-    .safeParse({
+    .refine((data) => formData.get("type") !== "Sign Up" || data.password === data.confirmPassword, {
+      message: "Passwords don't match",
+      path: ["confirmPassword"],
+    })
+    .safeParseAsync({
       name: formData.get("name") || undefined,
       email: formData.get("email"),
       password: formData.get("password"),
       confirmPassword: formData.get("confirmPassword") || undefined,
       location: formData.get("location") || undefined,
       phoneNumber: formData.get("phoneNumber") || undefined,
+      restaurantName: formData.get("restaurantName") || undefined,
       // isAdmin: formData.get("isAdmin") || undefined,
     });
 
@@ -89,6 +117,7 @@ export async function authenticate(state: FormState, formData: FormData) {
     name = "",
     location = "",
     phoneNumber = "",
+    restaurantName = "",
   } = validatedFields.data;
 
   if (formData.get("type") === "Sign Up") {
@@ -99,6 +128,27 @@ export async function authenticate(state: FormState, formData: FormData) {
     //   VALUES (${name}, ${email}, ${hashedPassword}, ${location}, ${phoneNumber})
     //   ON CONFLICT (id) DO NOTHING;
     // `;
+
+    const role = await prisma.role.findFirst({
+      where: {
+        name: formData.get("restaurant") === "on" ? "Super Admin" : "User",
+      },
+    });
+
+    if (role === null) {
+      return { message: "Error: Super Admin role not found!" };
+    }
+
+    let insertedRestaurant = null;
+    if (formData.get("restaurant") === "on") {
+      insertedRestaurant = await prisma.restaurant.create({
+        data: {
+          name: restaurantName,
+          // admins: insertedUser.id,
+        },
+      });
+    }
+
     const insertedUser = await prisma.user.create({
       data: {
         email: email,
@@ -109,9 +159,11 @@ export async function authenticate(state: FormState, formData: FormData) {
         isAdmin: formData.get("isAdmin") === "on",
         role: formData.get("isAdmin") === "on" ? "Admin" : "Owner",
         // Needs to be corrected
-        roleId: "d636f2fe-8430-4160-9e7a-00956c52a692"
+        roleId: role.id,
+        restaurantId: insertedRestaurant?.id || null,
       },
     });
+
     console.log("insertedUser", insertedUser);
   }
 
@@ -153,8 +205,8 @@ export async function getUserBySession() {
       id: session.id,
     },
     include: {
-      Role: true
-    }
+      Role: true,
+    },
   });
 
   return user || null;
@@ -253,7 +305,7 @@ export async function getBooks(
     ...query,
     orderBy: [
       {
-        createdAt: 'desc',
+        createdAt: "desc",
       },
     ],
     include: {
@@ -273,17 +325,16 @@ export async function updateBook(
 ) {
   console.log("valuesOfBook", values);
   try {
-    const updatedBook = await prisma.book
-      .update({
-        where: {
-          id: id,
-        },
-        data: {
-          ...values,
-        },
-      });
-      // .then((res) => res)
-      // .catch((err) => err);
+    const updatedBook = await prisma.book.update({
+      where: {
+        id: id,
+      },
+      data: {
+        ...values,
+      },
+    });
+    // .then((res) => res)
+    // .catch((err) => err);
     console.log("updatedBook", updatedBook);
 
     return updatedBook;

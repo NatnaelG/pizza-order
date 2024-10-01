@@ -1,8 +1,9 @@
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import React from "react";
+import { Box, Paper, Stack } from "@mui/material";
 // import Grid from "@mui/material/Unstable_Grid2";
 import Grid from "@mui/material/Grid2";
 import Image from "next/image";
-import LoginBook from "@/public/logo.png";
+import LoginPizza from "@/public/auth_pizza.png";
 import LoginOpenBook from "@/public/logo.png";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -14,18 +15,21 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         display={{ xs: "none", sm: "grid" }}
         sx={{
           height: "inherit",
-          ">img": {
-            width: "100%",
-            height: "inherit",
-          },
+          background: "#FF9921",
+          justifyContent: "center",
+          alignItems: "center",
+          // ">img": {
+          //   width: "305px",
+          //   height: "300px",
+          // },
         }}
       >
         <Image
-          src={LoginBook}
-          alt="Login Book"
+          src={LoginPizza}
+          alt="Login Pizza"
           // className={styles.vercelLogo}
-        //   width={720}
-          // height={1024}
+            width={305}
+          height={300}
           priority
         />
       </Grid>
@@ -49,11 +53,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 src={LoginOpenBook}
                 alt="Open Book"
                 // className={styles.vercelLogo}
-                width={60}
-                height={35}
+                width={133}
+                height={50}
                 priority
               />
-              <Typography variant="h4">Book Rent</Typography>
+              {/* <Typography variant="h4">Book Rent</Typography> */}
             </Stack>
             {children}
           </Box>

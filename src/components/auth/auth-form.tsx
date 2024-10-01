@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import {
   Box,
   Button,
@@ -16,7 +17,7 @@ import Link from "next/link";
 // import React, { useActionState } from "react";
 import { authenticate } from "@/lib/actions";
 
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 
 // const initialState = {
 //   email: '',
@@ -26,17 +27,48 @@ import { useFormState } from "react-dom";
 //   children: React.ReactNode;
 // }
 
+type SubmitButtonProps = {
+  label: string;
+  loading: React.ReactNode;
+};
+
+const SubmitButton = ({ label, loading }: SubmitButtonProps) => {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button
+      variant="contained"
+      disabled={pending}
+      sx={{
+        background: "#FF8100",
+        fontWeight: 500,
+        fontSize: "15px",
+        height: "42px",
+      }}
+      type="submit"
+    >
+      {pending ? loading : label}
+    </Button>
+  );
+};
+
 export default function AuthForm(prop: { type: "Login" | "Sign Up" }) {
   // const [errorMessage, formAction, isPending] = useActionState(
   //     authenticate,
   //     undefined
   // );
 
-  const [state, formAction, isPending] = useFormState(authenticate, undefined);
+  const [state, formAction] = useFormState(authenticate, undefined);
+
+  const [isRestaurantRegistration, setIsRestaurantRegistration] =
+    React.useState(false);
+
   return (
     <Box component="form" action={formAction}>
       <Stack spacing={1} pt={2} pb={5}>
-        <Typography variant="h4">{prop.type}</Typography>
+        <Typography sx={{ fontWeight: 400, fontSize: "24px" }}>
+          {prop.type}
+        </Typography>
         <Divider />
       </Stack>
 
@@ -45,26 +77,51 @@ export default function AuthForm(prop: { type: "Login" | "Sign Up" }) {
           <>
             <TextField
               id="name"
-              label="Name"
+              label={isRestaurantRegistration ? "Admin Name" : "Name"}
               name="name"
+              required
               // type="email"
               variant="outlined"
             />
-            {state?.errors?.name && <p>{state.errors.name}</p>}
+            {state?.errors?.name && (
+              <div>
+                <p>Name must:</p>
+                <ul>
+                  {state.errors.name.map((error) => (
+                    <li style={{ color: "#f00" }} key={error}>
+                      - {error}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </>
         )}
         <TextField
           id="email"
           label="Email address"
           name="email"
+          required
           type="email"
           variant="outlined"
         />
-        {state?.errors?.email && <p>{state.errors.email}</p>}
+        {state?.errors?.email && (
+          <div>
+            <p>Email must:</p>
+            <ul>
+              {state.errors.email.map((error) => (
+                <li style={{ color: "#f00" }} key={error}>
+                  - {error}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <TextField
           id="password"
           label="Password"
           name="password"
+          required
           type="password"
           autoComplete="current-password"
           variant="outlined"
@@ -74,7 +131,9 @@ export default function AuthForm(prop: { type: "Login" | "Sign Up" }) {
             <p>Password must:</p>
             <ul>
               {state.errors.password.map((error) => (
-                <li key={error}>- {error}</li>
+                <li style={{ color: "#f00" }} key={error}>
+                  - {error}
+                </li>
               ))}
             </ul>
           </div>
@@ -84,6 +143,7 @@ export default function AuthForm(prop: { type: "Login" | "Sign Up" }) {
           id="type"
           name="type"
           type="hidden"
+          required
           value={prop.type}
           sx={{ display: "none" }}
         />
@@ -94,30 +154,100 @@ export default function AuthForm(prop: { type: "Login" | "Sign Up" }) {
               id="confirmPassword"
               label="Confirm Password"
               name="confirmPassword"
+              required
               type="password"
               autoComplete="current-password"
               variant="outlined"
             />
-            <TextField
-              id="location"
-              label="Location"
-              name="location"
-              variant="outlined"
-            />
+            {state?.errors?.confirmPassword && (
+              <div>
+                <p>Confirm Password must:</p>
+                <ul>
+                  {state.errors.confirmPassword.map((error) => (
+                    <li style={{ color: "#f00" }} key={error}>
+                      - {error}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <TextField
               id="phoneNumber"
               label="Phone Number"
               name="phoneNumber"
+              required
               variant="outlined"
             />
+
+            {state?.errors?.phoneNumber && (
+              <div>
+                <p>Phone number must:</p>
+                <ul>
+                  {state.errors.phoneNumber.map((error) => (
+                    <li style={{ color: "#f00" }} key={error}>
+                      - {error}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {isRestaurantRegistration && (
+              <TextField
+                id="restaurantName"
+                label="Restaurant Name"
+                name="restaurantName"
+                required
+                variant="outlined"
+              />
+            )}
+
+            {state?.errors?.restaurantName && (
+              <div>
+                <p>Restaurant Name must:</p>
+                <ul>
+                  {state.errors.restaurantName.map((error) => (
+                    <li style={{ color: "#f00" }} key={error}>
+                      - {error}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <TextField
+              id="location"
+              label="Location"
+              name="location"
+              required
+              variant="outlined"
+            />
+
+            {state?.errors?.location && (
+              <div>
+                <p>Location must:</p>
+                <ul>
+                  {state.errors.location.map((error) => (
+                    <li style={{ color: "#f00" }} key={error}>
+                      - {error}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </>
         )}
 
         {prop.type !== "Login" && (
           <FormGroup>
             <FormControlLabel
-              control={<Checkbox name="isAdmin" id="isAdmin" />}
-              label={"Admin"}
+              control={<Checkbox name="restaurant" id="restaurant" />}
+              label={"Restaurant"}
+              onChange={(e) =>
+                setIsRestaurantRegistration(
+                  (e as React.ChangeEvent<HTMLInputElement>).target.checked
+                )
+              }
             />
           </FormGroup>
         )}
@@ -133,14 +263,17 @@ export default function AuthForm(prop: { type: "Login" | "Sign Up" }) {
           />
         </FormGroup>
 
-        <Button variant="contained" disabled={isPending} type="submit">
-          {isPending ? "Submitting..." : prop.type}
-        </Button>
+        <SubmitButton label={prop.type} loading="Submitting ..." />
+
         {prop.type === "Login" ? (
           <>
             <Typography
               textAlign={"center"}
-              sx={{ ">a": { textDecoration: "none" } }}
+              sx={{
+                ">a": { textDecoration: "none", color: "#FF8100" },
+                fontWeight: 400,
+                fontSize: "16px",
+              }}
             >
               Have no account? <Link href={"register"}>Sign up</Link>
             </Typography>
@@ -149,7 +282,11 @@ export default function AuthForm(prop: { type: "Login" | "Sign Up" }) {
           <>
             <Typography
               textAlign={"center"}
-              sx={{ ">a": { textDecoration: "none" } }}
+              sx={{
+                ">a": { textDecoration: "none", color: "#FF8100" },
+                fontWeight: 400,
+                fontSize: "16px",
+              }}
             >
               Already have an account <Link href={"login"}>Login</Link>
             </Typography>
