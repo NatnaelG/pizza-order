@@ -93,51 +93,26 @@ export async function getRoles(
 
 export async function addRole(state: FormState, formData: FormData) {
   console.log("formData", formData);
-  // const validatedFields = await z
-  // .object({
-  //   email: z
-  //     .string()
-  //     .email()
-  //     .refine(async (current) => {
-  //       const count = await prisma.user.count({
-  //         where: {
-  //           email: current,
-  //         },
-  //       });
 
-  //       return count < 1;
-  //     }, "Email has been taken"),
-  //   password: z.string().min(6),
-  //   // confirmPassword: z.string().min(6),
-  //   location: z.string(),
-  //   phoneNumber: z.string().min(9),
-  //   name: z.string(),
-  //   role: z.string(),
-  // })
-  // .safeParseAsync({
-  //   name: formData.get("name") || undefined,
-  //   email: formData.get("email"),
-  //   password: formData.get("password"),
-  //   // confirmPassword: formData.get("confirmPassword") || undefined,
-  //   location: formData.get("location") || undefined,
-  //   phoneNumber: formData.get("phoneNumber") || undefined,
-  //   role: formData.get("role") || undefined,
-  //   // isAdmin: formData.get("isAdmin") || undefined,
-  // });
+  if (formData.get("type") === "update") {
+    if (formData.get("id") === null) {
+      return { message: "Id needed!" };
+    }
+    const updatedRole = await prisma.role.update({
+      where: { id: formData.get("id") as string },
+      data: {
+        name: (formData.get("name") as string) || "Role",
+        permissions: (formData.get("permissions") as string).split(",") || [],
+      },
+    });
+    console.log("insertedUser", updatedRole);
+    revalidatePath("/role");
+    return { message: "success" };
+  }
 
-  // If any form fields are invalid, return early
-  // if (!validatedFields.success) {
-  //   return {
-  //     errors: validatedFields.error.flatten().fieldErrors,
-  //   };
-  // }
-
-  // const { email, password, name, location, phoneNumber, role } =
-  //   validatedFields.data;
-  console.log("JSON.parse(formData.get()", (formData.get("permissions") as string).split(","))
   const insertedRole = await prisma.role.create({
     data: {
-      name: formData.get("name") as string || "Role",
+      name: (formData.get("name") as string) || "Role",
       permissions: (formData.get("permissions") as string).split(",") || [],
     },
   });

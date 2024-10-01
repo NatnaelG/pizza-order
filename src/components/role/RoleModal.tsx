@@ -167,6 +167,16 @@ export default function RoleModal({
           sx={{ display: "none" }}
         />
 
+        {roleDialog.type === "update" && (
+          <TextField
+            id="id"
+            name="id"
+            type="hidden"
+            value={roleDialog.role?.id}
+            sx={{ display: "none" }}
+          />
+        )}
+
         <FormGroup>
           <Grid container spacing={2}>
             {permissions.map((permission, index) => (
