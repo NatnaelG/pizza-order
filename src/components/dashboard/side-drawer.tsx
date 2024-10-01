@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 
 // import MenuIcon from "@mui/icons-material/Menu";
-import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import ListItems from "./list-items";
@@ -18,7 +18,10 @@ import ListItems from "./list-items";
 import { signout } from "@/lib/actions";
 
 import { usePathname } from "next/navigation";
+import { Badge, Stack } from "@mui/material";
 
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 interface Props {
   drawerWidth: number;
 }
@@ -81,12 +84,19 @@ export default function ResponsiveDrawer(props: Props) {
 
   const drawer = (
     <div>
-      <Toolbar sx={{color: "#000", justifyContent: "space-between", p: "0px !important", minHeight: "50px !important"}}>
+      <Toolbar
+        sx={{
+          color: "#000",
+          justifyContent: "space-between",
+          p: "0px !important",
+          minHeight: "50px !important",
+        }}
+      >
         <Typography
           variant="h6"
           noWrap
           component="div"
-          sx={{ fontWeight: 500, fontSize: "14px", }}
+          sx={{ fontWeight: 500, fontSize: "14px" }}
         >
           {"PIZZA"}
         </Typography>
@@ -158,27 +168,48 @@ export default function ResponsiveDrawer(props: Props) {
           mt: "0px",
           left: 0,
           boxShadow: "1px 1px 1px -1px",
-          pl: "10px !important"
+          pl: "10px !important",
         }}
       >
-        <Toolbar sx={{color: "#000", justifyContent: "space-between", p: "0px !important", minHeight: "50px !important"}}>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ display: { sm: "none" } }}
-          >
-            <MenuOpenIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ textTransform: "capitalize" }}
-          >
-            {pathname.slice(1).replace("-", " ")}
-          </Typography>
+        <Toolbar
+          sx={{
+            color: "#000",
+            justifyContent: "space-between",
+            p: "0px !important",
+            minHeight: "50px !important",
+          }}
+        >
+          <Box>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ display: { sm: "none" } }}
+            >
+              <MenuOpenIcon />
+            </IconButton>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{
+                textTransform: "capitalize",
+                fontWeight: 500,
+                fontSize: "22px",
+              }}
+            >
+              {pathname.slice(1).replace("-", " ")}
+            </Typography>
+          </Box>
+
+          <Stack spacing={5} pr={3} direction={"row"}>
+            <Badge badgeContent={1} color="primary">
+              <NotificationsNoneOutlinedIcon color="action" />
+            </Badge>
+
+            <AccountCircleOutlinedIcon color="action" />
+          </Stack>
         </Toolbar>
       </AppBar>
       <Box

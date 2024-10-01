@@ -1,11 +1,11 @@
 "use client";
 
-import { createContext, useContext } from "react";
+import React from "react";
 import { createContextualCan } from "@casl/react";
 // import defineAbilityFor from "./ability";
 import Ability from "./Ability";
 
-const AbilityContext = createContext(Ability);
+const AbilityContext = React.createContext(Ability);
 export const Can = createContextualCan(AbilityContext.Consumer);
 
 export const AbilityWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -17,5 +17,5 @@ export const AbilityWrapper = ({ children }: { children: React.ReactNode }) => {
 };
 
 export function useAbilityContext() {
-  return useContext(AbilityContext);
+  return React.useContext(AbilityContext);
 }
