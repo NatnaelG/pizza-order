@@ -3,6 +3,7 @@ import { getusers } from "@/lib/user/user-management";
 import UserTable from "./userTable";
 
 import { Suspense } from "react";
+import { getUserBySession } from "@/lib/actions";
 // import dynamic from 'next/dynamic'
 
 // const UserTable = dynamic(() => import('./userTable'), { ssr: false })
@@ -15,11 +16,15 @@ export default async function Users({
     filter?: string;
   };
 }) {
-
-  const search = searchParams?.search || '';
+  const search = searchParams?.search || "";
   const filter = JSON.parse(searchParams?.filter || "[]");
 
-  const users = await getusers(search, filter);
+  const usersData = getusers(search, filter);
+  const loggedUserData = getUserBySession();
+
+  // Initiate both requests in parallel
+  const [users, loggedUser] = await Promise.all([usersData, loggedUserData]);
+
   // console.log("users", users);
 
   return (
@@ -30,7 +35,10 @@ export default async function Users({
         "hi"
       ))} */}
       <Suspense fallback={<p>Loading ...</p>}>
-        <UserTable users={typeof users === "string" ? [] : users} />{" "}
+        <UserTable
+          users={typeof users === "string" ? [] : users}
+          loggedUser={loggedUser}
+        />{" "}
       </Suspense>
     </>
   );

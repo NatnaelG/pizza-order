@@ -20,7 +20,9 @@ import AddUserModal from "@/components/user/AdduserModal";
 import { updateUserStatus } from "@/lib/user/user-management";
 
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import { Can } from "@/lib/AbilityContext";
+import { Can, useAbilityContext } from "@/lib/AbilityContext";
+import { Role } from "@prisma/client";
+import { Ability, AbilityBuilder } from "@casl/ability";
 
 type User = {
   id: string;
@@ -37,6 +39,7 @@ type User = {
 
 const UserTable = ({
   users,
+  loggedUser,
 }: {
   users: {
     id: string;
@@ -50,7 +53,23 @@ const UserTable = ({
     updated_at: Date;
     created_at: Date;
   }[];
+  loggedUser: (User & { Role: Role }) | null;
 }) => {
+
+  const ability = useAbilityContext();
+
+
+  const { can, rules } = new AbilityBuilder(Ability);
+  
+  loggedUser?.Role.permissions.map((permission) => {
+    const [caslAction, caslModel] = permission.split(" | ");
+    can(caslAction, caslModel);
+    return permission;
+  });
+
+  ability.update(rules);
+  
+
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();

@@ -7,19 +7,10 @@ import Carousel from "react-material-ui-carousel";
 import FeaturedPizzaImage from "@/public/featured.png";
 import FeaturedSecondPizzaImage from "@/public/featured2.png";
 import FeaturedThirdPizzaImage from "@/public/featured3.png";
-import { User } from "@/lib/actions";
-import { Ability, AbilityBuilder } from "@casl/ability";
-import { useAbilityContext } from "@/lib/AbilityContext";
-import { Role } from "@prisma/client";
 
-export default function FeaturedPizzaWrapper({
-  user,
-}: {
-  user: (User & { Role: Role }) | null;
-}) {
+export default function FeaturedPizzaWrapper() {
   const hasWindow = typeof window !== "undefined";
 
-  const ability = useAbilityContext();
 
   const getWindowDimensions = React.useCallback(() => {
     const width = hasWindow ? window.innerWidth : 0;
@@ -36,22 +27,6 @@ export default function FeaturedPizzaWrapper({
 
   // const [mounted, SetMounted] = React.useState("false");
 
-
-
-  const { can, rules } = new AbilityBuilder(Ability);
-  // can("read", "all");
-  // can("add-user", "user");
-  // can(["read", "update"], ["Post", "Comment"]);
-  // can(...permissions)
-
-  user?.Role.permissions.map((permission) => {
-    const [caslAction, caslModel] = permission.split(" | ");
-    can(caslAction, caslModel);
-    return permission;
-  });
-
-  ability.update(rules);
-  
   React.useEffect(() => {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
