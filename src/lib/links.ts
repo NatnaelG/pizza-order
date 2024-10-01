@@ -1,12 +1,16 @@
 // import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import SpaceDashboardRoundedIcon from "@mui/icons-material/SpaceDashboardRounded";
+// import SpaceDashboardRoundedIcon from "@mui/icons-material/SpaceDashboardRounded";
 import MenuIcon from "@mui/icons-material/Menu";
 // import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 // import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 // import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import CollectionsBookmarkOutlinedIcon from '@mui/icons-material/CollectionsBookmarkOutlined';
+// import CollectionsBookmarkOutlinedIcon from '@mui/icons-material/CollectionsBookmarkOutlined';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+
+import TakeoutDiningIcon from '@mui/icons-material/TakeoutDining';
+import LocalPizzaIcon from '@mui/icons-material/LocalPizza';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Links = [
   // home
@@ -22,13 +26,13 @@ const Links = [
     name: "Orders",
     path: "/order",
     location: "upper",
-    icon: SpaceDashboardRoundedIcon,
+    icon: TakeoutDiningIcon,
   },
   {
     name: "Add menu",
     path: "/add-menu",
     location: "upper",
-    icon: CollectionsBookmarkOutlinedIcon,
+    icon: LocalPizzaIcon,
   },
   {
     name: "Role",
@@ -40,7 +44,7 @@ const Links = [
     name: "User",
     path: "/user",
     location: "upper",
-    icon: CollectionsBookmarkOutlinedIcon,
+    icon: AccountCircleIcon,
   },
   // {
   //   name: "Other",

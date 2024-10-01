@@ -4,7 +4,7 @@ import ResponsiveDrawer from "@/components/dashboard/side-drawer";
 import Toolbar from "@mui/material/Toolbar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const drawerWidth = 279;
+  const drawerWidth = 258;
   return (
     <Box height={"100%"} sx={{ display: "flex", background: "#fff" }}>
       <ResponsiveDrawer drawerWidth={drawerWidth} />

@@ -9,7 +9,8 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 
-import MenuIcon from "@mui/icons-material/Menu";
+// import MenuIcon from "@mui/icons-material/Menu";
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import ListItems from "./list-items";
@@ -80,7 +81,25 @@ export default function ResponsiveDrawer(props: Props) {
 
   const drawer = (
     <div>
-      {/* <Toolbar /> */}
+      <Toolbar sx={{color: "#000", justifyContent: "space-between", p: "0px !important", minHeight: "50px !important"}}>
+        <Typography
+          variant="h6"
+          noWrap
+          component="div"
+          sx={{ fontWeight: 500, fontSize: "14px", }}
+        >
+          {"PIZZA"}
+        </Typography>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={handleDrawerToggle}
+          // sx={{ display: { sm: "none" } }}
+        >
+          <MenuOpenIcon />
+        </IconButton>
+      </Toolbar>
       <List disablePadding>
         <ListItems location="home" />
       </List>
@@ -107,15 +126,15 @@ export default function ResponsiveDrawer(props: Props) {
           width: "100%",
         }}
       > */}
-        <List>
-          <form action={signout}>
-            <ListItems location="logout" />
-            {/* <button className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
+      <List>
+        <form action={signout}>
+          <ListItems location="logout" />
+          {/* <button className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
             <PowerIcon className="w-6" />
             <div className="hidden md:block">Sign Out</div>
           </button> */}
-          </form>
-        </List>
+        </form>
+      </List>
       {/* </Box> */}
     </div>
   );
@@ -128,15 +147,21 @@ export default function ResponsiveDrawer(props: Props) {
         position="fixed"
         color="transparent"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth + 50}px)` },
+          width: {
+            xs: `calc(100% - ${50}px)`,
+            sm: `calc(100% - ${drawerWidth + 50}px)`,
+          },
           ml: { sm: `${drawerWidth}px` },
           background: "#fff",
-          borderRadius: "10px",
-          mr: "25px",
-          mt: "10px",
+          borderRadius: "0px",
+          mr: "0px",
+          mt: "0px",
+          left: 0,
+          boxShadow: "1px 1px 1px -1px",
+          pl: "10px !important"
         }}
       >
-        <Toolbar>
+        <Toolbar sx={{color: "#000", justifyContent: "space-between", p: "0px !important", minHeight: "50px !important"}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -144,7 +169,7 @@ export default function ResponsiveDrawer(props: Props) {
             onClick={handleDrawerToggle}
             sx={{ display: { sm: "none" } }}
           >
-            <MenuIcon />
+            <MenuOpenIcon />
           </IconButton>
           <Typography
             variant="h6"
@@ -152,7 +177,7 @@ export default function ResponsiveDrawer(props: Props) {
             component="div"
             sx={{ textTransform: "capitalize" }}
           >
-            {pathname.slice(1)}
+            {pathname.slice(1).replace("-", " ")}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -203,10 +228,10 @@ export default function ResponsiveDrawer(props: Props) {
               boxSizing: "border-box",
               width: drawerWidth,
               //   background: "#171B36",
-              p: "10px",
+              p: "5px",
               color: "#fff",
-              m: "5px",
-              borderRadius: "10px",
+              // m: "5px",
+              // borderRadius: "10px",
               overflowX: "hidden",
               height: "-webkit-fill-available",
               "::-webkit-scrollbar-track": {

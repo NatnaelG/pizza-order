@@ -7,7 +7,7 @@ import Link from "next/link";
 import Links from "@/lib/links";
 
 import Image from "next/image";
-import PizzaSlice from "@/public/logo.png";
+import PizzaSlice from "@/public/emojione_pizza.png";
 
 import { usePathname } from "next/navigation";
 import { Button, Stack } from "@mui/material";
@@ -22,7 +22,7 @@ export default function ListItems({ location }: { location: string }) {
   // }
 
   // const ability = defineAbilityFor(user);
-
+  // console.log("location OHHHO", location)
   // console.log("pathName", pathname);
   return (
     <>
@@ -50,7 +50,7 @@ export default function ListItems({ location }: { location: string }) {
                         ? "#ffffff20"
                         : "transparent",
                     "&:hover": {
-                      backgroundColor: "#06344b",
+                      backgroundColor: "#b2947566",
                       // cursor: "pointer",
                       borderRadius: "8px",
                     },
@@ -85,27 +85,69 @@ export default function ListItems({ location }: { location: string }) {
                 </ListItemButton>
               </ListItem>
             </Button>
-          ) : (
+          ) : location === "home" ? (
             // ability.can("read", link.path) && (
-            <ListItem key={`${link.name}-${index}-others`} disablePadding>
+            <ListItem
+              key={`${link.name}-${index}-home`}
+              disablePadding
+              sx={{
+                height: "113px",
+                width: "100%",
+                background: "#FF81000D",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Link href={link.path} className={`link ${"home-link"}`}>
+                <ListItemButton
+                  // autoFocus={pathname === link.path}
+                  alignItems="center"
+                  sx={{
+                    justifyContent: "center",
+                  }}
+                >
+                  <Stack direction="row" alignItems={"center"}>
+                    <Image
+                      src={PizzaSlice}
+                      alt="Pizza Slice"
+                      // className={styles.vercelLogo}
+                      width={50}
+                      height={50}
+                      priority
+                    />
+                  </Stack>
+                </ListItemButton>
+              </Link>
+            </ListItem>
+          ) : (
+            // )
+            // ability.can("read", link.path) && (
+            <ListItem
+              key={`${link.name}-${index}-others`}
+              disablePadding
+              sx={{ width: "100%", my: 1 }}
+            >
               <Link
                 href={link.path}
                 className={`link ${
                   location === "home" ? "home-link" : "other-link"
                 }`}
+                style={{ width: "100%" }}
               >
                 <ListItemButton
                   // autoFocus={pathname === link.path}
                   alignItems="center"
                   sx={{
+                    width: "100%",
+                    pl: "40px",
                     background:
                       pathname === link.path
-                        ? "#00ABFF"
+                        ? "#FF810066"
                         : link.name === "Log Out"
                         ? "#ffffff20"
                         : "transparent",
                     "&:hover": {
-                      backgroundColor: "#06344b",
+                      backgroundColor: "#b2947566",
                       // cursor: "pointer",
                       borderRadius: "8px",
                     },
@@ -127,7 +169,7 @@ export default function ListItems({ location }: { location: string }) {
                     {location !== "home" && (
                       <ListItemIcon sx={{ minWidth: "35px" }}>
                         {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-                        <LinkIcon sx={{ color: "#000" }} />
+                        <LinkIcon sx={{ color: "#000000BF" }} />
                       </ListItemIcon>
                     )}
                     {location === "home" && (
@@ -151,7 +193,7 @@ export default function ListItems({ location }: { location: string }) {
                         }
                         sx={{
                           textDecoration: "none",
-                          color: "#000",
+                          color: "#000000BF",
                         }}
                       />
                     )}
