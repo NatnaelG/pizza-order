@@ -12,6 +12,7 @@ import {
 import {
   MRT_ColumnFiltersState,
   MRT_FilterOption,
+  MRT_Row,
   MaterialReactTable,
   useMaterialReactTable,
   type MRT_ColumnDef,
@@ -98,7 +99,18 @@ const RoleTable = ({
             },
           },
         },
-        Cell: ({ row }) => (
+        Cell: ({
+          row,
+        }: {
+          row: MRT_Row<{
+            name: string;
+            id: string;
+            permissions: string[];
+            status: string;
+            updated_at: Date;
+            created_at: Date;
+          }>;
+        }) => (
           // console.log("renderedCellValue", renderedCellValue);
           <Typography key={row.original.id}>
             {moment(row.original.created_at).format("MM/DD/YY")}
@@ -117,7 +129,20 @@ const RoleTable = ({
             },
           },
         },
-        Cell: ({ renderedCellValue, row }) => (
+        Cell: ({
+          renderedCellValue,
+          row,
+        }: {
+          renderedCellValue: React.ReactNode;
+          row: MRT_Row<{
+            name: string;
+            id: string;
+            permissions: string[];
+            status: string;
+            updated_at: Date;
+            created_at: Date;
+          }>;
+        }) => (
           <Stack
             direction={"row"}
             spacing={2}
@@ -311,7 +336,11 @@ const RoleTable = ({
   return (
     <>
       <MaterialReactTable table={table} />
-      <RoleModal key={JSON.stringify(roleDialog)} handleClose={handleClose} roleDialog={roleDialog} />
+      <RoleModal
+        key={JSON.stringify(roleDialog)}
+        handleClose={handleClose}
+        roleDialog={roleDialog}
+      />
     </>
   );
 };

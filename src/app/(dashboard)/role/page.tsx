@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import React from "react";
 import RoleTable from "./RoleTable";
 import { getRoles } from "@/lib/role/role-management";
 
@@ -18,9 +18,9 @@ export default async function Roles({
 
   return (
     <>
-      <Suspense fallback={<p>Loading ...</p>}>
+      <React.Suspense fallback={<p>Loading ...</p>}>
         <RoleTable roles={typeof roles === "string" ? [] : roles} />{" "}
-      </Suspense>
+      </React.Suspense>
     </>
   );
 }
