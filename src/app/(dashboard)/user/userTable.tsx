@@ -247,7 +247,7 @@ const UserTable = ({
       showSkeletons: users.length === 0 && isLoading,
     },
     renderTopToolbarCustomActions: () => (
-      <Can do="add-user" on={"user"}>
+      <Can I={"add-user"} a={"user"}>
         <Button
           variant="contained"
           size="small"

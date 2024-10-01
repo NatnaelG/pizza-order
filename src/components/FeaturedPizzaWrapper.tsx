@@ -10,8 +10,13 @@ import FeaturedThirdPizzaImage from "@/public/featured3.png";
 import { User } from "@/lib/actions";
 import { Ability, AbilityBuilder } from "@casl/ability";
 import { useAbilityContext } from "@/lib/AbilityContext";
+import { Role } from "@prisma/client";
 
-export default function FeaturedPizzaWrapper({ user }: { user: User | null }) {
+export default function FeaturedPizzaWrapper({
+  user,
+}: {
+  user: (User & { Role: Role }) | null;
+}) {
   const hasWindow = typeof window !== "undefined";
 
   const ability = useAbilityContext();
@@ -31,12 +36,22 @@ export default function FeaturedPizzaWrapper({ user }: { user: User | null }) {
 
   // const [mounted, SetMounted] = React.useState("false");
 
-  console.log("user", user);
-  const { can, rules } = new AbilityBuilder(Ability);
-  can('read', 'all');
-  can('add-user', 'user');
-  ability.update(rules);
 
+
+  const { can, rules } = new AbilityBuilder(Ability);
+  // can("read", "all");
+  // can("add-user", "user");
+  // can(["read", "update"], ["Post", "Comment"]);
+  // can(...permissions)
+
+  user?.Role.permissions.map((permission) => {
+    const [caslAction, caslModel] = permission.split(" | ");
+    can(caslAction, caslModel);
+    return permission;
+  });
+
+  ability.update(rules);
+  
   React.useEffect(() => {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());

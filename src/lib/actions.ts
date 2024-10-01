@@ -152,6 +152,9 @@ export async function getUserBySession() {
     where: {
       id: session.id,
     },
+    include: {
+      Role: true
+    }
   });
 
   return user || null;
