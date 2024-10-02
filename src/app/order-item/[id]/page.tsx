@@ -5,6 +5,7 @@ import { Box } from "@mui/material";
 
 import Grid from "@mui/material/Grid2";
 import { getMenu } from "@/lib/order-item/order-item-management";
+import OrderItemImages from "@/components/OrderItem/OrderItemImages";
 
 export default async function MenuItem({ params }: { params: { id: string } }) {
   const menu = await getMenu(params.id);
@@ -16,7 +17,9 @@ export default async function MenuItem({ params }: { params: { id: string } }) {
           <Grid
             //  key={permission + " " + index}
             size={{ xs: 12, lg: 6 }}
-          ></Grid>
+          >
+            <OrderItemImages />
+          </Grid>
 
           <Grid
             //  key={permission + " " + index}
