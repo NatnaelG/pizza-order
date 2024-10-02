@@ -18,7 +18,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Measurement Request",
+  title: "Pizza Order",
   description: "Order your Pizza here",
 };
 
