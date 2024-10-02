@@ -3,8 +3,13 @@ import React from "react";
 import Grid from "@mui/material/Grid2";
 // import PizzaCard from "./PizzaCard";
 import OrderHistoryPizza from "./OrderHistoryPizza";
+import { Menu, Order } from "@prisma/client";
 
-export default function OrderHistoryCards() {
+export default function OrderHistoryCards({
+  orders,
+}: {
+  orders: (Order & { Menu: Menu })[] | [];
+}) {
   return (
     <>
       {/* <Typography
@@ -14,14 +19,17 @@ export default function OrderHistoryCards() {
       </Typography> */}
 
       <Grid container spacing={3}>
-        <Grid
-          size={{ xs: 12, lg: 4 }}
-          display={"flex"}
-          justifyContent={"center"}
-        >
-          <OrderHistoryPizza />
-        </Grid>
-        <Grid
+        {orders.map((order) => (
+          <Grid
+            key={order.id}
+            size={{ xs: 12, lg: 4 }}
+            display={"flex"}
+            justifyContent={"center"}
+          >
+            <OrderHistoryPizza order={order} />
+          </Grid>
+        ))}
+        {/* <Grid
           size={{ xs: 12, lg: 4 }}
           display={"flex"}
           justifyContent={"center"}
@@ -56,7 +64,7 @@ export default function OrderHistoryCards() {
           justifyContent={"center"}
         >
           <OrderHistoryPizza />
-        </Grid>
+        </Grid> */}
       </Grid>
     </>
   );

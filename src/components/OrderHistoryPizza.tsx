@@ -1,14 +1,14 @@
 import React from "react";
-import {
-  Box,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import PizzaImage from "@/public/pizza.png";
+import { Menu, Order } from "@prisma/client";
 
-export default function OrderHistoryPizza() {
+export default function OrderHistoryPizza({
+  order,
+}: {
+  order: Order & { Menu: Menu };
+}) {
   return (
     <>
       <Stack
@@ -38,10 +38,11 @@ export default function OrderHistoryPizza() {
 
         <Stack width={"330px"} height={"175px"} spacing={1}>
           <Typography fontWeight={700} fontSize={"25px"} variant="h6">
-            Margherita
+            {order.Menu.name}
           </Typography>
           <Typography fontWeight={400} fontSize={"15px"} variant="subtitle2">
-            Tomato, Mozzarella, Bell Peppers, Onions, Olives
+            {/* Tomato, Mozzarella, Bell Peppers, Onions, Olives */}
+            {order.toppings.join(", ")}
           </Typography>
           <Stack
             height={"70px"}
@@ -55,7 +56,7 @@ export default function OrderHistoryPizza() {
                 fontSize={"45px"}
                 sx={{ color: "#01C550" }}
               >
-                150
+                {`${parseFloat(`${order.Menu.price}`) * order.quantity}`}
               </Typography>
               <Typography
                 fontWeight={400}
@@ -81,8 +82,9 @@ export default function OrderHistoryPizza() {
                 fontWeight={700}
                 fontSize={"35px"}
                 sx={{ lineHeight: 1 }}
+                textTransform={"capitalize"}
               >
-                Ordered
+                {order.status.toLocaleLowerCase()}
               </Typography>
             </Box>
           </Stack>

@@ -220,3 +220,27 @@ export async function updateOrderStatus(
   revalidatePath("/order");
   return updatedUser;
 }
+
+export async function getMyOrders() {
+  const loggedInUser = await getUserBySession();
+
+  if (loggedInUser === null) {
+    return "Not logged in";
+  }
+
+  try {
+    const orders = await prisma.order.findMany({
+      where: {
+        customerId: loggedInUser.id,
+      },
+      include: {
+        Menu: true,
+      },
+    });
+
+    return orders;
+  } catch (error) {
+    console.log("insertedBookError", error);
+    return "Something went wrong.";
+  }
+}

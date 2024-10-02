@@ -3,9 +3,17 @@ import { Box, Stack, Typography } from "@mui/material";
 import HeaderNav from "@/components/HeaderNav";
 import { getUserBySession } from "@/lib/actions";
 import OrderHistoryCards from "@/components/OrderHistoryCards";
+import { getMyOrders } from "@/lib/order/order-management";
 
 export default async function OrderHistory() {
-  const loggedUser = await getUserBySession();
+  const loggedUserData = getUserBySession();
+  const orderData = getMyOrders();
+
+  // Initiate both requests in parallel
+  const [loggedUser, orders] = await Promise.all([
+    loggedUserData,
+    orderData,
+  ]);
 
   return (
     <Stack>
@@ -26,7 +34,7 @@ export default async function OrderHistory() {
         </Typography>
 
         <Box p={3}>
-          <OrderHistoryCards />
+          <OrderHistoryCards orders={typeof orders === "string" || orders === null ? [] : orders} />
         </Box>
       </Box>
     </Stack>

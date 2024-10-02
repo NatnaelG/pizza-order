@@ -8,26 +8,20 @@ import prisma from "../db";
 
 // import { revalidatePath } from "next/cache";
 
-export async function getMenu(
-  id: string,
-) {
+export async function getMenu(id: string) {
+  try {
+    const menu = await prisma.menu.findFirst({
+      where: {
+        id: id,
+      },
+      include: {
+        Restaurant: true,
+      },
+    });
 
-    try {
-        const menu = await prisma.menu.findFirst({
-            where: {
-                id: id
-            },
-            include: {
-                Restaurant: true,
-            }
-        });
-
-        return menu;
-
-    } catch (error) {
-        console.log("insertedBookError", error);
-        return "Something went wrong."; 
-    }
-
-
+    return menu;
+  } catch (error) {
+    console.log("insertedBookError", error);
+    return "Something went wrong.";
+  }
 }
