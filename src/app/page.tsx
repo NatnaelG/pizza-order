@@ -12,9 +12,16 @@ import TopRestaurants from "@/components/TopRestaurant";
 import { Box } from "@mui/material";
 import HeaderNav from "@/components/HeaderNav";
 import { getUserBySession } from "@/lib/actions";
+import { getMenus } from "@/lib/menu/menu-management";
 
 export default async function Home() {
-  const loggedUser = await getUserBySession();
+  const menusData =   getMenus();
+  const loggedUserData = getUserBySession();
+
+  // Initiate both requests in parallel
+  const [menus, loggedUser] = await Promise.all([menusData, loggedUserData]);
+
+
   return (
     <>
       <Box
@@ -39,10 +46,10 @@ export default async function Home() {
         <TopRestaurants />
       </Box>
       <Box p={3}>
-        <Popular />
+        <Popular menus={typeof menus === "string" || menus === null  ? [] : menus} />
       </Box>
       <Box p={3}>
-        <Fasting />
+        <Fasting menus={typeof menus === "string" || menus === null ? [] : menus} />
       </Box>
       <Box pt={3}>
         <BottomNav />

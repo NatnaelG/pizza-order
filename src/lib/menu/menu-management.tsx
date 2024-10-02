@@ -27,7 +27,7 @@ export async function addMenu(state: FormState, formData: FormData) {
   console.log("loggedInUser", loggedInUser);
 
   if (loggedInUser === null || loggedInUser.restaurantId === null) {
-    return {message: "Not logged in"};
+    return { message: "Not logged in" };
   }
 
   const insertedMenu = await prisma.menu.create({
@@ -42,4 +42,22 @@ export async function addMenu(state: FormState, formData: FormData) {
   console.log("insertedUser", insertedMenu);
   //   revalidatePath("/role");
   return { message: "success" };
+}
+
+export async function getMenus() {
+  try {
+    return await prisma.menu.findMany({
+      orderBy: [
+        {
+          createdAt: "desc",
+        },
+      ],
+      include: {
+        Restaurant: true,
+      },
+    });
+  } catch (error) {
+    console.log("insertedBookError", error);
+    return "Something went wrong.";
+  }
 }

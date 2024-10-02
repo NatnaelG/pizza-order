@@ -2,8 +2,13 @@ import React from "react";
 import { Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import PizzaCard from "./PizzaCard";
+import { Menu, Restaurant } from "@prisma/client";
 
-export default function Popular() {
+export default function Popular({
+  menus,
+}: {
+  menus: (Menu & { Restaurant: Restaurant })[] | [];
+}) {
   return (
     <>
       <Typography
@@ -13,14 +18,17 @@ export default function Popular() {
       </Typography>
 
       <Grid container spacing={3}>
-        <Grid
-          size={{ xs: 12, lg: 4 }}
-          display={"flex"}
-          justifyContent={"center"}
-        >
-          <PizzaCard />
-        </Grid>
-        <Grid
+        {menus.map((menu) => (
+          <Grid
+            key={menu.id}
+            size={{ xs: 12, lg: 4 }}
+            display={"flex"}
+            justifyContent={"center"}
+          >
+            <PizzaCard menu={menu} />
+          </Grid>
+        ))}
+        {/* <Grid
           size={{ xs: 12, lg: 4 }}
           display={"flex"}
           justifyContent={"center"}
@@ -54,7 +62,7 @@ export default function Popular() {
           justifyContent={"center"}
         >
           <PizzaCard />
-        </Grid>
+        </Grid> */}
       </Grid>
     </>
   );

@@ -12,8 +12,13 @@ import Image from "next/image";
 import PizzaImage from "@/public/pizza.png";
 import DefaultAvatar from "@/public/defaultImage.jpeg";
 import Link from "next/link";
+import { Menu, Restaurant } from "@prisma/client";
 
-export default function PizzaCard() {
+export default function PizzaCard({
+  menu,
+}: {
+  menu: Menu & { Restaurant: Restaurant };
+}) {
   return (
     <>
       <Stack
@@ -43,10 +48,11 @@ export default function PizzaCard() {
 
         <Stack width={"330px"} height={"175px"} spacing={1}>
           <Typography fontWeight={700} fontSize={"25px"} variant="h6">
-            Margherita
+            {menu.name}
           </Typography>
           <Typography fontWeight={400} fontSize={"15px"} variant="subtitle2">
-            Tomato, Mozzarella, Bell Peppers, Onions, Olives
+            {/* Tomato, Mozzarella, Bell Peppers, Onions, Olives */}
+            {menu.toppings.join(", ")}
           </Typography>
           <Stack
             height={"70px"}
@@ -60,7 +66,7 @@ export default function PizzaCard() {
                 fontSize={"45px"}
                 sx={{ color: "#01C550" }}
               >
-                150
+                {`${menu.price}`}
               </Typography>
               <Typography
                 fontWeight={400}
@@ -70,19 +76,19 @@ export default function PizzaCard() {
                 Birr
               </Typography>
             </Stack>
-            <Link href={"order-item/361a4d39-054f-4a30-b511-c04ae981f146"}>
-            <Button
-              sx={{
-                width: "170px",
-                height: "66px",
-                p: "10px 20px",
-                borderRadius: "10px",
-                background: "#FF8100",
-              }}
-              variant={"contained"}
-            >
-              Order
-            </Button>
+            <Link href={`order-item/${menu.id}`}>
+              <Button
+                sx={{
+                  width: "170px",
+                  height: "66px",
+                  p: "10px 20px",
+                  borderRadius: "10px",
+                  background: "#FF8100",
+                }}
+                variant={"contained"}
+              >
+                Order
+              </Button>
             </Link>
           </Stack>
         </Stack>
@@ -114,7 +120,7 @@ export default function PizzaCard() {
               fontSize={"20px"}
               sx={{ color: "#000" }}
             >
-              Azmera Pizza
+              {menu.Restaurant.name}
             </Typography>
           </Stack>
           {/* </Avatar> */}
