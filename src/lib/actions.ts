@@ -168,6 +168,7 @@ export async function authenticate(state: FormState, formData: FormData) {
         phoneNumber: phoneNumber,
         isAdmin: formData.get("isAdmin") === "on",
         role: formData.get("isAdmin") === "on" ? "Admin" : "Owner",
+        status: "ACTIVE",
         // Needs to be corrected
         roleId: role.id,
         restaurantId: insertedRestaurant?.id || null,

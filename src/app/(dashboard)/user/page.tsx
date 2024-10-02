@@ -5,6 +5,7 @@ import UserTable from "./userTable";
 
 import { Suspense } from "react";
 import { getUserBySession } from "@/lib/actions";
+import { getRoles } from "@/lib/role/role-management";
 // import dynamic from 'next/dynamic'
 
 // const UserTable = dynamic(() => import('./userTable'), { ssr: false })
@@ -22,9 +23,10 @@ export default async function Users({
 
   const usersData = getusers(search, filter);
   const loggedUserData = getUserBySession();
+  const roleData = getRoles("", []);
 
   // Initiate both requests in parallel
-  const [users, loggedUser] = await Promise.all([usersData, loggedUserData]);
+  const [users, loggedUser, roles] = await Promise.all([usersData, loggedUserData, roleData]);
 
   // console.log("users", users);
 
@@ -39,6 +41,7 @@ export default async function Users({
         <UserTable
           users={typeof users === "string" ? [] : users}
           loggedUser={loggedUser}
+          roles={typeof roles === "string" ? [] : roles }
         />{" "}
       </Suspense>
     </>

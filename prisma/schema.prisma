@@ -39,13 +39,15 @@ model User {
 }
 
 model Role {
-  id          String   @id @default(uuid())
-  name        String
-  permissions String[]
-  status      String   @default("ACTIVE")
-  user        User[]
-  updated_at  DateTime @updatedAt @map("updated_at")
-  created_at  DateTime @default(now()) @map("created_at")
+  id           String     @id @default(uuid())
+  name         String
+  permissions  String[]
+  status       String     @default("ACTIVE")
+  user         User[]
+  updated_at   DateTime   @updatedAt @map("updated_at")
+  created_at   DateTime   @default(now()) @map("created_at")
+  Restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String
 
   @@map("roles")
 }
@@ -112,6 +114,7 @@ model Restaurant {
   id        String   @id @default(uuid())
   name      String
   menus     Menu[]
+  roles     Role[]
   admins    User[]
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")

@@ -8,6 +8,7 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
+  Typography,
 } from "@mui/material";
 import { useFormState, useFormStatus } from "react-dom";
 
@@ -35,13 +36,25 @@ const SubmitButton = ({ label, loading }: SubmitButtonProps) => {
 export default function AddUserModal({
   open,
   handleClose,
+  roles,
 }: {
   open: boolean;
   handleClose: () => void;
+  roles: {
+    id: string;
+    name: string;
+    status: string;
+    updated_at: Date;
+    created_at: Date;
+    permissions: string[];
+  }[];
 }) {
   const Status = useFormState(adduser, undefined);
   const [state, formAction] = Status;
 
+  const [inputValue, setInputValue] = React.useState("");
+
+  console.log("inputValue", inputValue);
   React.useEffect(() => {
     if (state?.message === "success") {
       handleClose();
@@ -161,14 +174,39 @@ export default function AddUserModal({
           </div>
         )}
 
-        <Autocomplete
-          disablePortal
-          options={["Admin", "User", "Super Admin"]}
-          sx={{ width: 300 }}
-          renderInput={(params) => (
-            <TextField {...params} name="role" id="role" label="Select Role" />
-          )}
+        <TextField
+          name="roleId"
+          id="roleId"
+          type="hidden"
+          value={inputValue}
+          label="Select Role"
         />
+
+        {roles.length > 0 ? (
+          <Autocomplete
+            disablePortal
+            // options={["Admin", "User", "Super Admin"]}
+            options={roles}
+            getOptionLabel={(option) => option.name}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+            sx={{ width: 300 }}
+            onChange={(event, newInputValue) => {
+              setInputValue(newInputValue?.id || "");
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                name="role"
+                id="role"
+                label="Select Role"
+              />
+            )}
+          />
+        ) : (
+          <Typography color="#f00">
+            Please first add roles to choose from
+          </Typography>
+        )}
         {state?.errors?.role && (
           <div>
             <p>Role must:</p>

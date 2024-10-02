@@ -1,5 +1,6 @@
 "use server";
 
+import { getUserBySession } from "../actions";
 // import { z } from "zod";
 import prisma from "../db";
 
@@ -25,6 +26,13 @@ export async function getRoles(
 ) {
   console.log("Params", params, search);
   // let query = params !== null && params?.length > 0 ? { ["where"]: {} } : {};
+
+  const loggedInUser = await getUserBySession();
+
+  if (loggedInUser === null || loggedInUser.restaurantId === null) {
+    return "Not logged in";
+  }
+
   const query = { where: {} };
 
   params?.map((param) => {
@@ -67,15 +75,37 @@ export async function getRoles(
         //   },
         // },
       ],
+      NOT: {
+        user: {
+          some: {
+            restaurantId: { not: loggedInUser.restaurantId },
+          },
+        },
+      },
     };
     // body: {
     // search: search,
     // },
   }
+
+  query.where = {
+    ...query.where,
+    user: {
+      some: {
+        restaurantId: loggedInUser.restaurantId,
+      },
+    },
+  };
+
   console.log("Params", JSON.stringify(query));
   try {
     return await prisma.role.findMany({
-      ...query,
+      // ...query,
+      where: {
+        Restaurant: {
+          id: loggedInUser.restaurantId,
+        },
+      },
       orderBy: [
         {
           created_at: "desc",
@@ -93,6 +123,11 @@ export async function getRoles(
 
 export async function addRole(state: FormState, formData: FormData) {
   console.log("formData", formData);
+  const loggedInUser = await getUserBySession();
+
+  if (loggedInUser === null || loggedInUser.restaurantId === null) {
+    return { message: "Not logged in" };
+  }
 
   if (formData.get("type") === "update") {
     if (formData.get("id") === null) {
@@ -114,6 +149,7 @@ export async function addRole(state: FormState, formData: FormData) {
     data: {
       name: (formData.get("name") as string) || "Role",
       permissions: (formData.get("permissions") as string).split(",") || [],
+      restaurantId: loggedInUser.restaurantId,
     },
   });
   console.log("insertedUser", insertedRole);

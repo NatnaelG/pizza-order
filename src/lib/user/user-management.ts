@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import prisma from "../db";
-import { FormState } from "../actions";
+import { FormState, getUserBySession } from "../actions";
 import bcrypt from "bcrypt";
 
 import { revalidatePath } from "next/cache";
@@ -13,6 +13,13 @@ export async function getusers(
 ) {
   console.log("Params", params, search);
   // let query = params !== null && params?.length > 0 ? { ["where"]: {} } : {};
+
+  const loggedInUser = await getUserBySession();
+
+  if (loggedInUser === null || loggedInUser.restaurantId === null) {
+    return "Not logged in";
+  }
+
   const query = { where: {} };
 
   params?.map((param) => {
@@ -55,11 +62,22 @@ export async function getusers(
           },
         },
       ],
+      NOT: {
+        restaurantId: {
+          not: loggedInUser.restaurantId,
+        },
+      },
     };
     // body: {
     // search: search,
     // },
   }
+
+  query.where = {
+    ...query.where,
+    restaurantId: loggedInUser.restaurantId,
+  };
+
   console.log("Params", JSON.stringify(query));
   try {
     return await prisma.user.findMany({
@@ -81,6 +99,12 @@ export async function getusers(
 
 export async function adduser(state: FormState, formData: FormData) {
   console.log("formData", formData);
+  const loggedInUser = await getUserBySession();
+
+  if (loggedInUser === null || loggedInUser.restaurantId === null) {
+    return { message: "Not logged in" };
+  }
+
   const validatedFields = await z
     .object({
       email: z
@@ -108,6 +132,7 @@ export async function adduser(state: FormState, formData: FormData) {
         ),
       name: z.string(),
       role: z.string(),
+      roleId: z.string(),
     })
     .safeParseAsync({
       name: formData.get("name") || undefined,
@@ -117,6 +142,7 @@ export async function adduser(state: FormState, formData: FormData) {
       location: formData.get("location") || undefined,
       phoneNumber: formData.get("phoneNumber") || undefined,
       role: formData.get("role") || undefined,
+      roleId: formData.get("roleId") || undefined,
       // isAdmin: formData.get("isAdmin") || undefined,
     });
 
@@ -127,7 +153,7 @@ export async function adduser(state: FormState, formData: FormData) {
     };
   }
 
-  const { email, password, name, location, phoneNumber, role } =
+  const { email, password, name, location, phoneNumber, role, roleId } =
     validatedFields.data;
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -142,7 +168,8 @@ export async function adduser(state: FormState, formData: FormData) {
       role: role,
       status: "ACTIVE",
       // needs to be checked
-      roleId: "d636f2fe-8430-4160-9e7a-00956c52a692",
+      restaurantId: loggedInUser.restaurantId,
+      roleId: roleId,
     },
   });
   console.log("insertedUser", insertedUser);

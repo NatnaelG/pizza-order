@@ -42,6 +42,7 @@ type User = {
 const UserTable = ({
   users,
   loggedUser,
+  roles,
 }: {
   users: {
     id: string;
@@ -56,6 +57,14 @@ const UserTable = ({
     created_at: Date;
   }[];
   loggedUser: (User & { Role: Role }) | null;
+  roles: {
+    id: string;
+    name: string;
+    status: string;
+    updated_at: Date;
+    created_at: Date;
+    permissions: string[];
+  }[];
 }) => {
   const ability = useAbilityContext();
 
@@ -300,7 +309,11 @@ const UserTable = ({
   return (
     <>
       <MaterialReactTable table={table} />
-      <AddUserModal handleClose={handleClose} open={openAddUserModal} />
+      <AddUserModal
+        handleClose={handleClose}
+        roles={roles}
+        open={openAddUserModal}
+      />
     </>
   );
 };
