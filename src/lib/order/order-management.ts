@@ -14,21 +14,44 @@ export async function getOrders(
 ) {
   console.log("Params", params, search);
   // let query = params !== null && params?.length > 0 ? { ["where"]: {} } : {};
-  
+
   const loggedInUser = await getUserBySession();
-  
+
   if (loggedInUser === null) {
     return "Not logged in";
   }
-  
+
   const query = { where: {} };
-  
+
+  let IsMenuFilterPresent = false;
+
   params?.map((param) => {
     if (query.where !== undefined) {
       if (param.id === "menuName") {
+        IsMenuFilterPresent = true;
         query.where = {
           ...query.where,
-          Menu: { ["name"]: { contains: param.value, mode: "insensitive" } },
+          AND: [
+            {
+              // Existing condition: user's restaurant's menu
+              Menu: {
+                Restaurant: {
+                  admins: {
+                    some: {
+                      id: loggedInUser.id,
+                    },
+                  },
+                },
+              },
+            },
+            {
+              // New condition: menu name
+
+              Menu: {
+                ["name"]: { contains: param.value, mode: "insensitive" },
+              },
+            },
+          ],
         };
         // query.where["owner"][param.id] = { contains: param.value, mode: 'insensitive', };
       } else if (param.id === "toppings") {
@@ -65,39 +88,56 @@ export async function getOrders(
       ...query.where,
       OR: [
         {
-          quantity: {
-            search: search,
+          status: {
+            contains: search,
+            mode: "insensitive",
           },
         },
         {
-          status: {
-            search: search,
+          Menu: {
+            name: { contains: search, mode: "insensitive" },
           },
         },
+
         // {
         //   name: {
         //     search: search,
         //   },
         // },
       ],
+      NOT: {
+        Menu: {
+          Restaurant: {
+            admins: {
+              some: {
+                id: {
+                  not: loggedInUser.id,
+                },
+              },
+            },
+          },
+        },
+      },
     };
     // body: {
     // search: search,
     // },
   }
 
-  query.where = {
-    ...query.where,
-    Menu: {
-      Restaurant: {
-        admins: {
-          some: {
-            id: loggedInUser.id,
+  if (!IsMenuFilterPresent && search.length === 0) {
+    query.where = {
+      ...query.where,
+      Menu: {
+        Restaurant: {
+          admins: {
+            some: {
+              id: loggedInUser.id,
+            },
           },
         },
       },
-    },
-  };
+    };
+  }
 
   console.log("Params", JSON.stringify(query));
   try {
