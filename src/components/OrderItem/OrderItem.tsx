@@ -20,12 +20,16 @@ import { Menu, Restaurant } from "@prisma/client";
 import { addOrder } from "@/lib/order/order-management";
 import Successmodal from "../add-menu/SuccessModal";
 
+import { useRouter } from "next/navigation";
+
 export default function OrderItem({
   menu,
 }: {
   menu: (Menu & { Restaurant: Restaurant }) | null;
 }) {
   // console.log("Menu Important check", menu);
+
+  const router = useRouter();
 
   const [updatedToppings, setUpdatedToppings] = React.useState<string[]>(
     menu?.toppings || []
@@ -178,6 +182,14 @@ export default function OrderItem({
               if (res.message === "success") {
                 setIsLoading(false);
                 setSuccessModalOpen(true);
+
+                setTimeout(
+                  (() => {
+                    router.push("/order-history");
+                    return "";
+                  })(),
+                  3000
+                );
               }
               return "Success";
             })

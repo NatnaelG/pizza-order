@@ -55,6 +55,7 @@ export async function getMenus() {
       include: {
         Restaurant: true,
       },
+      take: 6
     });
   } catch (error) {
     console.log("insertedBookError", error);

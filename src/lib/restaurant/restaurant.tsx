@@ -19,6 +19,7 @@ export async function getRestaurants() {
             }
           }
         },
+        take: 7
       });
     } catch (error) {
       console.log("insertedBookError", error);

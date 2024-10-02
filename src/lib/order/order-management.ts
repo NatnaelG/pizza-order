@@ -218,6 +218,7 @@ export async function updateOrderStatus(
   });
 
   revalidatePath("/order");
+  revalidatePath("/order-history");
   return updatedUser;
 }
 

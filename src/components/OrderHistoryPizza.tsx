@@ -72,7 +72,7 @@ export default function OrderHistoryPizza({
                 height: "66px",
                 //   p: "10px 20px",
                 borderRadius: "10px",
-                color: "#FF8100",
+                color: order.status === "PREPARING" ? "#FF8100" : "#008000",
                 justifyContent: "center",
                 display: "flex",
                 alignItems: "center",
