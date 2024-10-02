@@ -13,14 +13,19 @@ import { Box } from "@mui/material";
 import HeaderNav from "@/components/HeaderNav";
 import { getUserBySession } from "@/lib/actions";
 import { getMenus } from "@/lib/menu/menu-management";
+import { getRestaurants } from "@/lib/restaurant/restaurant";
 
 export default async function Home() {
-  const menusData =   getMenus();
+  const menusData = getMenus();
   const loggedUserData = getUserBySession();
+  const restaurantsData = getRestaurants();
 
   // Initiate both requests in parallel
-  const [menus, loggedUser] = await Promise.all([menusData, loggedUserData]);
-
+  const [menus, loggedUser, restaurants] = await Promise.all([
+    menusData,
+    loggedUserData,
+    restaurantsData,
+  ]);
 
   return (
     <>
@@ -43,13 +48,17 @@ export default async function Home() {
             "linear-gradient(to bottom, #FA7E0000, #FA7E0033, #944A0000)",
         }}
       >
-        <TopRestaurants />
+        <TopRestaurants restaurants={typeof restaurants === "string" || restaurants === null ? [] : restaurants} />
       </Box>
       <Box p={3}>
-        <Popular menus={typeof menus === "string" || menus === null  ? [] : menus} />
+        <Popular
+          menus={typeof menus === "string" || menus === null ? [] : menus}
+        />
       </Box>
       <Box p={3}>
-        <Fasting menus={typeof menus === "string" || menus === null ? [] : menus} />
+        <Fasting
+          menus={typeof menus === "string" || menus === null ? [] : menus}
+        />
       </Box>
       <Box pt={3}>
         <BottomNav />

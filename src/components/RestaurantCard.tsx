@@ -1,3 +1,6 @@
+// "use client";
+
+import React from "react";
 import {
   Avatar,
   Box,
@@ -10,8 +13,26 @@ import {
 import DefaultAvatar from "@/public/defaultImage.jpeg";
 import Bolt from "@/public/bolt.png";
 import Image from "next/image";
+import { Menu, Order, Restaurant } from "@prisma/client";
 
-export default function RestaurantCard() {
+export default function RestaurantCard({
+  restaurant,
+}: {
+  restaurant: {
+    menus: ({
+      Order: Order[];
+    } & Menu)[];
+  } & Restaurant;
+}) {
+  // console.log("restaurant, menus", restaurant, restaurant.menus);
+
+  let count = 0;
+  restaurant.menus.map((menu) =>
+    menu.Order.map((order) => {
+      count += 1;
+      return order;
+    })
+  );
   return (
     <Card sx={{ maxWidth: 550, p: 1, display: "flex", borderRadius: "10PX" }}>
       <Box sx={{ display: "flex", flexDirection: "row", p: 1 }}>
@@ -37,7 +58,7 @@ export default function RestaurantCard() {
                 fontSize={"20px"}
                 sx={{ color: "#000" }}
               >
-                Azmera Pizza
+                {restaurant.name}
               </Typography>
             }
             sx={{ p: 1 }}
@@ -71,7 +92,8 @@ export default function RestaurantCard() {
                 lineHeight: "1",
               }}
             >
-              2K
+              {`${count}K`}
+              {/* {`${restaurant.menus.length > 0 && restaurant.menus.Order.length ?.Order?.length || 0}K`} */}
             </Typography>
           </Box>
         </Stack>
