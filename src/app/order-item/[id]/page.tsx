@@ -17,12 +17,13 @@ const menu = await getMenu(params.id);
         <Grid container spacing={2}>
           <Grid
             //  key={permission + " " + index}
-            size={{ xs: 6 }}
+            size={{ xs: 12, lg: 6 }}
           ></Grid>
 
           <Grid
             //  key={permission + " " + index}
-            size={{ xs: 6 }}
+            size={{ xs: 12, lg: 6 }}
+            sx={{maxWidth: {xs: "600px", lg: "inherit"}}}
           >
             <OrderItem menu={typeof menu === "string" ? null : menu} />
           </Grid>

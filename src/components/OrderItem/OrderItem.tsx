@@ -17,6 +17,8 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import { Menu, Restaurant } from "@prisma/client";
+import { addOrder } from "@/lib/order/order-management";
+import Successmodal from "../add-menu/SuccessModal";
 
 export default function OrderItem({
   menu,
@@ -30,6 +32,13 @@ export default function OrderItem({
   );
 
   const [quantity, setQuantity] = React.useState<number>(1);
+
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+  const [successModalOpen, setSuccessModalOpen] =
+    React.useState<boolean>(false);
+
+  const handleSuccessModalClose = () => setSuccessModalOpen(false);
 
   const handleIncrement = () => setQuantity((prev) => prev + 1);
   const handleDecrement = () =>
@@ -154,15 +163,44 @@ export default function OrderItem({
             color: "#fff",
           },
         }}
+        disabled={isLoading}
+        onClick={() => {
+          setIsLoading(true);
+          const order = addOrder({
+            menuId: menu.id,
+            quantity: quantity,
+            toppings: updatedToppings,
+          });
+
+          order
+            .then((res) => {
+              console.log("Response", res);
+              if (res.message === "success") {
+                setIsLoading(false);
+                setSuccessModalOpen(true);
+              }
+              return "Success";
+            })
+            .catch((err) => {
+              console.log("error", err);
+              setIsLoading(false);
+            });
+        }}
       >
         <Typography
           sx={{ color: "#FDFFFE", fontWeight: 700, fontSize: "32px" }}
         >
-          {"Order"}
+          {isLoading ? "Ordering ..." : "Order"}
         </Typography>
 
         <ArrowOutwardIcon />
       </Button>
+
+      <Successmodal
+        handleSuccessModalClose={handleSuccessModalClose}
+        successModalOpen={successModalOpen}
+        type="Order"
+      />
     </Stack>
   );
 }

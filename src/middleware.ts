@@ -34,6 +34,11 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
   }
 
+  if (!session?.id && req.nextUrl.pathname.startsWith("/order-item")) {
+    return NextResponse.redirect(new URL("/login", req.nextUrl));
+  }
+
+
   // 6. Redirect to /dashboard if the user is authenticated
   if (
     isPublicRoute &&
@@ -42,6 +47,19 @@ export default async function middleware(req: NextRequest) {
   ) {
     return NextResponse.redirect(new URL("/", req.nextUrl));
   }
+
+
+  // if (
+  //   session?.id &&
+  //     // session?.restaurantId === "" && ["/order", "/role", "/user", "/add-menu"].includes(path)
+  //     req.nextUrl.pathname.startsWith("/order-item")
+  // ) {
+  //   // if (
+  //   //   session?.role === "Owner" && ["/books", "/owners"].includes(path) ||
+  //   //   session?.role === "Admin" && ["/book-upload"].includes(path)
+  //   // )
+  //   return NextResponse.redirect(new URL("/", req.nextUrl));
+  // }
 
   if (
     session?.id &&

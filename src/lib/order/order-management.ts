@@ -6,6 +6,12 @@ import prisma from "../db";
 // import { FormState } from "../actions";
 // import bcrypt from "bcrypt";
 
+type Data = {
+  quantity: number;
+  toppings: string[];
+  menuId: string;
+};
+
 import { revalidatePath } from "next/cache";
 
 export async function getOrders(
@@ -171,67 +177,33 @@ export async function getOrders(
   }
 }
 
-// export async function adduser(state: FormState, formData: FormData) {
-//   console.log("formData", formData);
-//   const validatedFields = await z
-//     .object({
-//       email: z
-//         .string()
-//         .email()
-//         .refine(async (current) => {
-//           const count = await prisma.user.count({
-//             where: {
-//               email: current,
-//             },
-//           });
+export async function addOrder(data: Data) {
+  const loggedInUser = await getUserBySession();
 
-//           return count < 1;
-//         }, "Email has been taken"),
-//       password: z.string().min(6),
-//       // confirmPassword: z.string().min(6),
-//       location: z.string(),
-//       phoneNumber: z.string().min(9),
-//       name: z.string(),
-//       role: z.string(),
-//     })
-//     .safeParseAsync({
-//       name: formData.get("name") || undefined,
-//       email: formData.get("email"),
-//       password: formData.get("password"),
-//       // confirmPassword: formData.get("confirmPassword") || undefined,
-//       location: formData.get("location") || undefined,
-//       phoneNumber: formData.get("phoneNumber") || undefined,
-//       role: formData.get("role") || undefined,
-//       // isAdmin: formData.get("isAdmin") || undefined,
-//     });
+  if (loggedInUser === null) {
+    return { message: "Not logged in" };
+  }
 
-//   // If any form fields are invalid, return early
-//   if (!validatedFields.success) {
-//     return {
-//       errors: validatedFields.error.flatten().fieldErrors,
-//     };
-//   }
-
-//   const { email, password, name, location, phoneNumber, role } =
-//     validatedFields.data;
-
-//   const hashedPassword = await bcrypt.hash(password, 10);
-//   const insertedUser = await prisma.user.create({
-//     data: {
-//       email: email,
-//       location: location,
-//       name: name,
-//       password: hashedPassword,
-//       phoneNumber: phoneNumber,
-//       isAdmin: role === "Super Admin",
-//       role: role,
-//       status: "ACTIVE",
-//     },
-//   });
-//   console.log("insertedUser", insertedUser);
-//   revalidatePath("/user");
-//   return { message: "success" };
-// }
+  try {
+    const insertedOrder = await prisma.order.create({
+      data: {
+        // name: (formData.get("name") as string) || "Role",
+        // permissions: (formData.get("permissions") as string).split(",") || [],
+        // restaurantId: loggedInUser.restaurantId,
+        quantity: data.quantity,
+        toppings: data.toppings,
+        menuId: data.menuId,
+        customerId: loggedInUser.id,
+      },
+    });
+    console.log("insertedUser", insertedOrder);
+    revalidatePath("/role");
+    return { message: "success" };
+  } catch (error) {
+    console.log("error", error);
+    return { message: "Something Went wrong" };
+  }
+}
 
 export async function updateOrderStatus(
   id: string,

@@ -24,9 +24,11 @@ const style = {
 export default function Successmodal({
   handleSuccessModalClose,
   successModalOpen,
+  type,
 }: {
   handleSuccessModalClose: () => void;
   successModalOpen: boolean;
+  type: "Order" | "Menu";
 }) {
   return (
     <div>
@@ -89,7 +91,9 @@ export default function Successmodal({
               fontWeight={700}
               fontSize={"32px"}
             >
-              Your have uploaded the Pizza successfully.
+              {type === "Menu"
+                ? "Your have uploaded the Pizza successfully."
+                : "Your order has been successfully completed!"}
             </Typography>
           </Stack>
         </Box>

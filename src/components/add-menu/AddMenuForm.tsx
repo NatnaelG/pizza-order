@@ -32,7 +32,12 @@ const SubmitButton = ({ label, loading }: SubmitButtonProps) => {
       type="submit"
       variant="contained"
       size="small"
-      sx={{ background: "#FF8100", width: "321px", height: "74px", borderRadius: "20px" }}
+      sx={{
+        background: "#FF8100",
+        width: "321px",
+        height: "74px",
+        borderRadius: "20px",
+      }}
       disabled={pending}
     >
       {pending ? loading : label}
@@ -238,6 +243,7 @@ export default function AddMenuForm() {
       <Successmodal
         handleSuccessModalClose={handleSuccessModalClose}
         successModalOpen={successModalOpen}
+        type="Menu"
       />
     </Stack>
   );
