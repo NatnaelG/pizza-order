@@ -141,7 +141,7 @@ export default function OrderItem({
             fontSize={"45px"}
             sx={{ color: "#01C550" }}
           >
-            150
+            {`${menu.price}`}
           </Typography>
           <Typography fontWeight={400} fontSize={"15px"} sx={{ lineHeight: 3 }}>
             Birr
