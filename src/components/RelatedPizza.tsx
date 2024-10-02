@@ -1,3 +1,4 @@
+import React from "react";
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import PizzaImage from "@/public/pizza.png";
@@ -39,7 +40,11 @@ export default function RelatedPizza() {
           <Typography fontWeight={700} fontSize={"25px"}>
             Margherita
           </Typography>
-          <Typography fontWeight={400} fontSize={"15px"} sx={{textAlign: "center"}}>
+          <Typography
+            fontWeight={400}
+            fontSize={"15px"}
+            sx={{ textAlign: "center" }}
+          >
             Tomato, Mozzarella, Bell Peppers, Onions, Olives
           </Typography>
         </Stack>

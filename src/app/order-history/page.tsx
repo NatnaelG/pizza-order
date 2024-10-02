@@ -3,6 +3,8 @@ import { Box, Stack, Typography } from "@mui/material";
 import HeaderNav from "@/components/HeaderNav";
 import { getUserBySession } from "@/lib/actions";
 import OrderHistoryCards from "@/components/OrderHistoryCards";
+import Related from "@/components/OrderItem/Related";
+import OrderItem from "@/components/OrderItem/OrderItem";
 
 export default async function OrderHistory() {
   const loggedUser = await getUserBySession();
@@ -28,6 +30,13 @@ export default async function OrderHistory() {
         <Box p={3}>
           <OrderHistoryCards />
         </Box>
+
+
+        <Box p={3}>
+          <OrderItem />
+        </Box>
+
+        <Related />
       </Box>
     </Stack>
   );
