@@ -17,6 +17,11 @@ export default async function MenuItem({ params }: { params: { id: string } }) {
           <Grid
             //  key={permission + " " + index}
             size={{ xs: 12, lg: 6 }}
+            display={"grid"}
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
             <OrderItemImages />
           </Grid>
@@ -24,7 +29,7 @@ export default async function MenuItem({ params }: { params: { id: string } }) {
           <Grid
             //  key={permission + " " + index}
             size={{ xs: 12, lg: 6 }}
-            sx={{ maxWidth: { xs: "600px", lg: "inherit" } }}
+            sx={{ maxWidth: { xs: "600px", lg: "inherit" }, display: "flex", alignItems:"center" }}
           >
             <OrderItem menu={typeof menu === "string" ? null : menu} />
           </Grid>
