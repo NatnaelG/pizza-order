@@ -39,7 +39,7 @@ export default function HeaderNav({
             Home
           </Typography>
         </Link>
-        <Link href={"/order"}>
+        <Link href={"/order-history"}>
           <Typography
             fontWeight={500}
             fontSize={{ xs: "16px", lg: "25px" }}
