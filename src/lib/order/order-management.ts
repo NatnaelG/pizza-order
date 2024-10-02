@@ -197,7 +197,8 @@ export async function addOrder(data: Data) {
       },
     });
     console.log("insertedUser", insertedOrder);
-    revalidatePath("/role");
+    revalidatePath("/order");
+    revalidatePath("/order-history");
     return { message: "success" };
   } catch (error) {
     console.log("error", error);
