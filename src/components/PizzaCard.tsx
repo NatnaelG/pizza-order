@@ -11,6 +11,7 @@ import {
 import Image from "next/image";
 import PizzaImage from "@/public/pizza.png";
 import DefaultAvatar from "@/public/defaultImage.jpeg";
+import Link from "next/link";
 
 export default function PizzaCard() {
   return (
@@ -69,6 +70,7 @@ export default function PizzaCard() {
                 Birr
               </Typography>
             </Stack>
+            <Link href={"order-item/361a4d39-054f-4a30-b511-c04ae981f146"}>
             <Button
               sx={{
                 width: "170px",
@@ -81,6 +83,7 @@ export default function PizzaCard() {
             >
               Order
             </Button>
+            </Link>
           </Stack>
         </Stack>
 

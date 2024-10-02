@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   Button,
@@ -11,100 +13,131 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
+import { Menu, Restaurant } from "@prisma/client";
 
-export default function OrderItem() {
+export default function OrderItem({
+  menu,
+}: {
+  menu: (Menu & { Restaurant: Restaurant }) | null;
+}) {
+  // console.log("Menu Important check", menu);
+
+  const [updatedToppings, setUpdatedToppings] = React.useState<string[]>(
+    menu?.toppings || []
+  );
+
+  const [quantity, setQuantity] = React.useState<number>(1);
+
+  const handleIncrement = () => setQuantity((prev) => prev + 1);
+  const handleDecrement = () =>
+    setQuantity((prev) => {
+      return prev === 1 ? prev : prev - 1;
+    });
+
+  const handleCheckboxChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    topping: string
+  ) => {
+    if (e.target.checked) {
+      setUpdatedToppings((prev) => [...prev, topping]);
+    } else {
+      setUpdatedToppings((prev) =>
+        prev.filter((prevTopping) => prevTopping !== topping)
+      );
+    }
+  };
+
+  console.log("topping Check", updatedToppings);
+
+  if (menu === null) {
+    return <>No menu found with the provided ID</>;
+  }
   return (
-    <Stack>
+    <Stack spacing={2}>
       <Typography sx={{ fontWeight: 700, fontSize: "80px", color: "#000" }}>
-        Margherita
+        {menu.name}
       </Typography>
 
       <FormGroup>
         <Grid container spacing={2}>
-          {/* {permissions.map((permission, index) => ( */}
-          <Grid
-            //  key={permission + " " + index}
-            size={{ xs: 6 }}
-          >
-            <FormControlLabel
-              // key={permission + " " + index}
-              control={
-                <Checkbox
-                  // defaultChecked
-                  // checked={updatedPermissions.includes(permission)}
-                  // onChange={(e) => handleCheckboxChange(e, permission)}
-                  sx={{
-                    color: "#FF8100 !important",
-                  }}
-                />
-              }
-              label={"permission"}
-            />
-          </Grid>
-          {/* ))} */}
-          {/* <Grid size={{ xs: 6 }}>
+          {menu.toppings.map((topping, index) => (
+            <Grid key={topping + " " + index} size={{ xs: 4 }}>
               <FormControlLabel
+                key={topping + " " + index}
                 control={
                   <Checkbox
+                    defaultChecked
+                    checked={updatedToppings.includes(topping)}
+                    onChange={(e) => handleCheckboxChange(e, topping)}
                     sx={{
                       color: "#FF8100 !important",
                     }}
                   />
                 }
-                label={
-                  <OutlinedInput
-                    id="component-outlined"
-                    // defaultValue=""
-                    sx={{ "& .MuiInputBase-input": { py: "3px", px: 1 } }}
-                    label="Permission"
-                    onKeyDown={(event) => {
-                      if (event.key === "Enter") {
-                        event.preventDefault();
-                        const newPermission = (event.target as HTMLInputElement)
-                          .value;
-                        setPermissions((prev) => [...prev, newPermission]);
-                        setUpdatedPermissions((prev) => [
-                          ...prev,
-                          newPermission,
-                        ]);
-
-                        (event.target as HTMLInputElement).value = "";
-                      }
-                    }}
-                  />
-                }
+                label={topping}
               />
-            </Grid> */}
+            </Grid>
+          ))}
         </Grid>
       </FormGroup>
 
-      <Stack>
-        <IconButton><AddIcon /></IconButton>
+      <Stack direction="row" alignItems={"center"} spacing={5}>
+        <IconButton
+          sx={{
+            width: "70px",
+            height: "60px",
+            borderRadius: "10px",
+            p: "10px 15px",
+            border: "solid 2px #FF8100",
+            background: "#fff",
+
+            "& .MuiSvgIcon-root": {
+              fontSize: "40px",
+            },
+          }}
+          onClick={handleDecrement}
+        >
+          <RemoveIcon />
+        </IconButton>
+
         <Typography
           sx={{ color: "#000000", fontWeight: 400, fontSize: "32px" }}
         >
-          {1}
+          {quantity}
         </Typography>
-        <IconButton><RemoveIcon /></IconButton>
+        <IconButton
+          sx={{
+            width: "70px",
+            height: "60px",
+            borderRadius: "10px",
+            p: "10px 15px",
+            border: "solid 2px #FF8100",
+            background: "#fff",
+
+            "& .MuiSvgIcon-root": {
+              fontSize: "40px",
+            },
+          }}
+          onClick={handleIncrement}
+        >
+          <AddIcon />
+        </IconButton>
 
         <Stack width={"111px"} direction={"row"} spacing={"3px"}>
-              <Typography
-                fontWeight={700}
-                fontSize={"45px"}
-                sx={{ color: "#01C550" }}
-              >
-                150
-              </Typography>
-              <Typography
-                fontWeight={400}
-                fontSize={"15px"}
-                sx={{ lineHeight: 3 }}
-              >
-                Birr
-              </Typography>
-            </Stack>
+          <Typography
+            fontWeight={700}
+            fontSize={"45px"}
+            sx={{ color: "#01C550" }}
+          >
+            150
+          </Typography>
+          <Typography fontWeight={400} fontSize={"15px"} sx={{ lineHeight: 3 }}>
+            Birr
+          </Typography>
+        </Stack>
       </Stack>
 
       <Button
@@ -115,6 +148,11 @@ export default function OrderItem() {
           borderRadius: "10px",
           justifyContent: "space-between",
           p: "15px 30px 15px 30px",
+
+          "& .MuiSvgIcon-root": {
+            fontSize: "35px",
+            color: "#fff",
+          },
         }}
       >
         <Typography
@@ -122,6 +160,8 @@ export default function OrderItem() {
         >
           {"Order"}
         </Typography>
+
+        <ArrowOutwardIcon />
       </Button>
     </Stack>
   );
