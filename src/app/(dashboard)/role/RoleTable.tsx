@@ -45,10 +45,11 @@ const RoleTable = ({
   roles: {
     name: string;
     id: string;
+    permissions: string[];
     status: string;
     updated_at: Date;
     created_at: Date;
-    permissions: string[];
+    restaurantId: string;
   }[];
 }) => {
   const searchParams = useSearchParams();
@@ -99,18 +100,7 @@ const RoleTable = ({
             },
           },
         },
-        Cell: ({
-          row,
-        }: {
-          row: MRT_Row<{
-            name: string;
-            id: string;
-            permissions: string[];
-            status: string;
-            updated_at: Date;
-            created_at: Date;
-          }>;
-        }) => (
+        Cell: ({ row }: { row: MRT_Row<Role> }) => (
           // console.log("renderedCellValue", renderedCellValue);
           <Typography key={row.original.id}>
             {moment(row.original.created_at).format("MM/DD/YY")}
@@ -134,14 +124,7 @@ const RoleTable = ({
           row,
         }: {
           renderedCellValue: React.ReactNode;
-          row: MRT_Row<{
-            name: string;
-            id: string;
-            permissions: string[];
-            status: string;
-            updated_at: Date;
-            created_at: Date;
-          }>;
+          row: MRT_Row<Role>;
         }) => (
           <Stack
             direction={"row"}
