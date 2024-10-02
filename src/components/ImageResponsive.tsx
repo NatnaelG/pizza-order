@@ -8,8 +8,8 @@ export default function ImageResponsive() {
   const hasWindow = typeof window !== "undefined";
 
   const getWindowDimensions = React.useCallback(() => {
-    const width = hasWindow ? window.innerWidth : 0;
-    const height = hasWindow ? window.innerHeight : 0;
+    const width = hasWindow ? window.innerWidth : 1000;
+    const height = hasWindow ? window.innerHeight : 1000;
     return {
       width,
       height,

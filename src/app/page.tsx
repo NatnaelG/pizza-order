@@ -1,3 +1,4 @@
+import React from "react";
 import Fasting from "@/components/Fasting";
 import FeaturedPizzaWrapper from "@/components/FeaturedPizzaWrapper";
 import BottomNav from "@/components/footer/BottomNav";
@@ -10,22 +11,31 @@ import Popular from "@/components/Popular";
 import TopRestaurants from "@/components/TopRestaurant";
 import { Box } from "@mui/material";
 import HeaderNav from "@/components/HeaderNav";
+import { getUserBySession } from "@/lib/actions";
 
 export default async function Home() {
+  const loggedUser = await getUserBySession();
   return (
     <>
-      <Box p={3} sx={{
+      <Box
+        p={3}
+        sx={{
           background: "linear-gradient(to bottom, #FFFFFF, #FFC993, #FFF8F1)",
-      }}>
-        <HeaderNav />
+        }}
+      >
+        <HeaderNav loggedUser={loggedUser} />
         <Hero />
       </Box>
       <Box p={3}>
         <FeaturedPizzaWrapper />
       </Box>
-      <Box p={3} sx={{
-          background: "linear-gradient(to bottom, #FA7E0000, #FA7E0033, #944A0000)",
-      }}>
+      <Box
+        p={3}
+        sx={{
+          background:
+            "linear-gradient(to bottom, #FA7E0000, #FA7E0033, #944A0000)",
+        }}
+      >
         <TopRestaurants />
       </Box>
       <Box p={3}>

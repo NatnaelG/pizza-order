@@ -9,8 +9,8 @@ export default function PizzaLogo() {
   const hasWindow = typeof window !== "undefined";
 
   const getWindowDimensions = React.useCallback(() => {
-    const width = hasWindow ? window.innerWidth : 0;
-    const height = hasWindow ? window.innerHeight : 0;
+    const width = hasWindow ? window.innerWidth : 1000;
+    const height = hasWindow ? window.innerHeight : 1000;
     return {
       width,
       height,
@@ -35,7 +35,7 @@ export default function PizzaLogo() {
   }, [getWindowDimensions, hasWindow]);
 
   return (
-    <Box width={"inherit"}>
+    <Box>
       <Image
         style={{
           width: windowDimensions.width > 900 ? "133px" : "65px",

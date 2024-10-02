@@ -6,19 +6,23 @@ import { redirect } from "next/navigation";
 
 import prisma from "./db";
 import { deleteSession, getSession, createSession } from "./session";
-import { User } from "@prisma/client";
+// import { User } from "@prisma/client";
 
-// export type User = {
-//   id: string;
-//   name: string;
-//   email: string;
-//   // password: string;
-//   location: string;
-//   phoneNumber: string;
-//   status: string;
-//   role: string;
-//   isAdmin: boolean;
-// };
+export type User = {
+  name: string;
+  id: string;
+  email: string;
+  // password: string;
+  location: string;
+  phoneNumber: string;
+  role: string;
+  isAdmin: boolean;
+  status: string;
+  roleId: string;
+  updated_at: Date;
+  created_at: Date;
+  restaurantId: string | null;
+};
 
 export type UserWithPassword = User & {
   password: string;

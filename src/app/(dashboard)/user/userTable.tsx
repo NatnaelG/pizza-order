@@ -12,6 +12,7 @@ import {
 import {
   MRT_ColumnFiltersState,
   MRT_FilterOption,
+  MRT_Row,
   MaterialReactTable,
   useMaterialReactTable,
   type MRT_ColumnDef,
@@ -123,7 +124,13 @@ const UserTable = ({
             },
           },
         },
-        Cell: ({ renderedCellValue, row }) => (
+        Cell: ({
+          renderedCellValue,
+          row,
+        }: {
+          renderedCellValue: React.ReactNode;
+          row: MRT_Row<User>;
+        }) => (
           <Stack
             direction={"row"}
             spacing={2}

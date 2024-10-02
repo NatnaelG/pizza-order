@@ -1,9 +1,18 @@
+"use client";
+
+import React from "react";
 import { Stack, Typography, Button } from "@mui/material";
 import PizzaLogo from "./PizzaLogo";
 import Link from "next/link";
 import MenuIcon from "@mui/icons-material/Menu";
+import { signout, User } from "@/lib/actions";
+import { Role } from "@prisma/client";
 
-export default function HeaderNav() {
+export default function HeaderNav({
+  loggedUser,
+}: {
+  loggedUser: (User & { Role: Role }) | null;
+}) {
   return (
     <Stack
       width={"100%"}
@@ -11,6 +20,7 @@ export default function HeaderNav() {
       height={"75px"}
       // direction={{ xs: "column", lg: "row" }}
       direction={"row"}
+      alignItems={"center"}
     >
       <PizzaLogo />
       <Stack
@@ -38,11 +48,22 @@ export default function HeaderNav() {
             Order
           </Typography>
         </Link>
+        {loggedUser?.restaurantId && (
+          <Link href={"/order"}>
+            <Typography
+              fontWeight={500}
+              fontSize={{ xs: "16px", lg: "25px" }}
+              color="#000"
+            >
+              Dashboard
+            </Typography>
+          </Link>
+        )}
         <Link href={"/about-us"}>
           <Typography
             fontWeight={500}
             fontSize={"25px"}
-            display={{ xs: "none", lg: "bolck" }}
+            display={{ xs: "none", lg: "block" }}
             color="#000"
           >
             Who we are
@@ -57,18 +78,34 @@ export default function HeaderNav() {
         <MenuIcon sx={{ display: { xs: "block", lg: "none" } }} />
         {/* </Typography> */}
       </Stack>
-
-      <Button
-        sx={{
-          width: "168px",
-          display: { xs: "none", lg: "bolck" },
-          height: "56px",
-          background: "#FF890F",
-        }}
-        variant={"contained"}
-      >
-        <Typography>Register</Typography>
-      </Button>
+      {loggedUser === null ? (
+        <Link href={"/register"}>
+          <Button
+            sx={{
+              width: "168px",
+              display: { xs: "none", lg: "block" },
+              height: "56px",
+              background: "#FF890F",
+            }}
+            variant={"contained"}
+          >
+            <Typography>Register</Typography>
+          </Button>
+        </Link>
+      ) : (
+        <Button
+          sx={{
+            width: "168px",
+            display: { xs: "none", lg: "block" },
+            height: "56px",
+            background: "#FF890F",
+          }}
+          variant={"contained"}
+          onClick={() => signout()}
+        >
+          <Typography>LogOut</Typography>
+        </Button>
+      )}
     </Stack>
   );
 }
