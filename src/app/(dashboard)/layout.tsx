@@ -4,11 +4,17 @@ import { Box } from "@mui/material";
 import ResponsiveDrawer from "@/components/dashboard/side-drawer";
 import Toolbar from "@mui/material/Toolbar";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+import { getUserBySession } from "@/lib/actions";
+
+export default async function Layout({ children }: { children: React.ReactNode }) {
+
+  const loggedUser = await getUserBySession(); 
+
+
   const drawerWidth = 258;
   return (
     <Box height={"100vh"} sx={{ display: "flex", background: "#F8F8F8" }}>
-      <ResponsiveDrawer drawerWidth={drawerWidth} />
+      <ResponsiveDrawer drawerWidth={drawerWidth} loggedUser={loggedUser} />
       <Box
         component="main"
         sx={{

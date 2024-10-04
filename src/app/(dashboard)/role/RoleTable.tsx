@@ -26,21 +26,25 @@ import { Role } from "@prisma/client";
 import moment from "moment";
 import { updateRoleStatus } from "@/lib/role/role-management";
 
-// type User = {
-//   id: string;
-//   name: string;
-//   email: string;
-//   location: string;
-//   phoneNumber: string;
-//   role: string;
-//   isAdmin: boolean;
-//   status: string;
-//   updated_at: Date;
-//   created_at: Date;
-// };
+import { Ability, AbilityBuilder } from "@casl/ability";
+import { Can, useAbilityContext } from "@/lib/AbilityContext";
+
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  location: string;
+  phoneNumber: string;
+  role: string;
+  isAdmin: boolean;
+  status: string;
+  updated_at: Date;
+  created_at: Date;
+};
 
 const RoleTable = ({
   roles,
+  loggedUser,
 }: {
   roles: {
     name: string;
@@ -51,7 +55,20 @@ const RoleTable = ({
     created_at: Date;
     restaurantId: string;
   }[];
+  loggedUser: (User & { Role: Role }) | null;
 }) => {
+  const ability = useAbilityContext();
+
+  const { can, rules } = new AbilityBuilder(Ability);
+
+  loggedUser?.Role.permissions.map((permission) => {
+    const [caslAction, caslModel] = permission.split(" | ");
+    can(caslAction, caslModel);
+    return permission;
+  });
+
+  ability.update(rules);
+
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -318,12 +335,22 @@ const RoleTable = ({
   });
   return (
     <>
-      <MaterialReactTable table={table} />
-      <RoleModal
-        key={JSON.stringify(roleDialog)}
-        handleClose={handleClose}
-        roleDialog={roleDialog}
-      />
+      <Can I="manage" a={"all"} passThrough>
+        {(allowed) =>
+          allowed ? (
+            <>
+              <MaterialReactTable table={table} />
+              <RoleModal
+                key={JSON.stringify(roleDialog)}
+                handleClose={handleClose}
+                roleDialog={roleDialog}
+              />
+            </>
+          ) : (
+            <Typography variant="h3" color={"error"}>You do not have the role for this page!</Typography>
+          )
+        }
+      </Can>
     </>
   );
 };

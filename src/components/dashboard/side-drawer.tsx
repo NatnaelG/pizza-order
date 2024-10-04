@@ -22,8 +22,23 @@ import { Badge, Stack } from "@mui/material";
 
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import { Role } from "@prisma/client";
+
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  location: string;
+  phoneNumber: string;
+  role: string;
+  isAdmin: boolean;
+  status: string;
+  updated_at: Date;
+  created_at: Date;
+};
 interface Props {
   drawerWidth: number;
+  loggedUser: (User & { Role: Role }) | null;
 }
 
 export default function ResponsiveDrawer(props: Props) {
@@ -111,11 +126,11 @@ export default function ResponsiveDrawer(props: Props) {
         </IconButton>
       </Toolbar>
       <List disablePadding>
-        <ListItems location="home" />
+        <ListItems loggedUser={props.loggedUser} location="home" />
       </List>
       {/* <Divider variant="middle" color="#fff" /> */}
       <List>
-        <ListItems location="upper" />
+        <ListItems loggedUser={props.loggedUser} location="upper" />
       </List>
       {/* <Divider variant="middle" color="#fff" />
       <List>
@@ -138,7 +153,7 @@ export default function ResponsiveDrawer(props: Props) {
       > */}
       <List>
         <form action={signout}>
-          <ListItems location="logout" />
+          <ListItems loggedUser={props.loggedUser} location="logout" />
           {/* <button className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
             <PowerIcon className="w-6" />
             <div className="hidden md:block">Sign Out</div>
