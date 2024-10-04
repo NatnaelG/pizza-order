@@ -223,6 +223,7 @@ export default function ResponsiveDrawer(props: Props) {
               <NotificationsNoneOutlinedIcon color="action" />
             </Badge>
 
+            <Typography color="textSecondary">{props.loggedUser?.name}</Typography>
             <AccountCircleOutlinedIcon color="action" />
           </Stack>
         </Toolbar>
