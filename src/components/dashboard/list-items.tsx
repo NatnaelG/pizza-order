@@ -12,7 +12,10 @@ import PizzaSlice from "@/public/emojione_pizza.png";
 
 import { usePathname } from "next/navigation";
 import { Button, Stack } from "@mui/material";
-import { Can, useAbilityContext } from "@/lib/AbilityContext";
+import {
+  // Can,
+  useAbilityContext,
+} from "@/lib/AbilityContext";
 import { Ability, AbilityBuilder } from "@casl/ability";
 import { Role } from "@prisma/client";
 // import { User } from "@/lib/actions";
@@ -156,83 +159,84 @@ export default function ListItems({
                 </ListItemButton>
               </Link>
             </ListItem>
-          ) : link.name === "Role" ? (
-            // )
-            // ability.can("read", link.path) && (
-            <Can I="manage" a={"all"}>
-              <ListItem
-                key={`${link.name}-${index}-others`}
-                disablePadding
-                sx={{ width: "100%", my: 1 }}
-              >
-                <Link
-                  href={link.path}
-                  className={`link ${
-                    location === "home" ? "home-link" : "other-link"
-                  }`}
-                  style={{ width: "100%" }}
-                >
-                  <ListItemButton
-                    // autoFocus={pathname === link.path}
-                    alignItems="center"
-                    sx={{
-                      width: "100%",
-                      pl: "40px",
-                      background:
-                        pathname === link.path ? "#FF810066" : "transparent",
-                      "&:hover": {
-                        backgroundColor: "#b2947566",
-                        // cursor: "pointer",
-                        borderRadius: "8px",
-                      },
-                      borderRadius:
-                        // pathname === link.path || link.name === "Log Out"
-                        // ? "8px"
-                        // :
-                        "0px",
-                      mr: "20px",
-                      justifyContent: "start",
-                    }}
-                  >
-                    <Stack direction="row" alignItems={"center"}>
-                      {location !== "home" && (
-                        <ListItemIcon sx={{ minWidth: "35px" }}>
-                          {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-                          <LinkIcon sx={{ color: "#000000BF" }} />
-                        </ListItemIcon>
-                      )}
-                      {location === "home" && (
-                        <Image
-                          src={PizzaSlice}
-                          alt="Pizza Slice"
-                          // className={styles.vercelLogo}
-                          width={50}
-                          height={50}
-                          priority
-                        />
-                      )}
-                      {location !== "home" && (
-                        <ListItemText
-                          primary={
-                            // link.name === "LogIn as Book Owner"
-                            // ? // &&
-                            // user.role === "Admin"
-                            // "LogIn as Admin"
-                            // :
-                            link.name
-                          }
-                          sx={{
-                            textDecoration: "none",
-                            color: "#000000BF",
-                          }}
-                        />
-                      )}
-                    </Stack>
-                  </ListItemButton>
-                </Link>
-              </ListItem>
-            </Can>
           ) : (
+            //  : link.name === "Role" ? (
+            //   // )
+            //   // ability.can("read", link.path) && (
+            //   <Can I="manage" a={"all"}>
+            //     <ListItem
+            //       key={`${link.name}-${index}-others`}
+            //       disablePadding
+            //       sx={{ width: "100%", my: 1 }}
+            //     >
+            //       <Link
+            //         href={link.path}
+            //         className={`link ${
+            //           location === "home" ? "home-link" : "other-link"
+            //         }`}
+            //         style={{ width: "100%" }}
+            //       >
+            //         <ListItemButton
+            //           // autoFocus={pathname === link.path}
+            //           alignItems="center"
+            //           sx={{
+            //             width: "100%",
+            //             pl: "40px",
+            //             background:
+            //               pathname === link.path ? "#FF810066" : "transparent",
+            //             "&:hover": {
+            //               backgroundColor: "#b2947566",
+            //               // cursor: "pointer",
+            //               borderRadius: "8px",
+            //             },
+            //             borderRadius:
+            //               // pathname === link.path || link.name === "Log Out"
+            //               // ? "8px"
+            //               // :
+            //               "0px",
+            //             mr: "20px",
+            //             justifyContent: "start",
+            //           }}
+            //         >
+            //           <Stack direction="row" alignItems={"center"}>
+            //             {location !== "home" && (
+            //               <ListItemIcon sx={{ minWidth: "35px" }}>
+            //                 {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
+            //                 <LinkIcon sx={{ color: "#000000BF" }} />
+            //               </ListItemIcon>
+            //             )}
+            //             {location === "home" && (
+            //               <Image
+            //                 src={PizzaSlice}
+            //                 alt="Pizza Slice"
+            //                 // className={styles.vercelLogo}
+            //                 width={50}
+            //                 height={50}
+            //                 priority
+            //               />
+            //             )}
+            //             {location !== "home" && (
+            //               <ListItemText
+            //                 primary={
+            //                   // link.name === "LogIn as Book Owner"
+            //                   // ? // &&
+            //                   // user.role === "Admin"
+            //                   // "LogIn as Admin"
+            //                   // :
+            //                   link.name
+            //                 }
+            //                 sx={{
+            //                   textDecoration: "none",
+            //                   color: "#000000BF",
+            //                 }}
+            //               />
+            //             )}
+            //           </Stack>
+            //         </ListItemButton>
+            //       </Link>
+            //     </ListItem>
+            //   </Can>
+            // )
             // )
             <ListItem
               key={`${link.name}-${index}-others`}

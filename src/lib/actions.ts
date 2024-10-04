@@ -217,16 +217,22 @@ export async function getUserBySession() {
   const session = await getSession();
 
   if (session === null || session === undefined) return null;
-  const user = await prisma.user.findFirst({
-    where: {
-      id: session.id,
-    },
-    include: {
-      Role: true,
-    },
-  });
+  try{
 
-  return user || null;
+    const user = await prisma.user.findFirst({
+      where: {
+        id: session.id,
+      },
+      include: {
+        Role: true,
+      },
+    });
+  
+    return user || null;
+  } catch (error) {
+    console.log("get user by session error", error);
+    return null;
+  }
 }
 
 export async function uploadBook(values: {
