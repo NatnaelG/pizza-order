@@ -16,6 +16,31 @@ export default function ImageResponsive() {
         />
       </Box>
 
+      {/* Medium screen */}
+
+      <Box display={{ xs: "none", md: "block", lg: "none" }}>
+        <Image
+          width={804}
+          height={804}
+          src={HeroPizzaImage}
+          alt="Featured Pizza Image"
+          priority
+        />
+      </Box>
+
+
+      {/* Small screen */}
+
+      <Box display={{ xs: "none", sm: "block", md: "none", lg: "none" }}>
+        <Image
+          width={554}
+          height={554}
+          src={HeroPizzaImage}
+          alt="Featured Pizza Image"
+          priority
+        />
+      </Box>
+
       {/* small screen */}
 
       <Box display={{ xs: "block", lg: "none" }}>

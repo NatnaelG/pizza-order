@@ -21,7 +21,7 @@ export default function Popular({
         {menus.map((menu) => (
           <Grid
             key={menu.id}
-            size={{ xs: 12, lg: 4 }}
+            size={{ xs: 12, md: 6, lg: 4 }}
             display={"flex"}
             justifyContent={"center"}
           >

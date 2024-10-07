@@ -25,19 +25,19 @@ export default function Hero() {
           overflow: "hidden",
         }}
         width={"100%"}
-        height={{ xs: "338px", lg: "806px" }}
+        height={{ xs: "338px", sm: "460px", md: "600px", lg: "806px" }}
         direction={"row"}
       >
         <Stack
-          width={{ xs: "261px", lg: "766px" }}
-          height={{ xs: "183px", lg: "501px" }}
-          sx={{ pl: { xs: 0, lg: "60px" }, pt: { xs: "40px", lg: "80px" } }}
+          width={{ xs: "261px", sm: "400px", md: "560px", lg: "766px" }}
+          height={{ xs: "183px", sm: "280px", md: "350px", lg: "501px" }}
+          sx={{ pl: { xs: 0, sm: "10px", md: "30px", lg: "60px" }, pt: { xs: "40px", md: "60px", lg: "80px" } }}
           justifyContent={"space-evenly"}
           spacing={3}
         >
           <Typography
             fontWeight={700}
-            fontSize={{ xs: "40px", lg: "150px" }}
+            fontSize={{ xs: "40px", sm: "70px", md: "100px",  lg: "150px" }}
             sx={{
               background: "linear-gradient(to right, #FF8100, #FFBE71)",
               backgroundClip: "text",
@@ -48,7 +48,7 @@ export default function Hero() {
           </Typography>
           <Typography
             fontWeight={400}
-            fontSize={{ xs: "10px", lg: "26px" }}
+            fontSize={{ xs: "10px", sm: "15px", md: "20px", lg: "26px" }}
             color="#050505"
           >
             In publishing and graphic design, Lorem ipsum is a placeholder text
@@ -62,7 +62,7 @@ export default function Hero() {
                   sx={{
                     background: "#FF890F",
                     color: "#fff",
-                    fontSize: { xs: "15px", lg: "70px" },
+                    fontSize: { xs: "15px", sm: "25px", md: "40px", lg: "70px" },
                   }}
                   aria-label="send"
                   edge="end"
@@ -75,9 +75,9 @@ export default function Hero() {
             placeholder="Search"
             sx={{
               background: "#fff",
-              width: { xs: "261px", lg: "748px" },
-              height: { xs: "57px", lg: "118px" },
-              fontSize: "xx-large",
+              width: { xs: "261px", sm: "380px", md: "500px", lg: "748px" },
+              height: { xs: "57px", sm: "75px", md: "90px", lg: "118px" },
+              fontSize: {xs: "large", lg: "xx-large"},
               px: 1,
               borderRadius: "100px",
             }}
@@ -87,11 +87,11 @@ export default function Hero() {
           <Box
             sx={{
               position: "relative",
-              right: { xs: "45px", lg: "-100px" },
-              top: { xs: "-20px", lg: "-100px" },
+              right: { xs: "45px", sm: "-15px", md: "-35px", lg: "-100px" },
+              top: { xs: "-20px", sm: "-40px", md: "-80px", lg: "-100px" },
             }}
-            width={{ xs: "169px", lg: "794px" }}
-            height={{ xs: "300px", lg: "806px" }}
+            width={{ xs: "169px", sm: "300px", md: "460px", lg: "794px" }}
+            height={{ xs: "300px", sm: "400px", md: "500px", lg: "806px" }}
             component={Container}
           >
             <ImageResponsive />
