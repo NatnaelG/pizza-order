@@ -91,21 +91,18 @@ export default function FeaturedPizzaWrapper() {
             backgroundProp="#2F2F2F"
             image={FeaturedPizzaImage}
             imageSize={{ width: 658, height: 484 }}
-            largeScreen={windowDimensions.width > 900}
           />
           <FeaturedPizza
             key={2}
             backgroundProp="#50482B"
             image={FeaturedSecondPizzaImage}
             imageSize={{ width: 590, height: 599 }}
-            largeScreen={windowDimensions.width > 900}
           />
           <FeaturedPizza
             key={3}
             backgroundProp="#296D60"
             image={FeaturedThirdPizzaImage}
             imageSize={{ width: 613, height: 629 }}
-            largeScreen={windowDimensions.width > 900}
           />
         </Carousel>
       </Box>

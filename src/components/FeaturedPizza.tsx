@@ -1,3 +1,4 @@
+import React from "react";
 import { Box, Button, Paper, Stack, Typography } from "@mui/material";
 import Image, { StaticImageData } from "next/image";
 
@@ -5,12 +6,10 @@ export default function FeaturedPizza({
   backgroundProp,
   image,
   imageSize,
-  largeScreen,
 }: {
   backgroundProp: string;
   image: StaticImageData;
   imageSize: { width: number; height: number };
-  largeScreen: boolean;
 }) {
   return (
     <Stack
@@ -70,7 +69,7 @@ export default function FeaturedPizza({
           }}
           variant={"contained"}
         >
-          <Typography sx={{fontSize:"10px"}}>Order Now</Typography>
+          <Typography sx={{ fontSize: "10px" }}>Order Now</Typography>
         </Button>
       </Stack>
       <Box
@@ -79,19 +78,38 @@ export default function FeaturedPizza({
         display={"flex"}
       >
         <Box
+          display={{ xs: "none", lg: "block" }}
           sx={{
             position: "relative",
-            right: { xs: "-130px", lg: "-180px" },
-            top: { xs: "-90px", lg: "-125px" },
+            right: "-180px",
+            top: "-125px",
           }}
-          width={{ xs: "349px", lg: `${imageSize.width}px` }}
-          height={{ xs: "258px", lg: `${imageSize.height}px` }}
+          width={`${imageSize.width}px`}
+          height={`${imageSize.height}px`}
         >
           <Image
-            style={{
-              width: largeScreen ? "665px" : "347px",
-              height: largeScreen ? "658px" : "383px",
-            }}
+            width={665}
+            height={658}
+            src={image}
+            alt="Featured Pizza Image"
+            priority
+          />
+        </Box>
+
+        {/* small screen */}
+        <Box
+          display={{ xs: "block", lg: "none" }}
+          sx={{
+            position: "relative",
+            right: "-130px",
+            top: "-90px",
+          }}
+          width={"349px"}
+          height={"258px"}
+        >
+          <Image
+            width={347}
+            height={383}
             src={image}
             alt="Featured Pizza Image"
             priority

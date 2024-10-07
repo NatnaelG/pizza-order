@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Container,
@@ -76,7 +77,7 @@ export default function Hero() {
               background: "#fff",
               width: { xs: "261px", lg: "748px" },
               height: { xs: "57px", lg: "118px" },
-              fontSize:  "xx-large" ,
+              fontSize: "xx-large",
               px: 1,
               borderRadius: "100px",
             }}
