@@ -28,7 +28,6 @@ export default function ImageResponsive() {
         />
       </Box>
 
-
       {/* Small screen */}
 
       <Box display={{ xs: "none", sm: "block", md: "none", lg: "none" }}>
@@ -41,7 +40,7 @@ export default function ImageResponsive() {
         />
       </Box>
 
-      {/* small screen */}
+      {/* xsmall screen */}
 
       <Box display={{ xs: "block", lg: "none" }}>
         <Image

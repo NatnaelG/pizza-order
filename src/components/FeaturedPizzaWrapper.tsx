@@ -12,7 +12,10 @@ export default function FeaturedPizzaWrapper() {
   return (
     <>
       <Typography
-        sx={{ color: "text.secondary", fontSize: { xs: "25px", lg: "50px" } }}
+        sx={{
+          color: "text.secondary",
+          fontSize: { xs: "25px", sm: "33px", md: "40px", lg: "50px" },
+        }}
       >
         Featured Pizza
       </Typography>
@@ -82,7 +85,60 @@ export default function FeaturedPizzaWrapper() {
       {/* small screen */}
 
       <Box
-        display={{ xs: "block", lg: "none" }}
+        display={{ xs: "none", sm: "block", lg: "none" }}
+        sx={{
+          "& .MuiSvgIcon-root": {
+            fontSize: { xs: "20px", sm: "30px", lg: "40px" },
+          },
+        }}
+      >
+        <Carousel
+          navButtonsAlwaysInvisible={true}
+          animation="slide"
+          height={300}
+          // sx={{
+          //   height:{xs: "250px", lg: "400px"}
+
+          // }}
+          indicatorIconButtonProps={{
+            style: {
+              padding: "10px",
+              color: "#B6B6B6",
+            },
+          }}
+          activeIndicatorIconButtonProps={{
+            style: {
+              padding: "10px",
+              color: "#FF9921",
+            },
+          }}
+          // autoPlay={false}
+        >
+          <FeaturedPizza
+            key={1}
+            backgroundProp="#2F2F2F"
+            image={FeaturedPizzaImage}
+            imageSize={{ width: 658, height: 484 }}
+          />
+          <FeaturedPizza
+            key={2}
+            backgroundProp="#50482B"
+            image={FeaturedSecondPizzaImage}
+            imageSize={{ width: 590, height: 599 }}
+          />
+          <FeaturedPizza
+            key={3}
+            backgroundProp="#296D60"
+            image={FeaturedThirdPizzaImage}
+            imageSize={{ width: 613, height: 629 }}
+          />
+        </Carousel>
+      </Box>
+
+      {/* xsmall screen */}
+
+      <Box
+        display={{ xs: "block", sm: "none", lg: "none" }}
         sx={{
           "& .MuiSvgIcon-root": {
             fontSize: { xs: "20px", lg: "40px" },

@@ -31,13 +31,16 @@ export default function Hero() {
         <Stack
           width={{ xs: "261px", sm: "400px", md: "560px", lg: "766px" }}
           height={{ xs: "183px", sm: "280px", md: "350px", lg: "501px" }}
-          sx={{ pl: { xs: 0, sm: "10px", md: "30px", lg: "60px" }, pt: { xs: "40px", md: "60px", lg: "80px" } }}
+          sx={{
+            pl: { xs: 0, sm: "10px", md: "30px", lg: "60px" },
+            pt: { xs: "40px", md: "60px", lg: "80px" },
+          }}
           justifyContent={"space-evenly"}
           spacing={3}
         >
           <Typography
             fontWeight={700}
-            fontSize={{ xs: "40px", sm: "70px", md: "100px",  lg: "150px" }}
+            fontSize={{ xs: "40px", sm: "70px", md: "100px", lg: "150px" }}
             sx={{
               background: "linear-gradient(to right, #FF8100, #FFBE71)",
               backgroundClip: "text",
@@ -62,7 +65,12 @@ export default function Hero() {
                   sx={{
                     background: "#FF890F",
                     color: "#fff",
-                    fontSize: { xs: "15px", sm: "25px", md: "40px", lg: "70px" },
+                    fontSize: {
+                      xs: "15px",
+                      sm: "25px",
+                      md: "40px",
+                      lg: "70px",
+                    },
                   }}
                   aria-label="send"
                   edge="end"
@@ -77,7 +85,7 @@ export default function Hero() {
               background: "#fff",
               width: { xs: "261px", sm: "380px", md: "500px", lg: "748px" },
               height: { xs: "57px", sm: "75px", md: "90px", lg: "118px" },
-              fontSize: {xs: "large", lg: "xx-large"},
+              fontSize: { xs: "large", lg: "xx-large" },
               px: 1,
               borderRadius: "100px",
             }}
