@@ -31,12 +31,16 @@ export default async function Home() {
     <>
       <Box
         p={3}
-        pr={{xs: 0, lg: 0}}
+        pr={{ xs: 0, lg: 0 }}
+        pt={{ xs: 0, lg: 3 }}
         sx={{
           background: "linear-gradient(to bottom, #FFFFFF, #FFC993, #FFF8F1)",
         }}
       >
-        <HeaderNav loggedUser={loggedUser} />
+        <Box pr={{ xs: 0, lg: 3 }}>
+          <HeaderNav loggedUser={loggedUser} />
+        </Box>
+
         <Hero />
       </Box>
       <Box p={3}>
@@ -49,7 +53,13 @@ export default async function Home() {
             "linear-gradient(to bottom, #FA7E0000, #FA7E0033, #944A0000)",
         }}
       >
-        <TopRestaurants restaurants={typeof restaurants === "string" || restaurants === null ? [] : restaurants} />
+        <TopRestaurants
+          restaurants={
+            typeof restaurants === "string" || restaurants === null
+              ? []
+              : restaurants
+          }
+        />
       </Box>
       <Box p={3}>
         <Popular
