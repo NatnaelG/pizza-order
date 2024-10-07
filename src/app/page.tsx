@@ -31,6 +31,7 @@ export default async function Home() {
     <>
       <Box
         p={3}
+        pr={{xs: 0, lg: 0}}
         sx={{
           background: "linear-gradient(to bottom, #FFFFFF, #FFC993, #FFF8F1)",
         }}

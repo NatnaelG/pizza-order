@@ -28,7 +28,7 @@ export default function HeaderNav({
         direction={"row"}
         justifyContent={"space-between"}
         spacing={3}
-        width={{ xs: "100%", lg: "605px" }}
+        width={{ xs: "fit-content", lg: "605px" }}
       >
         <Link href={"/"}>
           <Typography
