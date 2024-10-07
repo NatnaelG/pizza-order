@@ -16,20 +16,27 @@ export default async function MenuItem({ params }: { params: { id: string } }) {
         <Grid container spacing={2}>
           <Grid
             //  key={permission + " " + index}
-            size={{ xs: 12, lg: 6 }}
+            size={{ xs: 12, md: 6 }}
             display={"grid"}
             sx={{
               justifyContent: "center",
               alignItems: "center",
             }}
           >
-            <OrderItemImages />
+            {!(menu === null || typeof menu === "string") && (
+              <OrderItemImages />
+            )}
           </Grid>
 
           <Grid
             //  key={permission + " " + index}
-            size={{ xs: 12, lg: 6 }}
-            sx={{ maxWidth: { xs: "600px", lg: "inherit" }, display: "flex", alignItems:"center" }}
+            size={{ xs: 12, md: 6 }}
+            sx={{
+              maxWidth: { xs: "600px", lg: "inherit" },
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
           >
             <OrderItem menu={typeof menu === "string" ? null : menu} />
           </Grid>

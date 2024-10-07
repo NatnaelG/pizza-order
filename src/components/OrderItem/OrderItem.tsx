@@ -66,10 +66,14 @@ export default function OrderItem({
   console.log("topping Check", updatedToppings);
 
   if (menu === null) {
-    return <>No menu found with the provided ID</>;
+    return (
+      <Typography sx={{ py: 5 }} variant="h4" color="warning">
+        No menu found with the provided ID
+      </Typography>
+    );
   }
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2}  maxWidth={"-webkit-fill-available"}>
       <Typography sx={{ fontWeight: 700, fontSize: "80px", color: "#000" }}>
         {menu.name}
       </Typography>
@@ -82,7 +86,7 @@ export default function OrderItem({
                 key={topping + " " + index}
                 control={
                   <Checkbox
-                    defaultChecked
+                    // defaultChecked
                     checked={updatedToppings.includes(topping)}
                     onChange={(e) => handleCheckboxChange(e, topping)}
                     sx={{
@@ -97,7 +101,11 @@ export default function OrderItem({
         </Grid>
       </FormGroup>
 
-      <Stack direction="row" alignItems={"center"} spacing={5}>
+      <Stack
+        direction="row"
+        alignItems={"center"}
+        spacing={5}
+      >
         <IconButton
           sx={{
             width: "70px",
@@ -154,9 +162,11 @@ export default function OrderItem({
       </Stack>
 
       <Button
+        // type="submit"
+        variant="contained"
         sx={{
           background: "#FF8100",
-          width: "522px",
+          width: {xs: "100%", sm: "522px"},
           height: "76px",
           borderRadius: "10px",
           justifyContent: "space-between",
