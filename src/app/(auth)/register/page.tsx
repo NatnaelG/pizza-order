@@ -1,8 +1,7 @@
-// import AcmeLogo from '@/app/ui/acme-logo';
+import React from "react";
 import AuthForm from "@/components/auth/auth-form";
-// import LoginForm from "@/app/ui/login/login-form";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <>
       <AuthForm type="Sign Up" />

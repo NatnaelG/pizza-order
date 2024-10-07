@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         size={{ sm: 6 }}
         display={{ xs: "none", sm: "grid" }}
         sx={{
-          height: "inherit",
+          // height: "inherit",
           background: "#FF9921",
           justifyContent: "center",
           alignItems: "center",
@@ -37,7 +37,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         size={{ xs: 12, sm: 6 }}
         container
         direction={"column"}
-        sx={{ height: "inherit" }}
+        // sx={{ height: "inherit" }}
       >
         <Paper
           sx={{
@@ -47,7 +47,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             justifyContent: "center",
           }}
         >
-          <Box p={"104px"}>
+          <Box p={{xs: 2, lg: "104px"}}>
             <Stack direction={"row"} spacing={2} alignItems={"center"} pb={3}>
               <Image
                 src={LoginOpenBook}
