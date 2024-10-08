@@ -45,6 +45,16 @@ const SubmitButton = ({ label, loading }: SubmitButtonProps) => {
   );
 };
 
+const DefaultToppings = [
+  "Tomato",
+  "Mozzarella",
+  "Basil",
+  "Pepperoni",
+  "Bell Peppers",
+  "Onions",
+  "Olives",
+];
+
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -61,11 +71,11 @@ export default function AddMenuForm() {
   const Status = useFormState(addMenu, undefined);
   const [state, formAction] = Status;
 
-  const [toppings, setToppings] = React.useState<string[]>([]);
+  const [toppings, setToppings] = React.useState<string[]>(DefaultToppings);
   const [successModalOpen, setSuccessModalOpen] =
     React.useState<boolean>(false);
 
-  const [updatedToppings, setUpdatedToppings] = React.useState<string[]>([]);
+  const [updatedToppings, setUpdatedToppings] = React.useState<string[]>(DefaultToppings);
 
   React.useEffect(() => {
     if (state?.message === "success") {
