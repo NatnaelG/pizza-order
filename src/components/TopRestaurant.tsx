@@ -1,6 +1,10 @@
 import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
-import { Menu as MenuType, Order, Restaurant } from "@prisma/client";
+import {
+  Menu as MenuType,
+  //  Order,
+  Restaurant,
+} from "@prisma/client";
 import RestaurantCard from "./RestaurantCard";
 
 export default function TopRestaurants({
@@ -9,9 +13,9 @@ export default function TopRestaurants({
   restaurants:
     | ({
         menus: ({
-          Order: Order[];
-        } & MenuType)[];
-      } & Restaurant)[]
+          // Order: Order[];
+        } & MenuType & { _count: { Order: number } })[];
+      } & Restaurant & { _count: { menus: number } })[]
     | [];
 }) {
   return (

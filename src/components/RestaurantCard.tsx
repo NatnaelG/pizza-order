@@ -13,25 +13,33 @@ import {
 import DefaultAvatar from "@/public/defaultImage.jpeg";
 import Bolt from "@/public/bolt.png";
 import Image from "next/image";
-import { Menu, Order, Restaurant } from "@prisma/client";
+import {
+  Menu,
+  //  Order,
+  Restaurant,
+} from "@prisma/client";
 
 export default function RestaurantCard({
   restaurant,
 }: {
   restaurant: {
     menus: ({
-      Order: Order[];
-    } & Menu)[];
-  } & Restaurant;
+      // Order: Order[];
+    } & Menu & { _count: { Order: number } })[];
+  } & Restaurant & { _count: { menus: number } };
 }) {
-  // console.log("restaurant, menus", restaurant, restaurant.menus);
+  console.log("restaurant, menus", restaurant, restaurant.menus);
 
   let count = 0;
-  restaurant.menus.map((menu) =>
-    menu.Order.map((order) => {
-      count += 1;
-      return order;
-    })
+  restaurant.menus.map(
+    (menu) => {
+      count += menu._count.Order;
+      return menu;
+    }
+    // menu.Order.map((order) => {
+    //   count += 1;
+    //   return order;
+    // })
   );
   return (
     <Card sx={{ maxWidth: 550, p: 1, display: "flex", borderRadius: "10PX" }}>

@@ -7,12 +7,15 @@ import Link from "next/link";
 import MenuIcon from "@mui/icons-material/Menu";
 import { signout, User } from "@/lib/actions";
 import { Role } from "@prisma/client";
+import { usePathname } from "next/navigation";
 
 export default function HeaderNav({
   loggedUser,
 }: {
   loggedUser: (User & { Role: Role }) | null;
 }) {
+  const pathname = usePathname();
+
   return (
     <Stack
       width={"100%"}
@@ -34,7 +37,7 @@ export default function HeaderNav({
           <Typography
             fontWeight={500}
             fontSize={{ xs: "16px", lg: "25px" }}
-            color="#FF8100"
+            color={pathname === "/" ? "#FF8100" : "#000"}
           >
             Home
           </Typography>
@@ -43,7 +46,7 @@ export default function HeaderNav({
           <Typography
             fontWeight={500}
             fontSize={{ xs: "16px", lg: "25px" }}
-            color="#000"
+            color={pathname === "/order-history" ? "#FF8100" : "#000"}
           >
             Order
           </Typography>

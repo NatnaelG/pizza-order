@@ -237,6 +237,11 @@ export async function getMyOrders() {
       include: {
         Menu: true,
       },
+      orderBy: [
+        {
+          createdAt: "desc",
+        },
+      ],
     });
 
     return orders;

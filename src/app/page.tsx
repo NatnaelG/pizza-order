@@ -27,6 +27,8 @@ export default async function Home() {
     restaurantsData,
   ]);
 
+  // console.log("restaurant with count", restaurants)
+
   return (
     <>
       <Box

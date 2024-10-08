@@ -10,10 +10,7 @@ export default async function OrderHistory() {
   const orderData = getMyOrders();
 
   // Initiate both requests in parallel
-  const [loggedUser, orders] = await Promise.all([
-    loggedUserData,
-    orderData,
-  ]);
+  const [loggedUser, orders] = await Promise.all([loggedUserData, orderData]);
 
   return (
     <Stack>
@@ -26,7 +23,7 @@ export default async function OrderHistory() {
         <HeaderNav loggedUser={loggedUser} />
       </Box>
 
-      <Box width={{ xs: "fit-content", lg: "75%" }} sx={{ m: "auto" }}>
+      <Box width={{ xs: "fit-content", lg: "80%" }} sx={{ m: "auto" }}>
         <Typography
           sx={{ fontWeight: 500, fontSize: "50px", color: "#00000080" }}
         >
@@ -34,7 +31,9 @@ export default async function OrderHistory() {
         </Typography>
 
         <Box p={3}>
-          <OrderHistoryCards orders={typeof orders === "string" || orders === null ? [] : orders} />
+          <OrderHistoryCards
+            orders={typeof orders === "string" || orders === null ? [] : orders}
+          />
         </Box>
       </Box>
     </Stack>
