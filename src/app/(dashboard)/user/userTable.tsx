@@ -160,7 +160,7 @@ const UserTable = ({
                   color={renderedCellValue === "ACTIVE" ? "success" : "error"}
                   checked={renderedCellValue === "ACTIVE"}
                   name={`status-${row.original.id}`}
-                  disabled={isLoading || ability.cannot("add-user", "user")}
+                  disabled={isLoading || ability.cannot("add", "user")}
                   size="small"
                   onClick={() => {
                     // console.log("clicked", row.original.id, renderedCellValue);
@@ -281,7 +281,7 @@ const UserTable = ({
     },
     renderTopToolbarCustomActions: () => (
       <Box>
-        <Can I={"add-user"} a={"user"}>
+        <Can I={"add"} a={"user"}>
           <Button
             variant="contained"
             size="small"

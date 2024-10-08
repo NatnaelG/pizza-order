@@ -14,7 +14,7 @@ import {
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CheckIcon from "@mui/icons-material/Check";
 
-import { Menu, Order } from "@prisma/client";
+import { Menu, Order, Role } from "@prisma/client";
 
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
@@ -24,6 +24,10 @@ import Image from "next/image";
 
 import OrderTablePizzaimage from "@/public/orderTablePizza.jpeg";
 import StatusMenu from "./StatusMenu";
+
+import { Can, useAbilityContext } from "@/lib/AbilityContext";
+import { Ability, AbilityBuilder } from "@casl/ability";
+import { User } from "@/lib/actions";
 
 type OrderWithMenuAndCustomer = Order & {
   Menu: Menu;
@@ -42,7 +46,24 @@ type OrderWithMenuAndCustomer = Order & {
     created_at: Date;
   };
 };
-const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
+const OrderTable = ({ orders, loggedUser }: { orders: OrderWithMenuAndCustomer[];
+  loggedUser: (User & { Role: Role }) | null;
+
+ }) => {
+
+  const ability = useAbilityContext();
+
+  const { can, rules } = new AbilityBuilder(Ability);
+
+  loggedUser?.Role.permissions.map((permission) => {
+    const [caslAction, caslModel] = permission.split(" | ");
+    can(caslAction, caslModel);
+    return permission;
+  });
+
+  ability.update(rules);
+
+
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -233,11 +254,17 @@ const OrderTable = ({ orders }: { orders: OrderWithMenuAndCustomer[] }) => {
               </Stack>
             ) : (
               <>
+              <Can I="edit" a={"order"} passThrough>
+                {allowed =>
+
                 <StatusMenu
                   status={renderedCellValue as "PREPARING" | "READY"}
                   order={row.original}
                   setIsLoading={setIsLoading}
+                  allowed={allowed}
                 />
+                }
+                </Can>
               </>
             )}
           </Stack>

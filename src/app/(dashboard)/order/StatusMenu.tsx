@@ -9,6 +9,7 @@ export default function StatusMenu({
   status,
   order,
   setIsLoading,
+  allowed
 }: {
   status: "PREPARING" | "READY";
   order: {
@@ -25,6 +26,7 @@ export default function StatusMenu({
     customerNo: string;
   };
   setIsLoading: (temp: boolean) => void;
+  allowed: boolean;
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -64,6 +66,7 @@ export default function StatusMenu({
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
+        disabled={!allowed}
         endIcon={
           open ? (
             <ArrowDropUpIcon fontSize="large" />

@@ -42,6 +42,14 @@ const SubmitButton = ({ label, loading }: SubmitButtonProps) => {
   );
 };
 
+const defaultRoles = [
+  // "manage | all",
+  "manage | order",
+  "manage | user",
+  "add | user",
+  "edit | order",
+];
+
 export default function RoleModal({
   roleDialog,
   handleClose,
@@ -63,9 +71,12 @@ export default function RoleModal({
   const Status = useFormState(addRole, undefined);
   const [state, formAction] = Status;
 
-  const [permissions, setPermissions] = React.useState<string[]>(
-    roleDialog.role?.permissions || []
-  );
+  const [permissions, setPermissions] = React.useState<string[]>([
+    ...defaultRoles,
+    ...(roleDialog.role?.permissions || []).filter(
+      (permission) => !defaultRoles.includes(permission)
+    ),
+  ]);
 
   const [updatedPermissions, setUpdatedPermissions] = React.useState<string[]>(
     roleDialog.role?.permissions || []

@@ -90,7 +90,9 @@ export default function AddUserModal({
             <p>Name must:</p>
             <ul>
               {state.errors.name.map((error) => (
-                <li key={error}>- {error}</li>
+                <li style={{ color: "#f00" }} key={error}>
+                  - {error}
+                </li>
               ))}
             </ul>
           </div>
@@ -110,7 +112,9 @@ export default function AddUserModal({
             <p>Email must:</p>
             <ul>
               {state.errors.email.map((error) => (
-                <li key={error}>- {error}</li>
+                <li style={{ color: "#f00" }} key={error}>
+                  - {error}
+                </li>
               ))}
             </ul>
           </div>
@@ -129,7 +133,9 @@ export default function AddUserModal({
             <p>Phone Number must:</p>
             <ul>
               {state.errors.phoneNumber.map((error) => (
-                <li key={error}>- {error}</li>
+                <li style={{ color: "#f00" }} key={error}>
+                  - {error}
+                </li>
               ))}
             </ul>
           </div>
@@ -149,7 +155,9 @@ export default function AddUserModal({
             <p>Location must:</p>
             <ul>
               {state.errors.location.map((error) => (
-                <li key={error}>- {error}</li>
+                <li style={{ color: "#f00" }} key={error}>
+                  - {error}
+                </li>
               ))}
             </ul>
           </div>
@@ -171,7 +179,9 @@ export default function AddUserModal({
             <p>Password must:</p>
             <ul>
               {state.errors.password.map((error) => (
-                <li key={error}>- {error}</li>
+                <li style={{ color: "#f00" }} key={error}>
+                  - {error}
+                </li>
               ))}
             </ul>
           </div>
@@ -215,7 +225,9 @@ export default function AddUserModal({
             <p>Role must:</p>
             <ul>
               {state.errors.role.map((error) => (
-                <li key={error}>- {error}</li>
+                <li style={{ color: "#f00" }} key={error}>
+                  - {error}
+                </li>
               ))}
             </ul>
           </div>

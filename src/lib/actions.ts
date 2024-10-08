@@ -28,14 +28,19 @@ export type UserWithPassword = User & {
   password: string;
 };
 async function getUser(email: string): Promise<UserWithPassword | null> {
-  return await prisma.user.findFirst({
-    omit: {
-      password: false,
-    },
-    where: {
-      email: email,
-    },
-  });
+  try {
+    return await prisma.user.findFirst({
+      omit: {
+        password: false,
+      },
+      where: {
+        email: email,
+      },
+    });
+  } catch (error) {
+    console.log("get user by session error", error);
+    return null;
+  }
 }
 
 export async function signout() {
@@ -181,7 +186,10 @@ export async function authenticate(state: FormState, formData: FormData) {
   const user = await getUser(email);
   if (!user) {
     return {
-      message: "An error occurred while creating your account.",
+      message:
+        formData.get("type") === "Sign Up"
+          ? "Something went wrong."
+          : "Invalid credentials!",
     };
   }
 
@@ -217,8 +225,7 @@ export async function getUserBySession() {
   const session = await getSession();
 
   if (session === null || session === undefined) return null;
-  try{
-
+  try {
     const user = await prisma.user.findFirst({
       where: {
         id: session.id,
@@ -227,7 +234,7 @@ export async function getUserBySession() {
         Role: true,
       },
     });
-  
+
     return user || null;
   } catch (error) {
     console.log("get user by session error", error);
