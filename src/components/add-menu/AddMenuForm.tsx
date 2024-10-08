@@ -19,6 +19,11 @@ import UpgradeIcon from "@mui/icons-material/Upgrade";
 import { addMenu } from "@/lib/menu/menu-management";
 import Successmodal from "./SuccessModal";
 
+import { Ability, AbilityBuilder } from "@casl/ability";
+import { Can, useAbilityContext } from "@/lib/AbilityContext";
+import { User } from "@/lib/actions";
+import { Role } from "@prisma/client";
+
 type SubmitButtonProps = {
   label: string;
   loading: React.ReactNode;
@@ -67,7 +72,23 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-export default function AddMenuForm() {
+export default function AddMenuForm({
+  loggedUser,
+}: {
+  loggedUser: (User & { Role: Role }) | null;
+}) {
+  const ability = useAbilityContext();
+
+  const { can, rules } = new AbilityBuilder(Ability);
+
+  loggedUser?.Role.permissions.map((permission) => {
+    const [caslAction, caslModel] = permission.split(" | ");
+    can(caslAction, caslModel);
+    return permission;
+  });
+
+  ability.update(rules);
+
   const Status = useFormState(addMenu, undefined);
   const [state, formAction] = Status;
 
@@ -75,7 +96,8 @@ export default function AddMenuForm() {
   const [successModalOpen, setSuccessModalOpen] =
     React.useState<boolean>(false);
 
-  const [updatedToppings, setUpdatedToppings] = React.useState<string[]>(DefaultToppings);
+  const [updatedToppings, setUpdatedToppings] =
+    React.useState<string[]>(DefaultToppings);
 
   React.useEffect(() => {
     if (state?.message === "success") {
@@ -101,160 +123,174 @@ export default function AddMenuForm() {
 
   // console.log("to use setToppings", toppings, updatedToppings);
   return (
-    <Stack
-      //   open={roleDialog.open}
-      sx={{
-        width: "1040px",
-        height: "535px",
-        p: 3,
-        m: "auto",
-      }}
-      id="add-menu-form"
-      component="form"
-      action={formAction}
-    >
-      <Typography
-        sx={{
-          color: "#525256",
-          m: "auto",
-          fontWeight: 500,
-          fontSize: "22px",
-        }}
-      >
-        Add Menu
-      </Typography>
-      <Stack
-        width={"459px"}
-        sx={{
-          m: "auto",
-        }}
-        spacing={1}
-      >
-        <TextField
-          autoFocus
-          required
-          margin="dense"
-          id="name"
-          name="name"
-          label="Name"
-          fullWidth
-          variant="outlined"
-        />
-
-        <Typography
-          my={"10px"}
-          color={"#00000080"}
-          fontWeight={400}
-          fontSize={"22px"}
-        >
-          Toppings
-        </Typography>
-
-        <TextField
-          id="toppings"
-          name="toppings"
-          type="hidden"
-          value={updatedToppings}
-          sx={{ display: "none" }}
-        />
-
-        <FormGroup>
-          <Grid container spacing={2}>
-            {toppings.map((topping, index) => (
-              <Grid key={topping + " " + index} size={{ xs: 4 }}>
-                <FormControlLabel
-                  key={topping + " " + index}
-                  control={
-                    <Checkbox
-                      // defaultChecked
-                      checked={updatedToppings.includes(topping)}
-                      onChange={(e) => handleCheckboxChange(e, topping)}
-                      sx={{
-                        color: "#FF8100 !important",
-                      }}
-                    />
-                  }
-                  label={topping}
-                />
-              </Grid>
-            ))}
-            <Grid size={{ xs: 4 }}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    sx={{
-                      color: "#FF8100 !important",
-                    }}
-                  />
-                }
-                label={
-                  <OutlinedInput
-                    id="component-outlined"
-                    // defaultValue=""
-                    sx={{ "& .MuiInputBase-input": { py: "3px", px: 1 } }}
-                    label={"Topping"}
-                    onKeyDown={(event) => {
-                      if (event.key === "Enter") {
-                        event.preventDefault();
-                        const newTopping = (event.target as HTMLInputElement)
-                          .value;
-                        setToppings((prev) => [...prev, newTopping]);
-                        setUpdatedToppings((prev) => [...prev, newTopping]);
-
-                        (event.target as HTMLInputElement).value = "";
-                      }
-                    }}
-                  />
-                }
-              />
-            </Grid>
-          </Grid>
-        </FormGroup>
-
-        <TextField
-          autoFocus
-          required
-          margin="dense"
-          id="price"
-          name="price"
-          label="Price"
-          fullWidth
-          variant="outlined"
-        />
-
-        <Stack
-          sx={{
-            alignItems: "center",
-          }}
-          pt={1}
-          spacing={2}
-        >
-          <Button
-            component="label"
-            variant="outlined"
+    <Can I="add" a={"menu"} passThrough>
+      {(allowed) =>
+        allowed ? (
+          <Stack
+            //   open={roleDialog.open}
             sx={{
-              border: "dotted 1px #000",
-              color: "#FF8100",
-              width: "321px",
-              height: "74px",
-              fontWeight: 500,
-              fontSize: "16px",
+              width: "1040px",
+              height: "535px",
+              p: 3,
+              m: "auto",
             }}
-            tabIndex={-1}
-            startIcon={<UpgradeIcon />}
+            id="add-menu-form"
+            component="form"
+            action={formAction}
           >
-            Upload Pizza Photo
-            <VisuallyHiddenInput type="file" />
-          </Button>
+            <Typography
+              sx={{
+                color: "#525256",
+                m: "auto",
+                fontWeight: 500,
+                fontSize: "22px",
+              }}
+            >
+              Add Menu
+            </Typography>
+            <Stack
+              width={"459px"}
+              sx={{
+                m: "auto",
+              }}
+              spacing={1}
+            >
+              <TextField
+                autoFocus
+                required
+                margin="dense"
+                id="name"
+                name="name"
+                label="Name"
+                fullWidth
+                variant="outlined"
+              />
 
-          <SubmitButton label={"Submit"} loading={"Submitting ..."} />
-        </Stack>
-      </Stack>
-      <Successmodal
-        handleSuccessModalClose={handleSuccessModalClose}
-        successModalOpen={successModalOpen}
-        type="Menu"
-      />
-    </Stack>
+              <Typography
+                my={"10px"}
+                color={"#00000080"}
+                fontWeight={400}
+                fontSize={"22px"}
+              >
+                Toppings
+              </Typography>
+
+              <TextField
+                id="toppings"
+                name="toppings"
+                type="hidden"
+                value={updatedToppings}
+                sx={{ display: "none" }}
+              />
+
+              <FormGroup>
+                <Grid container spacing={2}>
+                  {toppings.map((topping, index) => (
+                    <Grid key={topping + " " + index} size={{ xs: 4 }}>
+                      <FormControlLabel
+                        key={topping + " " + index}
+                        control={
+                          <Checkbox
+                            // defaultChecked
+                            checked={updatedToppings.includes(topping)}
+                            onChange={(e) => handleCheckboxChange(e, topping)}
+                            sx={{
+                              color: "#FF8100 !important",
+                            }}
+                          />
+                        }
+                        label={topping}
+                      />
+                    </Grid>
+                  ))}
+                  <Grid size={{ xs: 4 }}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          sx={{
+                            color: "#FF8100 !important",
+                          }}
+                        />
+                      }
+                      label={
+                        <OutlinedInput
+                          id="component-outlined"
+                          // defaultValue=""
+                          sx={{ "& .MuiInputBase-input": { py: "3px", px: 1 } }}
+                          label={"Topping"}
+                          onKeyDown={(event) => {
+                            if (event.key === "Enter") {
+                              event.preventDefault();
+                              const newTopping = (
+                                event.target as HTMLInputElement
+                              ).value;
+                              setToppings((prev) => [...prev, newTopping]);
+                              setUpdatedToppings((prev) => [
+                                ...prev,
+                                newTopping,
+                              ]);
+
+                              (event.target as HTMLInputElement).value = "";
+                            }
+                          }}
+                        />
+                      }
+                    />
+                  </Grid>
+                </Grid>
+              </FormGroup>
+
+              <TextField
+                autoFocus
+                required
+                margin="dense"
+                id="price"
+                name="price"
+                label="Price"
+                fullWidth
+                variant="outlined"
+              />
+
+              <Stack
+                sx={{
+                  alignItems: "center",
+                }}
+                pt={1}
+                spacing={2}
+              >
+                <Button
+                  component="label"
+                  variant="outlined"
+                  sx={{
+                    border: "dotted 1px #000",
+                    color: "#FF8100",
+                    width: "321px",
+                    height: "74px",
+                    fontWeight: 500,
+                    fontSize: "16px",
+                  }}
+                  tabIndex={-1}
+                  startIcon={<UpgradeIcon />}
+                >
+                  Upload Pizza Photo
+                  <VisuallyHiddenInput type="file" />
+                </Button>
+
+                <SubmitButton label={"Submit"} loading={"Submitting ..."} />
+              </Stack>
+            </Stack>
+            <Successmodal
+              handleSuccessModalClose={handleSuccessModalClose}
+              successModalOpen={successModalOpen}
+              type="Menu"
+            />
+          </Stack>
+        ) : (
+          <Typography variant="h3" color={"error"}>
+            You do not have the role for this page!
+          </Typography>
+        )
+      }
+    </Can>
   );
 }

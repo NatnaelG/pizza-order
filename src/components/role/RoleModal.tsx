@@ -46,9 +46,11 @@ const defaultRoles = [
   // "manage | all",
   "manage | order",
   "manage | user",
+  "manage | menu",
   "add | user",
   "edit | user",
   "edit | order",
+  "add | menu",
 ];
 
 export default function RoleModal({
