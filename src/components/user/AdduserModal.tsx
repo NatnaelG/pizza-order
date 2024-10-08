@@ -12,12 +12,22 @@ import {
 } from "@mui/material";
 import { useFormState, useFormStatus } from "react-dom";
 
+type RolesType = {
+  id: string;
+  name: string;
+  status: string;
+  updated_at: Date;
+  created_at: Date;
+  permissions: string[];
+}[];
+
 type SubmitButtonProps = {
   label: string;
   loading: React.ReactNode;
+  rolesLength: number;
 };
 
-const SubmitButton = ({ label, loading }: SubmitButtonProps) => {
+const SubmitButton = ({ label, loading, rolesLength }: SubmitButtonProps) => {
   const { pending } = useFormStatus();
 
   return (
@@ -26,7 +36,7 @@ const SubmitButton = ({ label, loading }: SubmitButtonProps) => {
       variant="contained"
       size="small"
       sx={{ background: "#FF8100" }}
-      disabled={pending}
+      disabled={pending || rolesLength === 0}
     >
       {pending ? loading : label}
     </Button>
@@ -40,14 +50,7 @@ export default function AddUserModal({
 }: {
   open: boolean;
   handleClose: () => void;
-  roles: {
-    id: string;
-    name: string;
-    status: string;
-    updated_at: Date;
-    created_at: Date;
-    permissions: string[];
-  }[];
+  roles: RolesType;
 }) {
   const Status = useFormState(adduser, undefined);
   const [state, formAction] = Status;
@@ -219,7 +222,11 @@ export default function AddUserModal({
         )}
       </DialogContent>
       <DialogActions>
-        <SubmitButton label="Add User" loading="Adding ..." />
+        <SubmitButton
+          label="Add User"
+          loading="Adding ..."
+          rolesLength={roles.length}
+        />
       </DialogActions>
     </Dialog>
   );
