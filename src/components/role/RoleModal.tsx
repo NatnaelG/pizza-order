@@ -47,6 +47,7 @@ const defaultRoles = [
   "manage | order",
   "manage | user",
   "add | user",
+  "edit | user",
   "edit | order",
 ];
 

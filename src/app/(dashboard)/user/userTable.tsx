@@ -160,7 +160,7 @@ const UserTable = ({
                   color={renderedCellValue === "ACTIVE" ? "success" : "error"}
                   checked={renderedCellValue === "ACTIVE"}
                   name={`status-${row.original.id}`}
-                  disabled={isLoading || ability.cannot("add", "user")}
+                  disabled={isLoading || ability.cannot("edit", "user")}
                   size="small"
                   onClick={() => {
                     // console.log("clicked", row.original.id, renderedCellValue);
