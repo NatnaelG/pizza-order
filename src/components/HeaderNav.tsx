@@ -105,6 +105,7 @@ export default function HeaderNav({
           }}
           variant={"contained"}
           onClick={() => signout()}
+          id={"LogOut"}
         >
           <Typography>LogOut</Typography>
         </Button>
