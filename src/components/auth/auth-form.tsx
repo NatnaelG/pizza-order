@@ -45,6 +45,7 @@ const SubmitButton = ({ label, loading }: SubmitButtonProps) => {
         fontSize: "15px",
         height: "42px",
       }}
+      id={label}
       type="submit"
     >
       {pending ? loading : label}
