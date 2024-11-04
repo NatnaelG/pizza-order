@@ -5,7 +5,17 @@ import {
 } from "selenium-webdriver";
 import assert from "assert";
 
+// import chromedriver from "chromedriver";
+// import { Builder, Capabilities } from "selenium-webdriver";
+
+// console.log("to use chromedriver", chromedriver);
+
 Given("A user is on the login page", async function () {
+
+// const capabilities = Capabilities.chrome();
+// capabilities.set("chromeoptions", { w3c: false });
+
+//   this.driver = new Builder().withCapabilities(capabilities).build();
   await this.driver.get("https://pizza-order-sepia.vercel.app/login");
   // await this.driver.get("http://localhost:3000/login");
 });
@@ -29,8 +39,8 @@ Then(
   async function () {
     await this.driver.manage().setTimeouts({ implicit: 5000 });
 
-    let LogOutText = await this.driver.findElement(By.id("LogOut")).getText();
-    let currentUrl = await this.driver.getCurrentUrl();
+    const LogOutText = await this.driver.findElement(By.id("LogOut")).getText();
+    const currentUrl = await this.driver.getCurrentUrl();
     console.log("test Text", LogOutText, currentUrl);
     assert(
       // currentUrl === "http://localhost:3000/",

@@ -2,7 +2,7 @@
 
 // import { getUserBySession } from "../actions";
 // import { z } from "zod";
-import prisma from "../db";
+import prisma from "../db.ts";
 
 export async function getRestaurants() {
   try {
