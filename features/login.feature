@@ -1,6 +1,7 @@
 @login
 Feature: Login
 
+    @web
     Scenario: A user attempts login with correct credentails
 
         Given A user is on the login page
