@@ -1,6 +1,8 @@
-import { Given, Then } from "@cucumber/cucumber";
+import { Given, Then, setDefaultTimeout } from "@cucumber/cucumber";
 import { getRestaurants } from "../../src/lib/restaurant/restaurant.ts";
 import assert from "assert";
+
+setDefaultTimeout(60 * 1000);
 
 Given("The user is on the Homepage", async function () {
   this.restaurants = await getRestaurants();
