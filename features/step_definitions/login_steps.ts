@@ -1,4 +1,4 @@
-import { Given, When, Then } from "@cucumber/cucumber";
+import { Given, When, Then, setDefaultTimeout } from "@cucumber/cucumber";
 import {
   By,
   //  until
@@ -10,12 +10,13 @@ import assert from "assert";
 
 // console.log("to use chromedriver", chromedriver);
 
+setDefaultTimeout(60 * 1000);
+
 Given("A user is on the login page", async function () {
+  // const capabilities = Capabilities.chrome();
+  // capabilities.set("chromeoptions", { w3c: false });
 
-// const capabilities = Capabilities.chrome();
-// capabilities.set("chromeoptions", { w3c: false });
-
-//   this.driver = new Builder().withCapabilities(capabilities).build();
+  //   this.driver = new Builder().withCapabilities(capabilities).build();
   await this.driver.get("https://pizza-order-sepia.vercel.app/login");
   // await this.driver.get("http://localhost:3000/login");
 });
@@ -24,13 +25,7 @@ When("A user logs in with valid credentails", async function () {
   await this.driver.findElement(By.id("email")).sendKeys("jet@gmail.com");
   await this.driver.findElement(By.id("password")).sendKeys("123456");
   await this.driver.findElement(By.id("Login")).click();
-  await this.driver.manage().setTimeouts({ implicit: 2000 });
-  // await this.driver.wait(
-  //   until.elementIsVisible(this.driver.findElement(By.id("HIHELLO"))),
-  //   200000
-  // );
-
-  // await loginButton.click();
+  // await this.driver.manage().setTimeouts({ implicit: 2000 });
 });
 
 Then(
