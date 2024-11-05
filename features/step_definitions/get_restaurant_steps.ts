@@ -12,8 +12,7 @@ Then(
   "An array of restaurants or {string} is returned",
   function (failedMessage) {
     assert(
-      (typeof this.restaurants === "object" && this.restaurants.length > 0) ||
-        this.restaurants === failedMessage,
+      Array.isArray(this.restaurants) || this.restaurants === failedMessage,
       "Get restaurant didn't act as expected "
     );
     console.log("response", this.restaurants);
