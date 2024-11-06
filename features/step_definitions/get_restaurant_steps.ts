@@ -12,7 +12,8 @@ Then(
   "An array of restaurants or {string} is returned",
   function (failedMessage) {
     assert(
-      Array.isArray(this.restaurants) || this.restaurants === failedMessage,
+      (Array.isArray(this.restaurants) && this.restaurants.length < 7) ||
+        this.restaurants === failedMessage,
       "Get restaurant didn't act as expected "
     );
     console.log("response", this.restaurants);
