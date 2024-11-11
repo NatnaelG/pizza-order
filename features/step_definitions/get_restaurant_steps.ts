@@ -16,6 +16,5 @@ Then(
         this.restaurants === failedMessage,
       "Get restaurant didn't act as expected "
     );
-    // console.log("response", this.restaurants);
   }
 );
