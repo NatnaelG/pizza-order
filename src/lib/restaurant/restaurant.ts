@@ -35,8 +35,8 @@ export async function getRestaurants() {
         },
       },
     });
-  } catch (error) {
-    console.log("insertedBookError", error);
+  } catch (_error) {
+    // console.log("insertedBookError", error);
     return "Something went wrong.";
   }
 }
