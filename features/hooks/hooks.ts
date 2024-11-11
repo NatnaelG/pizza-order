@@ -1,8 +1,8 @@
 import { After, Before, setDefaultTimeout } from "@cucumber/cucumber";
-import chromedriver from "chromedriver";
+import _chromedriver from "chromedriver";
 import { Builder, Capabilities } from "selenium-webdriver";
 
-console.log("to use chromedriver", chromedriver);
+// console.log("to use chromedriver", chromedriver);
 
 setDefaultTimeout(60 * 1000);
 
@@ -18,13 +18,13 @@ Before({ tags: "@web" }, function () {
 // //   await this.driver.quit();
 // });
 After({ tags: "@web" }, async function () {
-  // if (scenario.result.status === "FAILED") {
+  // if (scenario.result?.status === "FAILED") {
   //   const world = this.attach;
-  //   console.log("test this", this, world.attach);
+  //   console.log("test this", this, world);
   //   console.log("scenario test status", scenario.result.status);
   //   await this.driver
   //     .takeScreenshot()
-  //     .then(function (screenShot, error) {
+  //     .then(function (screenShot: string, error: unknown) {
   //       if (!error) {
   //         console.log("about to be attached test this", world);
   //         // console.log("in side attach ", screenShot)
