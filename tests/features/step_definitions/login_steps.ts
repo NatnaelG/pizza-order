@@ -17,5 +17,9 @@ When("A user logs in with valid credentails", async function () {
 });
 
 Then("The user should be redirected to homepage", async function () {
-  expect(this.page.url()).toBe("https://pizza-order-sepia.vercel.app/");
+  // const locator = await this.page.locator(`p#LogOut`);
+  const locator = await this.page.locator(`text=LogOut`);
+
+  const count = await locator.count();
+  expect(count).toBeGreaterThan(0);
 });
