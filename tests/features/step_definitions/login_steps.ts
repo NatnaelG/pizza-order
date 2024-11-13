@@ -23,5 +23,6 @@ Then("The user should be redirected to homepage", async function () {
 
   // const count = await locator.count();
   // expect(count).toBeGreaterThan(0);
+  // await expect(locator).toHaveText("LogOut");
   expect(text).toBe("LOGOUT");
 });
