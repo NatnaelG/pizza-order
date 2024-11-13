@@ -1,5 +1,5 @@
 import { Given, Then, setDefaultTimeout } from "@cucumber/cucumber";
-import { getRestaurants } from "../../src/lib/restaurant/restaurant.ts";
+import { getRestaurants } from "../../../src/lib/restaurant/restaurant.ts";
 import assert from "assert";
 
 setDefaultTimeout(60 * 1000);
