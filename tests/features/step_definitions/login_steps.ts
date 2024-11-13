@@ -19,7 +19,9 @@ When("A user logs in with valid credentails", async function () {
 Then("The user should be redirected to homepage", async function () {
   // const locator = await this.page.locator(`p#LogOut`);
   const locator = await this.page.locator(`text=LogOut`);
+  const text = await locator.innerText();
 
-  const count = await locator.count();
-  expect(count).toBeGreaterThan(0);
+  // const count = await locator.count();
+  // expect(count).toBeGreaterThan(0);
+  expect(text).toBe("LOGOUT");
 });
