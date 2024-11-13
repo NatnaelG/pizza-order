@@ -1,16 +1,19 @@
 import { After, Before, setDefaultTimeout } from "@cucumber/cucumber";
-import _chromedriver from "chromedriver";
-import { Builder, Capabilities } from "selenium-webdriver";
+// import _chromedriver from "chromedriver";
+// import { Builder, Capabilities } from "selenium-webdriver";
+
+import { Browser, chromium } from "@playwright/test";
 
 setDefaultTimeout(60 * 1000);
 
-const capabilities = Capabilities.chrome();
-capabilities.set("chromeoptions", { w3c: false });
+let browser: Browser;
 
-Before({ tags: "@web" }, function () {
-  this.driver = new Builder().withCapabilities(capabilities).build();
+Before({ tags: "@web" }, async function () {
+  browser = await chromium.launch({ headless: false, timeout: 20000 });
+  const context = await browser.newContext();
+  this.page = await context.newPage();
 });
 
 After({ tags: "@web" }, async function () {
-  await this.driver.quit();
+  await browser.close();
 });
