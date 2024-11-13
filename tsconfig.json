@@ -23,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "features/step_definitions/steps.ts", "features/hooks/hooks.mts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tests/features/step_definitions/steps.ts", "tests/features/hooks/hooks.mts"],
   "exclude": ["node_modules"]
 }

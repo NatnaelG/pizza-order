@@ -1,6 +1,6 @@
 export default {
-  paths: ["features/*.feature"],
+  paths: ["tests/features/*.feature"],
   require: ["ts-node/register", "tsconfig-paths/register"],
-  import: ["features/**/*.ts"],
+  import: ["tests/features/**/*.ts"],
   loader: ["ts-node/esm"],
 };
