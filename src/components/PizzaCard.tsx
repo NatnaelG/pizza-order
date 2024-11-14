@@ -86,7 +86,7 @@ export default function PizzaCard({
                   background: "#FF8100",
                 }}
                 variant={"contained"}
-                data-id={"order"}
+                data-id={`order${menu.id}`}
               >
                 Order
               </Button>
