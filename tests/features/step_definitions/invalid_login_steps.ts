@@ -15,10 +15,9 @@ When(
 
 Then("An error message must be displayed", async function () {
   const locator = await this.page.locator(`[data-id="error"]`);
-  const text = await locator.innerText();
+  const _text = await locator.innerText();
 
   const count = await locator.count();
-  console.log("count", text, count);
 
   expect(count).toBeGreaterThan(0);
 });
