@@ -142,7 +142,7 @@ export default function AuthForm(prop: { type: "Login" | "Sign Up" }) {
 
         {state?.message === "Invalid credentials!" && (
           <div>
-            <p style={{ color: "#f00" }}>{state.message}</p>
+            <p style={{ color: "#f00" }} data-id="error">{state.message}</p>
           </div>
         )}
 
