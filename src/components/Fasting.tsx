@@ -27,7 +27,7 @@ export default function Fasting({
         <Stack direction={"row"} spacing={3}>
           {menus.map((menu) => (
             <Box key={menu.id}>
-              <PizzaCard menu={menu} />
+              <PizzaCard menu={menu} type="Fasting" />
             </Box>
           ))}
           {/* <Box>

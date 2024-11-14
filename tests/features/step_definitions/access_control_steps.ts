@@ -10,7 +10,7 @@ Given("A non logged in user is in the homepage", async function () {
 When(
   "The user attempts to order a menu",
   async function () {
-    await this.page.locator(`button[data-id="order"]`).click();
+    await this.page.locator(`button[data-id="order5a2439a1-a22e-4cd5-8f22-47b3a5057a22"]`).click();
   }
 );
 
