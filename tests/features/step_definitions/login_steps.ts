@@ -10,9 +10,8 @@ Given("A user is on the {string} page", async function (path) {
 });
 
 When(
-  "A user logs in with valid credentails with {string} and {string}",
+  "The user logs in with valid credentails with {string} and {string}",
   async function (email, password) {
-    console.log("credentials", email, password);
     await this.page.fill("input#email", email);
     await this.page.fill("input#password", password);
 
