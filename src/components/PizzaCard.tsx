@@ -16,8 +16,10 @@ import { Menu, Restaurant } from "@prisma/client";
 
 export default function PizzaCard({
   menu,
+  type
 }: {
   menu: Menu & { Restaurant: Restaurant };
+  type: "Fasting" | "Popular"
 }) {
   return (
     <>
@@ -86,7 +88,7 @@ export default function PizzaCard({
                   background: "#FF8100",
                 }}
                 variant={"contained"}
-                data-id={`order${menu.id}`}
+                data-id={`order ${menu.id} ${type}`}
               >
                 Order
               </Button>

@@ -25,7 +25,7 @@ export default function Popular({
             display={"flex"}
             justifyContent={"center"}
           >
-            <PizzaCard menu={menu} />
+            <PizzaCard menu={menu} type="Popular" />
           </Grid>
         ))}
         {/* <Grid
