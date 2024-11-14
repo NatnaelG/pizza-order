@@ -86,7 +86,7 @@ export default function AuthForm(prop: { type: "Login" | "Sign Up" }) {
             />
             {state?.errors?.name && (
               <div>
-                <p>Name must:</p>
+                <p data-id="error">Name must:</p>
                 <ul>
                   {state.errors.name.map((error) => (
                     <li style={{ color: "#f00" }} key={error}>
@@ -108,7 +108,7 @@ export default function AuthForm(prop: { type: "Login" | "Sign Up" }) {
         />
         {state?.errors?.email && (
           <div>
-            <p>Email must:</p>
+            <p data-id="error">Email must:</p>
             <ul>
               {state.errors.email.map((error) => (
                 <li style={{ color: "#f00" }} key={error}>
@@ -129,7 +129,7 @@ export default function AuthForm(prop: { type: "Login" | "Sign Up" }) {
         />
         {state?.errors?.password && (
           <div>
-            <p>Password must:</p>
+            <p data-id="error">Password must:</p>
             <ul>
               {state.errors.password.map((error) => (
                 <li style={{ color: "#f00" }} key={error}>
@@ -168,7 +168,7 @@ export default function AuthForm(prop: { type: "Login" | "Sign Up" }) {
             />
             {state?.errors?.confirmPassword && (
               <div>
-                <p>Confirm Password must:</p>
+                <p data-id="error">Confirm Password must:</p>
                 <ul>
                   {state.errors.confirmPassword.map((error) => (
                     <li style={{ color: "#f00" }} key={error}>
@@ -188,7 +188,7 @@ export default function AuthForm(prop: { type: "Login" | "Sign Up" }) {
 
             {state?.errors?.phoneNumber && (
               <div>
-                <p>Phone number must:</p>
+                <p data-id="error">Phone number must:</p>
                 <ul>
                   {state.errors.phoneNumber.map((error) => (
                     <li style={{ color: "#f00" }} key={error}>
@@ -211,7 +211,7 @@ export default function AuthForm(prop: { type: "Login" | "Sign Up" }) {
 
             {state?.errors?.restaurantName && (
               <div>
-                <p>Restaurant Name must:</p>
+                <p data-id="error">Restaurant Name must:</p>
                 <ul>
                   {state.errors.restaurantName.map((error) => (
                     <li style={{ color: "#f00" }} key={error}>
@@ -232,7 +232,7 @@ export default function AuthForm(prop: { type: "Login" | "Sign Up" }) {
 
             {state?.errors?.location && (
               <div>
-                <p>Location must:</p>
+                <p data-id="error">Location must:</p>
                 <ul>
                   {state.errors.location.map((error) => (
                     <li style={{ color: "#f00" }} key={error}>
