@@ -7,7 +7,18 @@ Given("A non logged in user is in the homepage", async function () {
   await this.page.goto(`https://pizza-order-sepia.vercel.app/`);
 });
 
+Given("A logged in user is in the homepage", async function () {
+  await this.page.waitForURL(`https://pizza-order-sepia.vercel.app/`);
+});
+
+
 Given("A non logged in user enters {string}", async function (path) {
+  this.path = path;
+  await this.page.goto(`${path}`);
+});
+
+Given("A logged in user enters {string}", async function (path) {
+  this.path = path;
   await this.page.goto(`${path}`);
 });
 
