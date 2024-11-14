@@ -39,7 +39,7 @@ export default function Successmodal({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box data-id={"order-success-modal"} sx={style}>
           <Stack
             sx={{
               m: "auto",
