@@ -92,7 +92,7 @@ export default function HeaderNav({
             }}
             variant={"contained"}
           >
-            <Typography>Register</Typography>
+            <Typography id={"register"}>Register</Typography>
           </Button>
         </Link>
       ) : (
