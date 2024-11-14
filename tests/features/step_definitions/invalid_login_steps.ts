@@ -10,21 +10,15 @@ When(
     await this.page.fill("input#password", password);
 
     await this.page.locator("button#Login").click();
-
-    await new Promise((resolve) => setTimeout(resolve, 6000));
-    await this.page.locator("text=SUBMITTING");
-    
   }
 );
 
 Then("An error message must be displayed", async function () {
-  await this.page.locator("text=LOGIN");
-  // const locator = await this.page.locator(`p#LogOut`);
   const locator = await this.page.locator(`[data-id="error"]`);
-  // const text = await locator.innerText();
+  const text = await locator.innerText();
 
   const count = await locator.count();
-  console.log("count", count)
-  
+  console.log("count", text, count);
+
   expect(count).toBeGreaterThan(0);
 });

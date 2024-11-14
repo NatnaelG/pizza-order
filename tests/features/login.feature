@@ -13,6 +13,7 @@ Feature: Login
         Examples:
             | email              | password |
             | "jet@gmail.com"    | "123456" |
+            # | "invaild@gmail.com" | "password" |
             | "jetres@gmail.com" | "123456" |
 
     @invalidCredentails
@@ -25,4 +26,5 @@ Feature: Login
         Examples:
             | email               | password   |
             | "invaild@gmail.com" | "password" |
+            # | "jetres@gmail.com"  | "123456"   |
             | "jet@gmail.com"     | "1234"     |
