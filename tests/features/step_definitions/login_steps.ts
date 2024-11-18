@@ -7,17 +7,15 @@ Given(
   "A user is on the {string} page",
   async function (
     path
-    // dataTable: { rawTable: string[][] }
+    //  dataTable: { rawTable: string[][] }
   ) {
-    // let structuredData: {
-    //   firstName: string[];
-    // } | null = null;
+    // let structuredData: Record<string, string[]> | null = null;
     // dataTable.rawTable.map((row: string[], index: number) => {
     //   if (index === 0) {
     //     row.map((header: string) => {
     //       structuredData = {
     //         ...structuredData,
-    //         [header as "firstName"]: [],
+    //         [header]: [],
     //       };
     //     });
     //     return row;
@@ -27,7 +25,7 @@ Given(
     //     if (structuredData !== null && headerName in structuredData) {
     //       structuredData = {
     //         ...structuredData,
-    //         [headerName]: [...structuredData[headerName as "firstName"], data],
+    //         [headerName]: [...structuredData[headerName], data],
     //       };
     //     }
     //   });
