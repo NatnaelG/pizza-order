@@ -20,7 +20,7 @@ type FormState =
     }
   | undefined;
 
-export async function addMenu(state: FormState, formData: FormData) {
+export async function addMenu(_state: FormState, formData: FormData) {
   console.log("formData", formData);
 
   const loggedInUser = await getUserBySession();
