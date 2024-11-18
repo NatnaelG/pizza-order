@@ -3,11 +3,44 @@ import { expect } from "@playwright/test";
 
 setDefaultTimeout(60 * 1000);
 
-Given("A user is on the {string} page", async function (path) {
-  await this.page.goto(`https://pizza-order-sepia.vercel.app/${path}`);
-  // await this.page.goto(`/login`);
-  // await this.page.goto(`http://localhost:3000/login`);
-});
+Given(
+  "A user is on the {string} page",
+  async function (
+    path
+    // dataTable: { rawTable: string[][] }
+  ) {
+    // let structuredData: {
+    //   firstName: string[];
+    // } | null = null;
+    // dataTable.rawTable.map((row: string[], index: number) => {
+    //   if (index === 0) {
+    //     row.map((header: string) => {
+    //       structuredData = {
+    //         ...structuredData,
+    //         [header as "firstName"]: [],
+    //       };
+    //     });
+    //     return row;
+    //   }
+    //   row.map((data: string, dataIndex: number) => {
+    //     const headerName: string = dataTable.rawTable[0][dataIndex];
+    //     if (structuredData !== null && headerName in structuredData) {
+    //       structuredData = {
+    //         ...structuredData,
+    //         [headerName]: [...structuredData[headerName as "firstName"], data],
+    //       };
+    //     }
+    //   });
+    //   return row;
+    // });
+
+    // console.log("structured data", structuredData);
+
+    await this.page.goto(`https://pizza-order-sepia.vercel.app/${path}`);
+    // await this.page.goto(`/login`);
+    // await this.page.goto(`http://localhost:3000/login`);
+  }
+);
 
 When(
   "The user logs in with valid credentails with {string} and {string}",
